@@ -1,6 +1,6 @@
 import SearchForm from "./SearchForm";
-import ArtistList from "./ArtistList";
-import { useState } from "react";
+import ArtistSection from "./Artists/ArtistSection";
+import { useEffect, useState } from "react";
 import { Artist } from "../Types";
 
 export type SearchProps = {
@@ -9,36 +9,58 @@ export type SearchProps = {
 
 const Search = ({ token }: SearchProps) => {
   const [artists, setArtists] = useState<null | Array<Artist>>(null);
-  
+
 
   async function handleSearch(searchKey: string) {
-    const options = {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    };
+
     const params = new URLSearchParams({
       q: searchKey,
       type: "artist",
+      limit: "5"
     });
 
     const response = await fetch(
       `https://api.spotify.com/v1/search?${params}`,
-      options
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
     );
 
     const parsedResponse = await response.json();
-    const responseArtists = parsedResponse.artists.items as Array<Artist>
+    const responseArtists = parsedResponse.artists.items as Array<Artist>;
 
     setArtists(responseArtists);
   }
 
+  /* By default before user searches - load top artists*/
+  useEffect(() => {
+    async function loadTopArtists() {
+      const response = await fetch(
+        `https://api.spotify.com/v1/artists?ids=2CIMQHirSU0MQqyYHq0eOx,57dN52uHvrHOxijzpIgu3E,1vCWHaC5f2uS3yhpwWbIA6`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
+      const parsedResponse = await response.json();
+      console.log(parsedResponse)
+      const responseArtists = parsedResponse.artists as Array<Artist>;
+
+      setArtists(responseArtists);
+    }
+
+    loadTopArtists();
+  }, [token]);
 
   return (
     <>
       <SearchForm handleSearch={handleSearch} />
-      {artists ? <ArtistList artists={artists} /> : null}
+      {artists ? <ArtistSection artists={artists} /> : null}
+      {/*selectedArtist ? <SongSection selectedArtist={selectedArtist}/>: null*/}
     </>
   );
 };

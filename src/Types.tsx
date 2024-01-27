@@ -5,8 +5,14 @@ export interface Artist {
     genres: string[],
     href: string,
     id: string, 
-    images: object[],
+    images: Array<GenericObject>,
     popularity: number,
     type: string,
     uri: string
 }
+
+export interface GenericObject {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    [key: string]: any
+}
+
