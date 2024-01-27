@@ -18,7 +18,7 @@ const AppRoutes = () => {
         .split("&")
         .find((elem) => elem.startsWith("access_token"))
         ?.split("=")[1];
-      window.location.hash = "";
+        window.location.hash = "";
       if (findToken) {
         console.log("setting token from URL");
         window.localStorage.setItem("token", findToken);

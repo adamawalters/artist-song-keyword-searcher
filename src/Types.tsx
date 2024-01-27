@@ -11,6 +11,10 @@ export interface Artist {
     uri: string
 }
 
+export interface Song {
+    name: string
+}
+
 export interface GenericObject {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     [key: string]: any

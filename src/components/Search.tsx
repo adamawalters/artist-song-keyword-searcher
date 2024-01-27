@@ -2,6 +2,7 @@ import SearchForm from "./SearchForm";
 import ArtistSection from "./Artists/ArtistSection";
 import { useEffect, useState } from "react";
 import { Artist } from "../Types";
+import SongSection from "./Songs/SongSection";
 
 export type SearchProps = {
   token: string;
@@ -9,6 +10,8 @@ export type SearchProps = {
 
 const Search = ({ token }: SearchProps) => {
   const [artists, setArtists] = useState<null | Array<Artist>>(null);
+  const [selectedArtistID, setSelectedArtistID] = useState("");
+
 
 
   async function handleSearch(searchKey: string) {
@@ -58,9 +61,9 @@ const Search = ({ token }: SearchProps) => {
 
   return (
     <>
-      <SearchForm handleSearch={handleSearch} />
-      {artists ? <ArtistSection artists={artists} /> : null}
-      {/*selectedArtist ? <SongSection selectedArtist={selectedArtist}/>: null*/}
+      <SearchForm handleSearch={handleSearch}/>
+      {artists ? <ArtistSection artists={artists} setSelectedArtistID={setSelectedArtistID} selectedArtistID={selectedArtistID} /> : null}
+      {selectedArtistID ? <SongSection selectedArtistID={selectedArtistID} token={token}/>: null}
     </>
   );
 };

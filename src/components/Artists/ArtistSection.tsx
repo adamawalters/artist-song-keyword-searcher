@@ -4,17 +4,17 @@ import ArtistRow from "./ArtistRow";
 
 export type ArtistSectionProps = {
   artists: Array<Artist>;
+  selectedArtistID: string;
+  setSelectedArtistID: React.Dispatch<React.SetStateAction<string>>;
 };
 
-const ArtistSection = ({ artists }: ArtistSectionProps) => {
+const ArtistSection = ({ artists, setSelectedArtistID, selectedArtistID }: ArtistSectionProps) => {
 
-  const [selectedArtistID, setSelectedArtistID] = useState("");
-
-  console.log(`selected artist id: ${selectedArtistID}`)
-
+ 
   const artistRows = artists.map((artist) => {
     return <ArtistRow setSelectedArtistID={setSelectedArtistID} selectedArtistID={selectedArtistID} key={artist.id} artist={artist} />;
   });
+
 
   const artistTable = (
     <table>
