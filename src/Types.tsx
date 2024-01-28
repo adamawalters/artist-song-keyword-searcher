@@ -13,6 +13,7 @@ export interface Artist {
 
 export interface Song {
     name: string
+    id: string
 }
 
 export interface GenericObject {

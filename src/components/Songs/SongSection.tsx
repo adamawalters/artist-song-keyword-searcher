@@ -1,25 +1,52 @@
-import { useEffect, useState } from "react"
-import { Artist, Song } from "../../Types"
+import { ChangeEvent, useEffect, useState, FormEvent } from "react";
+import { Artist, Song } from "../../Types";
+import SongRow from "./SongRow";
+
 
 export type SongSectionProps = {
-    selectedArtistID: string
-    token: string,
-}
+  selectedArtistID: string;
+  token: string;
+};
 
-
-const SongSection = ({selectedArtistID, token}: SongSectionProps) => {
-
+const SongSection = ({ selectedArtistID, token }: SongSectionProps) => {
   /* use the selected artist ID to fetch top songs by the artist by default - there will be a SongList component
      have a search box for keyword that will update the songList Component  (will search the artist's songs that have a keyword)
      After the user searches, have a counter for number of songs in the songlist 
-  */  
+  */
 
-  const [songs, setSongs] = useState<null | Array<Song>>(null)   
+  const [songs, setSongs] = useState<null | Array<Song>>([
+    {
+      name: "",
+      id: "",
+    },
+  ]);
 
-  /*Fetch top songs */   
-  useEffect(()=>{
+  const [searchKeyword, setSearchKeyword] = useState<string>("");
 
-    async function loadTopSongs(){
+  async function submitKeywordSearch(e: FormEvent<HTMLFormElement>){
+    e.preventDefault();
+
+    const response = await fetch(
+      `https://api.spotify.com/v1/search?q=${searchKeyword}&type=track`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    const parsedResponse = await response.json();
+
+    const responseTracks = parsedResponse.tracks as Array<Song>;
+
+    console.log(`Keyword response: ${JSON.stringify(parsedResponse)}`)
+
+
+  }
+
+  /*Fetch top songs */
+  useEffect(() => {
+    async function loadTopSongs() {
       const response = await fetch(
         `https://api.spotify.com/v1/artists/${selectedArtistID}/top-tracks?country=US`,
         {
@@ -31,20 +58,49 @@ const SongSection = ({selectedArtistID, token}: SongSectionProps) => {
 
       const parsedResponse = await response.json();
 
-      const responseTracks = parsedResponse.tracks as Array<Song>
+      const responseTracks = parsedResponse.tracks as Array<Song>;
 
       setSongs(responseTracks);
     }
-    loadTopSongs()
+    loadTopSongs();
+  }, [selectedArtistID, token]);
 
+  const songRows = songs.map((song) => {
+    return <SongRow song={song} key={song.id} />;
+  });
 
-  },[selectedArtistID, token])   
+  const songTable = (
+    <table>
+      <thead>
+        <tr>
+          <th>Song Name</th>
+        </tr>
+      </thead>
+      <tbody>{songRows}</tbody>
+    </table>
+  );
 
-  
 
   return (
-    <div>SongSection</div>
-  )
-}
+    <div>
+      <form onSubmit={submitKeywordSearch}>
+        <label htmlFor="search-artist">Enter a keyword</label>
+        <input
+          type="text"
+          name="search-artist"
+          onChange={(e: ChangeEvent<HTMLInputElement>) =>
+            setSearchKeyword(e.target.value)
+          }
+          value={searchKeyword}
+          placeholder="Enter a keyword"
+          required
+        />
+        {songTable}
+        <button type="submit">See how many songs have the keyword!</button>
+      </form>
+      
+    </div>
+  );
+};
 
-export default SongSection
+export default SongSection;
