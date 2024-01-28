@@ -10,7 +10,7 @@ export type SearchProps = {
 
 const Search = ({ token }: SearchProps) => {
   const [artists, setArtists] = useState<null | Array<Artist>>(null);
-  const [selectedArtistID, setSelectedArtistID] = useState("");
+  const [selectedArtist, setSelectedArtist] = useState<null | Artist>(null);
 
 
 
@@ -62,8 +62,8 @@ const Search = ({ token }: SearchProps) => {
   return (
     <>
       <SearchForm handleSearch={handleSearch}/>
-      {artists ? <ArtistSection artists={artists} setSelectedArtistID={setSelectedArtistID} selectedArtistID={selectedArtistID} /> : null}
-      {selectedArtistID ? <SongSection selectedArtistID={selectedArtistID} token={token}/>: null}
+      {artists ? <ArtistSection artists={artists} setSelectedArtist={setSelectedArtist} selectedArtist={selectedArtist} /> : null}
+      {selectedArtist ? <SongSection selectedArtist={selectedArtist} token={token}/>: null}
     </>
   );
 };

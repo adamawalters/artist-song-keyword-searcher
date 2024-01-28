@@ -1,23 +1,22 @@
-import { useState } from "react";
 import { Artist } from "../../Types";
 
 type ArtistRowProps = {
   artist: Artist;
-  setSelectedArtistID: React.Dispatch<React.SetStateAction<string>>;
-  selectedArtistID: string;
+  setSelectedArtist: React.Dispatch<React.SetStateAction<Artist | null>>;
+  selectedArtist: Artist | null;
 };
 
 const ArtistRow = ({
   artist,
-  selectedArtistID,
-  setSelectedArtistID,
+  selectedArtist,
+  setSelectedArtist,
 }: ArtistRowProps) => {
   /* input is readOnly b/c its checked value is maintained by the selected Artist state all other rows share
     table row updates the state when it's clicked which updates respective radio buttons
     The input changes if another radio button is selected, but that doesn't trigger onChange, so changing one radio button to select an artists wouldn't subsequently undo that change b/c other radio buttons also change and set the state to that artist
   */
   const row = (
-    <tr onClick={() => setSelectedArtistID(artist.id)}>
+    <tr onClick={() => setSelectedArtist(artist)}>
       <td>{artist.name}</td>
       <td>
         {artist.images.length ? (
@@ -33,7 +32,7 @@ const ArtistRow = ({
           value={artist.id}
           required
           readOnly
-          checked={artist.id === selectedArtistID}
+          checked={selectedArtist ? artist.id === selectedArtist.id: false}
         />
       </td>
     </tr>

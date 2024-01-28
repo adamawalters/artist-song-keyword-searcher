@@ -1,18 +1,17 @@
-import { useState } from "react";
 import { Artist } from "../../Types";
 import ArtistRow from "./ArtistRow";
 
 export type ArtistSectionProps = {
   artists: Array<Artist>;
-  selectedArtistID: string;
-  setSelectedArtistID: React.Dispatch<React.SetStateAction<string>>;
+  selectedArtist: Artist | null;
+  setSelectedArtist: React.Dispatch<React.SetStateAction<Artist | null>>;
 };
 
-const ArtistSection = ({ artists, setSelectedArtistID, selectedArtistID }: ArtistSectionProps) => {
+const ArtistSection = ({ artists, setSelectedArtist, selectedArtist }: ArtistSectionProps) => {
 
  
   const artistRows = artists.map((artist) => {
-    return <ArtistRow setSelectedArtistID={setSelectedArtistID} selectedArtistID={selectedArtistID} key={artist.id} artist={artist} />;
+    return <ArtistRow setSelectedArtist={setSelectedArtist} selectedArtist={selectedArtist} key={artist.id} artist={artist} />;
   });
 
 
