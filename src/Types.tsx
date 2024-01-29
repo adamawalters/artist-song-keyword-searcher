@@ -14,10 +14,26 @@ export interface Artist {
 export interface Song {
     name: string
     id: string
+    external_ids :{
+        isrc: string,
+        ean: string,
+        upc: string
+    }
+
 }
 
 export interface GenericObject {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     [key: string]: any
+}
+
+export interface TrackResponse {
+    href: string,
+    limit: number,
+    next: string | null,
+    offset: number,
+    previous: string | null,
+    total: number,
+    items: Array<Song>
 }
 

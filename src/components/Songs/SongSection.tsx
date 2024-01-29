@@ -1,5 +1,5 @@
 import { ChangeEvent, useEffect, useState, FormEvent } from "react";
-import { Artist, Song } from "../../Types";
+import { Artist, Song, TrackResponse } from "../../Types";
 import SongRow from "./SongRow";
 
 export type SongSectionProps = {
@@ -15,10 +15,12 @@ const SongSection = ({ selectedArtist, token }: SongSectionProps) => {
 
   const [songs, setSongs] = useState<null | Array<Song>>(null);
   const [searchKeyword, setSearchKeyword] = useState<string>("");
+  const [lastUsedKeyword, setLastUsedKeyword] = useState<string>("")
   const [numSongsWithKeyword, setNumSongsWithKeyword] = useState(0);
 
   async function submitKeywordSearch(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    setLastUsedKeyword(searchKeyword)
 
     const params = new URLSearchParams({
       market: `US`,
@@ -37,14 +39,64 @@ const SongSection = ({ selectedArtist, token }: SongSectionProps) => {
     );
 
     const parsedResponse = await response.json();
+    const trackResponse: TrackResponse = parsedResponse.tracks 
+    /*continue performing requests until trackresponse.next is null - append tracks to items  */
+    
+    while(trackResponse.next) {
+      const currResponse = await fetch(trackResponse.next, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      } )
 
-    const totalTracksForQuery: number = parsedResponse.tracks.total;
-    const responseTracks: Array<Song> = parsedResponse.tracks.items as Array<Song>;
+      const currParsedResponse = await currResponse.json()
+      const currTrackResponse: TrackResponse = currParsedResponse.tracks
 
-    setNumSongsWithKeyword(totalTracksForQuery)
-    setSongs(responseTracks)
+      trackResponse.items.push(...currTrackResponse.items)
+      trackResponse.next = currTrackResponse.next
+
+    }
+    
+    removeSongDuplicates(trackResponse)
 
   }
+
+
+  function removeSongDuplicates(trackResponse: TrackResponse){
+    
+    const originalTracks: Song[] = trackResponse.items
+    const isrcFilteredTracks: Song[] = []
+    const nameFilteredTracks: Song[] = []
+    const isrc_ids = new Set()
+    const song_names = new Set()
+
+    /*Filter based on isrc */
+    originalTracks.forEach((track) => {
+      if(!isrc_ids.has(track.external_ids.isrc)){
+        isrc_ids.add(track.external_ids.isrc)
+        isrcFilteredTracks.push(track)
+      }
+    })
+
+    /*Filter based on exact name match */
+    isrcFilteredTracks.forEach((track) => {
+      const additionalInfoRegex =  /(?:\([^)]*\)|-).*$/
+      const standardizedTrackName = track.name.replace(additionalInfoRegex, "").trim()
+      console.log(`Standardized track name: ${standardizedTrackName}`)
+
+      if(!song_names.has(standardizedTrackName)){
+        song_names.add(standardizedTrackName)
+        nameFilteredTracks.push(track)
+      }
+
+    })
+    
+    const totalTracksForQuery: number = nameFilteredTracks.length
+    setNumSongsWithKeyword(totalTracksForQuery)
+    nameFilteredTracks.sort((a, b) => a.name.toLowerCase() < b.name.toLowerCase() ? -1 : 1)
+    setSongs(nameFilteredTracks)
+  }
+
 
   /*Fetch top songs by artist by default in song section */
   useEffect(() => {
@@ -86,7 +138,7 @@ const SongSection = ({ selectedArtist, token }: SongSectionProps) => {
 
   return (
     <div>
-      {numSongsWithKeyword ? <h2>There are {numSongsWithKeyword} songs by {selectedArtist.name} with the keyword you entered! </h2>: null}
+      {numSongsWithKeyword ? <h2>There are {numSongsWithKeyword} songs by {selectedArtist.name} with "{lastUsedKeyword}" in the song title</h2>: null}
       <form onSubmit={submitKeywordSearch}>
         <label htmlFor="search-artist">Enter a keyword</label>
         <input
