@@ -1,8 +1,10 @@
-import React from 'react'
 
 const Header = () => {
+
   return (
-    <div>Header</div>
+    <header className="heading">
+      <h1 onClick={()=>window.scrollTo(0,0)}>Artist Song Keyword Search</h1>
+    </header>
   )
 }
 

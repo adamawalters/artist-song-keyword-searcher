@@ -1,4 +1,4 @@
-import SearchForm from "./SearchForm";
+import ArtistSearchForm from "./ArtistSearchForm";
 import ArtistSection from "./Artists/ArtistSection";
 import { useEffect, useState } from "react";
 import { Artist } from "../Types";
@@ -61,7 +61,7 @@ const Search = ({ token }: SearchProps) => {
 
   return (
     <>
-      <SearchForm handleSearch={handleSearch}/>
+      <ArtistSearchForm handleSearch={handleSearch}/>
       {artists ? <ArtistSection artists={artists} setSelectedArtist={setSelectedArtist} selectedArtist={selectedArtist} /> : null}
       {selectedArtist ? <SongSection selectedArtist={selectedArtist} token={token}/>: null}
     </>

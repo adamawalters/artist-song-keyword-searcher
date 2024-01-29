@@ -30,7 +30,7 @@ const ArtistSection = ({ artists, setSelectedArtist, selectedArtist }: ArtistSec
 
   return (
     <>
-      <form>
+      <form className="select-artist-form">
         {artistTable}
         <button type="submit">Submit</button>
       </form>

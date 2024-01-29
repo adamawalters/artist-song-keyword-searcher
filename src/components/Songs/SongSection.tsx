@@ -81,7 +81,7 @@ const SongSection = ({ selectedArtist, token }: SongSectionProps) => {
     /*Filter based on exact name match */
     isrcFilteredTracks.forEach((track) => {
       const additionalInfoRegex =  /(?:\([^)]*\)|-).*$/
-      const standardizedTrackName = track.name.replace(additionalInfoRegex, "").trim()
+      const standardizedTrackName = track.name.replace(additionalInfoRegex, "").trim().toLowerCase()
       console.log(`Standardized track name: ${standardizedTrackName}`)
 
       if(!song_names.has(standardizedTrackName)){

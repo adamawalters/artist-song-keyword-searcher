@@ -33,7 +33,7 @@ const AppRoutes = () => {
   }, []);
 
   return (
-    <div>
+    <main>
       {error ? (
         <>
           <ErrorAlert error={error} />{" "}
@@ -46,7 +46,7 @@ const AppRoutes = () => {
       ) : (
         <Login />
       )}
-    </div>
+    </main>
   );
 };
 
