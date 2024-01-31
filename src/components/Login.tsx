@@ -7,8 +7,13 @@ const Login = () => {
   
   return (
     <>
-      <h1>Please log in to Spotify</h1>
-      <a href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}&scope=user-top-read`}>Log in </a>
+
+      <div className="center-container">
+        <h1>Please log in to Spotify</h1>
+        <a
+        className="submit-button"
+        href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}&scope=user-top-read`}>Log in </a>
+      </div>
     </>
   );
 };

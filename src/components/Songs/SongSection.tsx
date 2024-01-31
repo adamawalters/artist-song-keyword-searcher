@@ -15,12 +15,12 @@ const SongSection = ({ selectedArtist, token }: SongSectionProps) => {
 
   const [songs, setSongs] = useState<null | Array<Song>>(null);
   const [searchKeyword, setSearchKeyword] = useState<string>("");
-  const [lastUsedKeyword, setLastUsedKeyword] = useState<string>("")
+  const [lastUsedKeyword, setLastUsedKeyword] = useState<string>("");
   const [numSongsWithKeyword, setNumSongsWithKeyword] = useState(0);
 
   async function submitKeywordSearch(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    setLastUsedKeyword(searchKeyword)
+    setLastUsedKeyword(searchKeyword);
 
     const params = new URLSearchParams({
       market: `US`,
@@ -39,64 +39,63 @@ const SongSection = ({ selectedArtist, token }: SongSectionProps) => {
     );
 
     const parsedResponse = await response.json();
-    const trackResponse: TrackResponse = parsedResponse.tracks 
+    const trackResponse: TrackResponse = parsedResponse.tracks;
     /*continue performing requests until trackresponse.next is null - append tracks to items  */
-    
-    while(trackResponse.next) {
+
+    while (trackResponse.next) {
       const currResponse = await fetch(trackResponse.next, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
-      } )
+      });
 
-      const currParsedResponse = await currResponse.json()
-      const currTrackResponse: TrackResponse = currParsedResponse.tracks
+      const currParsedResponse = await currResponse.json();
+      const currTrackResponse: TrackResponse = currParsedResponse.tracks;
 
-      trackResponse.items.push(...currTrackResponse.items)
-      trackResponse.next = currTrackResponse.next
-
+      trackResponse.items.push(...currTrackResponse.items);
+      trackResponse.next = currTrackResponse.next;
     }
-    
-    removeSongDuplicates(trackResponse)
 
+    removeSongDuplicates(trackResponse);
   }
 
-
-  function removeSongDuplicates(trackResponse: TrackResponse){
-    
-    const originalTracks: Song[] = trackResponse.items
-    const isrcFilteredTracks: Song[] = []
-    const nameFilteredTracks: Song[] = []
-    const isrc_ids = new Set()
-    const song_names = new Set()
+  function removeSongDuplicates(trackResponse: TrackResponse) {
+    const originalTracks: Song[] = trackResponse.items;
+    const isrcFilteredTracks: Song[] = [];
+    const nameFilteredTracks: Song[] = [];
+    const isrc_ids = new Set();
+    const song_names = new Set();
 
     /*Filter based on isrc */
     originalTracks.forEach((track) => {
-      if(!isrc_ids.has(track.external_ids.isrc)){
-        isrc_ids.add(track.external_ids.isrc)
-        isrcFilteredTracks.push(track)
+      if (!isrc_ids.has(track.external_ids.isrc)) {
+        isrc_ids.add(track.external_ids.isrc);
+        isrcFilteredTracks.push(track);
       }
-    })
+    });
 
     /*Filter based on exact name match */
     isrcFilteredTracks.forEach((track) => {
-      const additionalInfoRegex =  /(?:\([^)]*\)|-).*$/
-      const standardizedTrackName = track.name.replace(additionalInfoRegex, "").trim().toLowerCase()
-      console.log(`Standardized track name: ${standardizedTrackName}`)
+      const additionalInfoRegex = /(?:\([^)]*\)|-).*$/;
+      const standardizedTrackName = track.name
+        .replace(additionalInfoRegex, "")
+        .trim()
+        .toLowerCase();
+      console.log(`Standardized track name: ${standardizedTrackName}`);
 
-      if(!song_names.has(standardizedTrackName)){
-        song_names.add(standardizedTrackName)
-        nameFilteredTracks.push(track)
+      if (!song_names.has(standardizedTrackName)) {
+        song_names.add(standardizedTrackName);
+        nameFilteredTracks.push(track);
       }
+    });
 
-    })
-    
-    const totalTracksForQuery: number = nameFilteredTracks.length
-    setNumSongsWithKeyword(totalTracksForQuery)
-    nameFilteredTracks.sort((a, b) => a.name.toLowerCase() < b.name.toLowerCase() ? -1 : 1)
-    setSongs(nameFilteredTracks)
+    const totalTracksForQuery: number = nameFilteredTracks.length;
+    setNumSongsWithKeyword(totalTracksForQuery);
+    nameFilteredTracks.sort((a, b) =>
+      a.name.toLowerCase() < b.name.toLowerCase() ? -1 : 1
+    );
+    setSongs(nameFilteredTracks);
   }
-
 
   /*Fetch top songs by artist by default in song section */
   useEffect(() => {
@@ -119,40 +118,49 @@ const SongSection = ({ selectedArtist, token }: SongSectionProps) => {
     loadTopSongs();
   }, [selectedArtist, token]);
 
-  
-
+  /* TODO: Need to add space between table and its edge without causing off-center*/
   const songTable = (
-    <table>
-      <thead>
-        <tr>
-          <th>Song Name</th>
-        </tr>
-      </thead>
-      <tbody>
-        {songs
-          ? songs.map((song) => <SongRow song={song} key={song.id} />)
-          : null}
-      </tbody>
+    <table className="artist-table">
+        <thead>
+          <tr>
+            <th>Song Name</th>
+          </tr>
+        </thead>
+        <tbody>
+          {songs
+            ? songs.map((song) => <SongRow song={song} key={song.id} />)
+            : null}
+        </tbody>
     </table>
   );
 
   return (
     <div>
-      {numSongsWithKeyword ? <h2>There are {numSongsWithKeyword} songs by {selectedArtist.name} with "{lastUsedKeyword}" in the song title</h2>: null}
-      <form onSubmit={submitKeywordSearch}>
-        <label htmlFor="search-artist">Enter a keyword</label>
+      {numSongsWithKeyword ? (
+        <h2>
+          There are {numSongsWithKeyword} songs by {selectedArtist.name} with "
+          {lastUsedKeyword}" in the song title
+        </h2>
+      ) : null}
+      <form className="center-container" onSubmit={submitKeywordSearch}>
+        <label htmlFor="search-artist">
+          <span className="direction-label">Enter a Keyword</span>
+        </label>
         <input
+          className="search-box"
           type="text"
           name="search-artist"
           onChange={(e: ChangeEvent<HTMLInputElement>) =>
             setSearchKeyword(e.target.value)
           }
           value={searchKeyword}
-          placeholder="Enter a keyword"
+          placeholder="Love"
           required
         />
+        <button type="submit" className="submit-button">
+          See how many songs have the keyword!
+        </button>
         {songTable}
-        <button type="submit">See how many songs have the keyword!</button>
       </form>
     </div>
   );

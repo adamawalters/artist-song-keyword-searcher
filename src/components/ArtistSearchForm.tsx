@@ -17,22 +17,24 @@ const ArtistSearchForm = ({ handleSearch }: ArtistSearchFormProps) => {
   }
 
   const form = (
-    <form className="search-form" onSubmit={handleSubmit}>
-      <label htmlFor="artistSearch">Enter an artist</label>
+    <form className="center-container" onSubmit={handleSubmit}>
+      <label htmlFor="artistSearch"><span className="direction-label">Enter an artist</span></label>
       <div className="search-input">
         <input
+          className="search-box"
           type="text"
           name="artistSearch"
           placeholder="Celine Dion"
           required
           onChange={handleChange}
         />
-        <button type="submit">Submit</button>
+        <button type="submit" className="submit-button">Submit</button>
       </div>
     </form>
   );
 
-  return form;
+
+  return form
 };
 
 export default ArtistSearchForm;

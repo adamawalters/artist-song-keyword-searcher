@@ -12,14 +12,11 @@ const Search = ({ token }: SearchProps) => {
   const [artists, setArtists] = useState<null | Array<Artist>>(null);
   const [selectedArtist, setSelectedArtist] = useState<null | Artist>(null);
 
-
-
   async function handleSearch(searchKey: string) {
-
     const params = new URLSearchParams({
       q: searchKey,
       type: "artist",
-      limit: "5"
+      limit: "5",
     });
 
     const response = await fetch(
@@ -50,7 +47,7 @@ const Search = ({ token }: SearchProps) => {
       );
 
       const parsedResponse = await response.json();
-      console.log(parsedResponse)
+      console.log(parsedResponse);
       const responseArtists = parsedResponse.artists as Array<Artist>;
 
       setArtists(responseArtists);
@@ -61,9 +58,23 @@ const Search = ({ token }: SearchProps) => {
 
   return (
     <>
-      <ArtistSearchForm handleSearch={handleSearch}/>
-      {artists ? <ArtistSection artists={artists} setSelectedArtist={setSelectedArtist} selectedArtist={selectedArtist} /> : null}
-      {selectedArtist ? <SongSection selectedArtist={selectedArtist} token={token}/>: null}
+      <section>
+        <ArtistSearchForm handleSearch={handleSearch} />
+      </section>
+      <section>
+        {artists ? (
+          <ArtistSection
+            artists={artists}
+            setSelectedArtist={setSelectedArtist}
+            selectedArtist={selectedArtist}
+          />
+        ) : null}
+      </section>
+      <section>
+        {selectedArtist ? (
+          <SongSection selectedArtist={selectedArtist} token={token} />
+        ) : null}
+      </section>
     </>
   );
 };

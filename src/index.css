@@ -1,15 +1,31 @@
+:root {
+  --color-text: #000000e6;
+  --color-border-faint: #00000014;
+}
+
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: 'Roboto', sans-serif;
+}
+
+body {
+  background-color: #f4f2ee;
+  color: var(--color-text)
 }
 
 header {
   text-align: center;
-  background-color: lightblue;
+  background-color: #FFFFFF;
   position: sticky;
   top: 0;
   width: 100%;
+  font-weight: bold;
+  font-size: 20px;
+  padding: 10px 20px;
+  border-bottom: 1px solid var(--color-border-faint)
   
 }
 
@@ -21,7 +37,7 @@ main {
   margin: 20px 40px;
 }
 
-.search-form {
+.center-container {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -34,30 +50,81 @@ table {
   overflow: hidden;
 }
 
+.submit-button {
+  background-color: #0b65c2;
+  color: white;
+  border-radius: 25px;
+  padding: 5px 10px;
+  font-weight: bold;
+  font-size: 1rem;
+  border: none;
+  text-decoration: none;
+}
 
-/* The input and search button */
+/*Span holding directions ex. "enter an artist" */
+.direction-label {
+  font-size: 1.5rem;
+  font-weight: bold
+}
+
+
+
+
+/* The search box input and search button */
 .search-input {
   display: flex;
+  flex-direction: column;
   gap: 15px;
+  width: 100%;
+}
+
+/* The search box input itself */
+.search-box {
+  border-radius: 25px;
+  height: 40px;
+  width: 100%;
+  text-align: center;
+  border: none;
+  font-size: 1rem;
 }
 
 /*The form that contains the table with the list of artists */
 .select-artist-form {
- display: flex;
+  display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 15px; /* for button & table to be separated */
+}
+
+/*pads table contents within table */
+.table-spacer {
+  padding: 20px 0px;
+}
+
+.artist-table {
+  border-collapse: collapse;
+  background-color: white;
+  border-radius: 25px;
 }
 
 /*The first row in thead */
 .select-artist-form thead tr:nth-child(1) {
-  background-color: gray;
+  
 }
 
 /*The second column (could also do tbody tr td:nth-child() */
 .select-artist-form thead tr th:nth-child(2){
-  width: 10%;
-  background-color: green;
+  width: 20%;
 }
+
+.select-artist-form thead tr th:nth-child(3){
+  width: 40%;
+}
+
+.select-artist-form thead tr th:nth-child(1){
+  width: 40%;
+}
+
 
 td {
   padding: 10px;
@@ -68,9 +135,18 @@ table img {
   object-fit:scale-down;
   width: 100%;
   height: 100%;
+  border-radius: 25px;
 }
 
-  
+section {
+  margin-bottom: 40px;
+}
+
+@media screen and (min-width: 768px) {
+  main {
+    margin: 20px 200px
+  }
+}
 
 
 

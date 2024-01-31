@@ -16,24 +16,29 @@ const ArtistSection = ({ artists, setSelectedArtist, selectedArtist }: ArtistSec
 
 
   const artistTable = (
-    <table>
-      <thead>
-        <tr>
-          <th>Artist Name</th>
-          <th>Artist Photo</th>
-          <th>Select</th>
-        </tr>
-      </thead>
-      <tbody>{artistRows}</tbody>
+    <table className="artist-table">
+      <div className="table-spacer">
+        <thead>
+          <tr>
+            <th>Artist Name</th>
+            <th>Artist Photo</th>
+            <th>Select</th>
+          </tr>
+        </thead>
+        <tbody>{artistRows}</tbody>
+      </div>
     </table>
   );
 
   return (
     <>
-      <form className="select-artist-form">
-        {artistTable}
-        <button type="submit">Submit</button>
-      </form>
+      <div className="center-container">
+        <span className="direction-label">Artist results - select an artist </span>
+        <form className="select-artist-form">
+          {artistTable}
+          <button className="submit-button" type="submit">Submit</button>
+        </form>
+      </div>
     </>
   );
 };
