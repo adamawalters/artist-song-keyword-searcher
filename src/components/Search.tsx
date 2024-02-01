@@ -12,6 +12,8 @@ const Search = ({ token }: SearchProps) => {
   const [artists, setArtists] = useState<null | Array<Artist>>(null);
   const [selectedArtist, setSelectedArtist] = useState<null | Artist>(null);
 
+
+  /* TODO: add pagination so users can select between more than the top 5 artists that show up*/
   async function handleSearch(searchKey: string) {
     const params = new URLSearchParams({
       q: searchKey,
@@ -35,26 +37,26 @@ const Search = ({ token }: SearchProps) => {
   }
 
   /* By default before user searches - load top artists*/
-  useEffect(() => {
-    async function loadTopArtists() {
-      const response = await fetch(
-        `https://api.spotify.com/v1/artists?ids=2CIMQHirSU0MQqyYHq0eOx,57dN52uHvrHOxijzpIgu3E,1vCWHaC5f2uS3yhpwWbIA6`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+  // useEffect(() => {
+  //   async function loadTopArtists() {
+  //     const response = await fetch(
+  //       `https://api.spotify.com/v1/artists?ids=2CIMQHirSU0MQqyYHq0eOx,57dN52uHvrHOxijzpIgu3E,1vCWHaC5f2uS3yhpwWbIA6`,
+  //       {
+  //         headers: {
+  //           Authorization: `Bearer ${token}`,
+  //         },
+  //       }
+  //     );
 
-      const parsedResponse = await response.json();
-      console.log(parsedResponse);
-      const responseArtists = parsedResponse.artists as Array<Artist>;
+  //     const parsedResponse = await response.json();
+  //     console.log(parsedResponse);
+  //     const responseArtists = parsedResponse.artists as Array<Artist>;
 
-      setArtists(responseArtists);
-    }
+  //     setArtists(responseArtists);
+  //   }
 
-    loadTopArtists();
-  }, [token]);
+  //   loadTopArtists();
+  // }, [token]);
 
   return (
     <>

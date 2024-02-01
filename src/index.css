@@ -26,7 +26,17 @@ header {
   font-size: 20px;
   padding: 10px 20px;
   border-bottom: 1px solid var(--color-border-faint)
-  
+}
+
+footer {
+  text-align: center;
+  background-color: #FFFFFF;
+  position: sticky;
+  top: 0;
+  width: 100%;
+  font-size: 10px;
+  padding: 10px 20px;
+  border-top: 1px solid var(--color-border-faint)
 }
 
 header:hover {
@@ -96,19 +106,32 @@ table {
   gap: 15px; /* for button & table to be separated */
 }
 
+.song-result-spacer {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+
+  gap: 10px;
+}
+
 /*pads table contents within table */
 .table-spacer {
   padding: 20px 0px;
+  background-color: white;
+  border-radius: 25px;
 }
 
 .artist-table {
   border-collapse: collapse;
   background-color: white;
-  border-radius: 25px;
 }
 
 .keyword-search-button {
-  width: 100%
+  width: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 /*The first row in thead */

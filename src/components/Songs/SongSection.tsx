@@ -98,27 +98,26 @@ const SongSection = ({ selectedArtist, token }: SongSectionProps) => {
   }
 
   /*Fetch top songs by artist by default in song section */
-  useEffect(() => {
-    async function loadTopSongs() {
-      const response = await fetch(
-        `https://api.spotify.com/v1/artists/${selectedArtist.id}/top-tracks?country=US`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+  // useEffect(() => {
+  //   async function loadTopSongs() {
+  //     const response = await fetch(
+  //       `https://api.spotify.com/v1/artists/${selectedArtist.id}/top-tracks?country=US`,
+  //       {
+  //         headers: {
+  //           Authorization: `Bearer ${token}`,
+  //         },
+  //       }
+  //     );
 
-      const parsedResponse = await response.json();
+  //     const parsedResponse = await response.json();
 
-      const responseTracks = parsedResponse.tracks as Array<Song>;
+  //     const responseTracks = parsedResponse.tracks as Array<Song>;
 
-      setSongs(responseTracks);
-    }
-    loadTopSongs();
-  }, [selectedArtist, token]);
+  //     setSongs(responseTracks);
+  //   }
+  //   loadTopSongs();
+  // }, [selectedArtist, token]);
 
-  /* TODO: Need to add space between table and its edge without causing off-center*/
   const songTable = (
     <table className="artist-table">
       <thead>
@@ -136,12 +135,6 @@ const SongSection = ({ selectedArtist, token }: SongSectionProps) => {
 
   return (
     <div>
-      {numSongsWithKeyword ? (
-        <h2>
-          There are {numSongsWithKeyword} songs by {selectedArtist.name} with "
-          {lastUsedKeyword}" in the song title
-        </h2>
-      ) : null}
       <form className="center-container" onSubmit={submitKeywordSearch}>
         <label htmlFor="search-artist">
           <span className="direction-label">Enter a Keyword</span>
@@ -157,11 +150,21 @@ const SongSection = ({ selectedArtist, token }: SongSectionProps) => {
           placeholder="Love"
           required
         />
-          <button type="submit" className="submit-button" style={{width: "100%"}}>
-            See how many songs have the keyword!
+        <div className="keyword-search-button">
+          <button type="submit" className="submit-button">
+            See how many songs by {selectedArtist.name} have the keyword!
           </button>
-        
-        {songTable}
+        </div>
+          <div className="song-result-spacer">
+            <span className="direction-label">
+              {numSongsWithKeyword
+                ? `Results: there are ${numSongsWithKeyword} songs by
+              ${selectedArtist.name} with
+              "${lastUsedKeyword}" in the song title`
+                : null}
+            </span>
+            <div className="table-spacer">{songTable}</div>
+          </div>
       </form>
     </div>
   );
