@@ -16,17 +16,21 @@ const SongSection = ({ selectedArtist, token }: SongSectionProps) => {
   const [songs, setSongs] = useState<null | Array<Song>>(null);
   const [searchKeyword, setSearchKeyword] = useState<string>("");
   const [lastUsedKeyword, setLastUsedKeyword] = useState<string>("");
+  const [lastUsedArtistName, setLastUsedArtistName] = useState<string>("")
   const [numSongsWithKeyword, setNumSongsWithKeyword] = useState(0);
 
   async function submitKeywordSearch(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setLastUsedKeyword(searchKeyword);
+    setLastUsedArtistName(selectedArtist.name);
+    //setSongs(null)
 
     const params = new URLSearchParams({
-      market: `US`,
-      limit: `50`,
-      type: `track`,
       q: `track:"${searchKeyword}" artist:"${selectedArtist.name}"`,
+      type: `track`,
+      market: `US`,
+      //limit: `50`,
+      //q: `track:"love" artist:"${selectedArtist.name}"`
     });
 
     const response = await fetch(
@@ -40,6 +44,7 @@ const SongSection = ({ selectedArtist, token }: SongSectionProps) => {
 
     const parsedResponse = await response.json();
     const trackResponse: TrackResponse = parsedResponse.tracks;
+    console.log(JSON.stringify(trackResponse))
     /*continue performing requests until trackresponse.next is null - append tracks to items  */
 
     while (trackResponse.next) {
@@ -155,16 +160,18 @@ const SongSection = ({ selectedArtist, token }: SongSectionProps) => {
             See how many songs by {selectedArtist.name} have the keyword!
           </button>
         </div>
+          {numSongsWithKeyword ? 
           <div className="song-result-spacer">
             <span className="direction-label">
               {numSongsWithKeyword
                 ? `Results: there are ${numSongsWithKeyword} songs by
-              ${selectedArtist.name} with
+              ${lastUsedArtistName} with
               "${lastUsedKeyword}" in the song title`
                 : null}
             </span>
             <div className="table-spacer">{songTable}</div>
           </div>
+          : null}
       </form>
     </div>
   );

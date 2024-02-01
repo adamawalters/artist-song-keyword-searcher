@@ -37,3 +37,8 @@ export interface TrackResponse {
     items: Array<Song>
 }
 
+export interface Token {
+    value: string,
+    expiration: number
+}
+
