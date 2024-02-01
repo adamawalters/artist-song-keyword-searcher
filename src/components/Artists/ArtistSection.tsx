@@ -31,15 +31,12 @@ const ArtistSection = ({ artists, setSelectedArtist, selectedArtist }: ArtistSec
   );
 
   return (
-    <>
       <div className="center-container">
         <span className="direction-label">Artist results - select an artist </span>
         <form className="select-artist-form">
           {artistTable}
-          <button className="submit-button" type="submit">Submit</button>
         </form>
       </div>
-    </>
   );
 };
 
