@@ -121,16 +121,16 @@ const SongSection = ({ selectedArtist, token }: SongSectionProps) => {
   /* TODO: Need to add space between table and its edge without causing off-center*/
   const songTable = (
     <table className="artist-table">
-        <thead>
-          <tr>
-            <th>Song Name</th>
-          </tr>
-        </thead>
-        <tbody>
-          {songs
-            ? songs.map((song) => <SongRow song={song} key={song.id} />)
-            : null}
-        </tbody>
+      <thead>
+        <tr>
+          <th>Song Name</th>
+        </tr>
+      </thead>
+      <tbody>
+        {songs
+          ? songs.map((song) => <SongRow song={song} key={song.id} />)
+          : null}
+      </tbody>
     </table>
   );
 
@@ -157,9 +157,10 @@ const SongSection = ({ selectedArtist, token }: SongSectionProps) => {
           placeholder="Love"
           required
         />
-        <button type="submit" className="submit-button">
-          See how many songs have the keyword!
-        </button>
+          <button type="submit" className="submit-button" style={{width: "100%"}}>
+            See how many songs have the keyword!
+          </button>
+        
         {songTable}
       </form>
     </div>

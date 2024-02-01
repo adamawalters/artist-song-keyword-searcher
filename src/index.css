@@ -107,6 +107,10 @@ table {
   border-radius: 25px;
 }
 
+.keyword-search-button {
+  width: 100%
+}
+
 /*The first row in thead */
 .select-artist-form thead tr:nth-child(1) {
   
