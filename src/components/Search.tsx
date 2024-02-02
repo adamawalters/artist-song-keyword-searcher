@@ -1,6 +1,6 @@
 import ArtistSearchForm from "./ArtistSearchForm";
 import ArtistSection from "./Artists/ArtistSection";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Artist } from "../Types";
 import SongSection from "./Songs/SongSection";
 

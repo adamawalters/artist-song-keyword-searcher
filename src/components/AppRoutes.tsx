@@ -7,11 +7,12 @@ import { Token } from "../Types";
 const AppRoutes = () => {
   const [token, setToken] = useState<string | null | undefined>("");
   const [error, setError] = useState<null | { message: string }>(null);
-  const now = new Date();
+
 
   useEffect(() => {
     const hash = window.location.hash;
     let localStorageHasToken: boolean = localStorage.getItem("token") != null;
+    const now = new Date();
 
     if (!localStorageHasToken && hash) {
       const tokenFromUrl = hash

@@ -134,11 +134,6 @@ table {
   flex-direction: column;
 }
 
-/*The first row in thead */
-.select-artist-form thead tr:nth-child(1) {
-  
-}
-
 /*The second column (could also do tbody tr td:nth-child() */
 .select-artist-form thead tr th:nth-child(2){
   width: 20%;

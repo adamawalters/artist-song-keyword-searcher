@@ -1,4 +1,3 @@
-import React from 'react'
 import { Song } from '../../Types'
 
 export type SongRowProps = {

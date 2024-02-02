@@ -1,4 +1,4 @@
-import { ChangeEvent, useEffect, useState, FormEvent } from "react";
+import { ChangeEvent, useState, FormEvent } from "react";
 import { Artist, Song, TrackResponse } from "../../Types";
 import SongRow from "./SongRow";
 
