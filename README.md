@@ -22,3 +22,5 @@ The results can be enlightening. For example, Celine Dion contains 40 songs that
 - Refreshed CSS flexbox & positioning skills (sticky, fixed)
 
 ## Screenshots
+Searching for an artist
+![A test image](https://github.com/adamawalters/spotify/blob/main/screenshots/artist-search.png)
