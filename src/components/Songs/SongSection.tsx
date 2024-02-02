@@ -29,8 +29,6 @@ const SongSection = ({ selectedArtist, token }: SongSectionProps) => {
       q: `track:"${searchKeyword}" artist:"${selectedArtist.name}"`,
       type: `track`,
       market: `US`,
-      //limit: `50`,
-      //q: `track:"love" artist:"${selectedArtist.name}"`
     });
 
     const response = await fetch(
@@ -44,7 +42,6 @@ const SongSection = ({ selectedArtist, token }: SongSectionProps) => {
 
     const parsedResponse = await response.json();
     const trackResponse: TrackResponse = parsedResponse.tracks;
-    console.log(JSON.stringify(trackResponse))
     /*continue performing requests until trackresponse.next is null - append tracks to items  */
 
     while (trackResponse.next) {
@@ -86,7 +83,6 @@ const SongSection = ({ selectedArtist, token }: SongSectionProps) => {
         .replace(additionalInfoRegex, "")
         .trim()
         .toLowerCase();
-      console.log(`Standardized track name: ${standardizedTrackName}`);
 
       if (!song_names.has(standardizedTrackName)) {
         song_names.add(standardizedTrackName);
@@ -101,27 +97,6 @@ const SongSection = ({ selectedArtist, token }: SongSectionProps) => {
     );
     setSongs(nameFilteredTracks);
   }
-
-  /*Fetch top songs by artist by default in song section */
-  // useEffect(() => {
-  //   async function loadTopSongs() {
-  //     const response = await fetch(
-  //       `https://api.spotify.com/v1/artists/${selectedArtist.id}/top-tracks?country=US`,
-  //       {
-  //         headers: {
-  //           Authorization: `Bearer ${token}`,
-  //         },
-  //       }
-  //     );
-
-  //     const parsedResponse = await response.json();
-
-  //     const responseTracks = parsedResponse.tracks as Array<Song>;
-
-  //     setSongs(responseTracks);
-  //   }
-  //   loadTopSongs();
-  // }, [selectedArtist, token]);
 
   const songTable = (
     <table className="artist-table">
