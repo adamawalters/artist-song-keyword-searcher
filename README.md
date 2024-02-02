@@ -1,30 +1,24 @@
-# React + TypeScript + Vite
+# Spotify Artist Song Keyword Search
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is an app built in React (TypeScript) & CSS that leverages the Spotify Web API. The app is deployed [at this link](https://spotify-song-keyword-search.vercel.app/). It is front-end only - there is no backend at this point.   
 
-Currently, two official plugins are available:
+It lets users: 
+1. Search for an artist
+2. Enter a keyword and see how many of the selected artist's song titles contain that keyword
+3. View the list of song titles that contain the keyword
+  
+In other words, it answers the question "how many songs does an artist have, that contain *keyword* in the title?". 
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+The results can be enlightening. For example, Celine Dion contains 40 songs that contain "Love" in the title. 
 
-## Expanding the ESLint configuration
+## Key processes in the application
+1. The app makes the web request, multiple times if necessary to load all of the song titles
+2. The app attempts to de-duplicate similar versions of songs so that they only show up once (for example, live versions & remixes)
+3. The app displays the list to the user
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Key items learned
+- Authorization with tokens
+- How to type in TypeScript the responses received from the API
+- Refreshed CSS flexbox & positioning skills (sticky, fixed)
 
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
-
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+## Screenshots
