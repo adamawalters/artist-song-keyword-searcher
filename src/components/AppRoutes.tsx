@@ -48,6 +48,8 @@ const AppRoutes = () => {
         setToken(tokenFromLocalStorage.value);
       }
     }
+
+    
   }, []);
 
   return (
