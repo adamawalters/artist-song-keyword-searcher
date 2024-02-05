@@ -54,6 +54,11 @@ main {
   gap: 10px;
 }
 
+.center-container h1 {
+  text-align: center;
+}
+
+
 table {
   table-layout: fixed;
   width: 100%;
