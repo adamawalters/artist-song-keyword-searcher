@@ -24,12 +24,12 @@ const ArtistResultTable = ({
   });
 
   const artistTable = (
-    <table className="artist-table">
+    <table className="result-table">
       <thead>
         <tr>
           <th>Artist Name</th>
           <th>Artist Photo</th>
-          <th>Select</th>
+          <th>Select</th> 
         </tr>
       </thead>
       <tbody>{artistRows}</tbody>
@@ -39,7 +39,7 @@ const ArtistResultTable = ({
   return (
     <div className="center-container">
       <span className="direction-label">
-        Artist results - select an artist{" "}
+        Search results - please select an artist{" "}
       </span>
       <form className="select-artist-form">
         <div className="table-spacer">{artistTable}</div>

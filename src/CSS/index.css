@@ -4,6 +4,7 @@
   --secondary-bg-darkmode: #1B1F23;
   --table-separator-color: #E8E8E8;
   --standard-blue: #0B65C2;
+  --selected-blue-color: #D7E9FB
   
 }
 
@@ -33,9 +34,7 @@ footer {
   border-top: 1px solid var(--color-border-faint);
 }
 
-header:hover {
-  cursor: pointer;
-}
+
 
 main {
   margin: 20px 40px;
@@ -105,8 +104,6 @@ main {
   display: flex;
   flex-direction: column;
   align-items: center;
-  text-align: center;
-
   gap: 10px;
 }
 
@@ -126,23 +123,25 @@ tr {
 }
 
 tr::after {
-  content: "";
-  position: absolute;
+   content: "";
+   position: absolute; 
   height: 0px;
   width: 90%;
   left: 5%;
   margin-right: 10%;
-  border: 1px solid var(--color-border-faint)
+  border-bottom: 1px solid var(--color-border-faint);
 }
 
-/*pads table contents within table */
-.table-spacer {
-  padding: 20px 0px;
-  background-color: white;
-  border-radius: 25px;
+tr:hover {
+  background-color: var(--selected-blue-color);
 }
 
-.artist-table {
+.selected-table-row {
+  background-color: var(--selected-blue-color);
+}
+
+
+.result-table {
   border-collapse: collapse;
   background-color: white;
 }
@@ -150,11 +149,15 @@ tr::after {
 table {
   table-layout: fixed;
   width: 100%;
-  overflow: hidden;
+  overflow: hidden; 
+  border-radius: 25px;
 }
 
 
-/*The second column (could also do tbody tr td:nth-child() */
+
+/* Setting width of artist result table columns */
+
+
 .select-artist-form thead tr th:nth-child(2){
   width: 20%;
 }
@@ -168,9 +171,27 @@ table {
 }
 
 
+thead {
+  background-color: var(--standard-blue);
+  color: white;
+}
+
+thead tr th {
+  padding: 10px;
+}
+
+
+/* Song result table colummns - need to explicitly set width to center the songs if using tr::after*/
+.song-results thead tr th:nth-child(1){
+  width: 100%;
+}
+
+
+
 td {
   padding: 10px;
   text-align: center;
+  width: 100%;
 }
 
 table img {
@@ -202,7 +223,7 @@ section, .section-spacing {
     background-color: black;
   }
 
-  .table-spacer, .artist-table, footer, input {
+  .table-spacer, .result-table, footer, input {
     background-color: var(--secondary-bg-darkmode)
   }
 

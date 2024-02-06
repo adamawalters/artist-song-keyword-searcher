@@ -15,8 +15,13 @@ const ArtistRow = ({
     table row updates the state when it's clicked which updates respective radio buttons
     The input changes if another radio button is selected, but that doesn't trigger onChange, so changing one radio button to select an artists wouldn't subsequently undo that change b/c other radio buttons also change and set the state to that artist
   */
+
+  const thisRowIsSelected = selectedArtist ? artist.id === selectedArtist.id : false
+
   const row = (
-    <tr onClick={() => setSelectedArtist(artist)}>
+    <tr onClick={() => setSelectedArtist(artist)}
+    className={thisRowIsSelected ? `selected-table-row` : ""}
+    >
       <td>{artist.name}</td>
       <td>
         {artist.images.length ? (
@@ -32,7 +37,7 @@ const ArtistRow = ({
           value={artist.id}
           required
           readOnly
-          checked={selectedArtist ? artist.id === selectedArtist.id: false}
+          checked={thisRowIsSelected}
         />
       </td>
     </tr>
