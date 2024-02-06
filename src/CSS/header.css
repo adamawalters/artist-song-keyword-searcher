@@ -35,4 +35,9 @@ header {
     display: none;
   }
   
+  @media (prefers-color-scheme: dark) {
+    header {
+      background-color: var(--secondary-bg-darkmode)
+    }
+  }
   

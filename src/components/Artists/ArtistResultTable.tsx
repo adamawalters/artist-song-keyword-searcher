@@ -1,17 +1,17 @@
 import { Artist } from "../../Types";
 import ArtistRow from "./ArtistRow";
 
-export type ArtistSectionProps = {
+export type ArtistResultTableProps = {
   artists: Array<Artist>;
   selectedArtist: Artist | null;
   setSelectedArtist: React.Dispatch<React.SetStateAction<Artist | null>>;
 };
 
-const ArtistSection = ({
+const ArtistResultTable = ({
   artists,
   setSelectedArtist,
   selectedArtist,
-}: ArtistSectionProps) => {
+}: ArtistResultTableProps) => {
   const artistRows = artists.map((artist) => {
     return (
       <ArtistRow
@@ -48,4 +48,4 @@ const ArtistSection = ({
   );
 };
 
-export default ArtistSection;
+export default ArtistResultTable;

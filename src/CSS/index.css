@@ -1,6 +1,8 @@
 :root {
   --color-text: #000000e6;
   --color-border-faint: #00000014;
+  --secondary-bg-darkmode: #1B1F23
+  
 }
 
 
@@ -162,6 +164,21 @@ section {
 @media screen and (min-width: 768px) {
   main {
     margin: 20px 200px
+  }
+}
+
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-text: white;
+  }
+
+  #root {
+    background-color: black;
+  }
+
+  .table-spacer, .artist-table, footer {
+    background-color: var(--secondary-bg-darkmode)
   }
 }
 
