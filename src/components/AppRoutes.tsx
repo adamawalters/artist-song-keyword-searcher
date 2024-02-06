@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import Search from "./Search";
-import Login from "./Login";
+import Main from "./Main";
+import Login from "./LoginPage";
 import ErrorAlert from "./ErrorAlert";
 import { Token } from "../Types";
 
@@ -48,6 +48,8 @@ const AppRoutes = () => {
         setToken(tokenFromLocalStorage.value);
       }
     }
+
+    
   }, []);
 
   return (
@@ -59,7 +61,7 @@ const AppRoutes = () => {
       ) : null}
       {token ? (
         <>
-          <Search token={token} />
+          <Main token={token} />
         </>
       ) : (
         <Login />

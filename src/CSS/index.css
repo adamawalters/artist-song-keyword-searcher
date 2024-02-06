@@ -1,6 +1,11 @@
 :root {
   --color-text: #000000e6;
   --color-border-faint: #00000014;
+  --secondary-bg-darkmode: #1B1F23;
+  --table-separator-color: #E8E8E8;
+  --standard-blue: #0B65C2;
+  --selected-blue-color: #D7E9FB
+  
 }
 
 
@@ -19,32 +24,6 @@
   min-height: 100vh;
 }
 
-header {
-  text-align: center;
-  background-color: #FFFFFF;
-  position: sticky;
-  top: 0;
-  width: 100%;
-  font-weight: bold;
-  font-size: 20px;
-  padding: 10px 20px;
-  border-bottom: 1px solid var(--color-border-faint);
-}
-
-.header-div {
-  display: flex; 
-  justify-content: center;
-  align-items: center;
-  gap: 25px;
-}
-
-header img {
-  object-fit: scale-down;
-  width: 50px;
-}
-
-
-
 
 footer {
   text-align:center;
@@ -55,9 +34,7 @@ footer {
   border-top: 1px solid var(--color-border-faint);
 }
 
-header:hover {
-  cursor: pointer;
-}
+
 
 main {
   margin: 20px 40px;
@@ -71,11 +48,12 @@ main {
   gap: 10px;
 }
 
-table {
-  table-layout: fixed;
-  width: 100%;
-  overflow: hidden;
+.center-container h1 {
+  text-align: center;
 }
+
+
+
 
 .submit-button {
   background-color: #0b65c2;
@@ -93,8 +71,6 @@ table {
   font-size: 1.5rem;
   font-weight: bold
 }
-
-
 
 
 /* The search box input and search button */
@@ -128,22 +104,9 @@ table {
   display: flex;
   flex-direction: column;
   align-items: center;
-  text-align: center;
-
   gap: 10px;
 }
 
-/*pads table contents within table */
-.table-spacer {
-  padding: 20px 0px;
-  background-color: white;
-  border-radius: 25px;
-}
-
-.artist-table {
-  border-collapse: collapse;
-  background-color: white;
-}
 
 .keyword-search-button {
   width: 100%;
@@ -151,7 +114,50 @@ table {
   flex-direction: column;
 }
 
-/*The second column (could also do tbody tr td:nth-child() */
+
+/* TABLE CSS */
+
+
+tr {
+  position: relative;
+}
+
+tr::after {
+   content: "";
+   position: absolute; 
+  height: 0px;
+  width: 90%;
+  left: 5%;
+  margin-right: 10%;
+  border-bottom: 1px solid var(--color-border-faint);
+}
+
+tr:hover {
+  background-color: var(--selected-blue-color);
+}
+
+.selected-table-row {
+  background-color: var(--selected-blue-color);
+}
+
+
+.result-table {
+  border-collapse: collapse;
+  background-color: white;
+}
+
+table {
+  table-layout: fixed;
+  width: 100%;
+  overflow: hidden; 
+  border-radius: 25px;
+}
+
+
+
+/* Setting width of artist result table columns */
+
+
 .select-artist-form thead tr th:nth-child(2){
   width: 20%;
 }
@@ -165,9 +171,27 @@ table {
 }
 
 
+thead {
+  background-color: var(--standard-blue);
+  color: white;
+}
+
+thead tr th {
+  padding: 10px;
+}
+
+
+/* Song result table colummns - need to explicitly set width to center the songs if using tr::after*/
+.song-results thead tr th:nth-child(1){
+  width: 100%;
+}
+
+
+
 td {
   padding: 10px;
   text-align: center;
+  width: 100%;
 }
 
 table img {
@@ -176,14 +200,38 @@ table img {
   border-radius: 25px;
 }
 
-section {
+section, .section-spacing {
   margin-bottom: 40px;
 }
+
+
+/* MEDIA QUERIES */
 
 @media screen and (min-width: 768px) {
   main {
     margin: 20px 200px
   }
+}
+
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-text: white;
+  }
+
+  #root {
+    background-color: black;
+  }
+
+  .table-spacer, .result-table, footer, input {
+    background-color: var(--secondary-bg-darkmode)
+  }
+
+  input, a {
+    color: white;
+  }
+
+ 
 }
 
 

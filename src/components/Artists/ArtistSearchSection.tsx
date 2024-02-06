@@ -1,10 +1,10 @@
 import { ChangeEvent, FormEvent, useState } from "react";
 
-type ArtistSearchFormProps = {
-  handleSearch: (searchKey: string) => Promise<void>;
+type ArtistSearchSectionProps = {
+  handleArtistSearch: (searchKey: string) => Promise<void>;
 };
 
-const ArtistSearchForm = ({ handleSearch }: ArtistSearchFormProps) => {
+const ArtistSearchSection = ({ handleArtistSearch }: ArtistSearchSectionProps) => {
   const [searchKey, setSearchKey] = useState("");
 
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
@@ -13,12 +13,12 @@ const ArtistSearchForm = ({ handleSearch }: ArtistSearchFormProps) => {
 
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    handleSearch(searchKey);
+    handleArtistSearch(searchKey);
   }
 
   const form = (
     <form className="center-container" onSubmit={handleSubmit}>
-      <label htmlFor="artistSearch"><span className="direction-label">Enter an artist</span></label>
+      <label htmlFor="artistSearch"><span className="direction-label">Search for an artist</span></label>
       <div className="search-input">
         <input
           className="search-box"
@@ -37,4 +37,4 @@ const ArtistSearchForm = ({ handleSearch }: ArtistSearchFormProps) => {
   return form
 };
 
-export default ArtistSearchForm;
+export default ArtistSearchSection;

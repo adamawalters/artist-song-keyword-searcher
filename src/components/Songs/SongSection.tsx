@@ -99,7 +99,7 @@ const SongSection = ({ selectedArtist, token }: SongSectionProps) => {
   }
 
   const songTable = (
-    <table className="artist-table">
+    <table className="result-table song-results">
       <thead>
         <tr>
           <th>Song Name</th>
@@ -117,7 +117,7 @@ const SongSection = ({ selectedArtist, token }: SongSectionProps) => {
     <div>
       <form className="center-container" onSubmit={submitKeywordSearch}>
         <label htmlFor="search-artist">
-          <span className="direction-label">Enter a Keyword</span>
+          <span className="direction-label">Enter a keyword to search in song titles by {selectedArtist.name}</span>
         </label>
         <input
           className="search-box"
