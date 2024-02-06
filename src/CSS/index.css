@@ -177,9 +177,15 @@ section {
     background-color: black;
   }
 
-  .table-spacer, .artist-table, footer {
+  .table-spacer, .artist-table, footer, input {
     background-color: var(--secondary-bg-darkmode)
   }
+
+  input, a {
+    color: white;
+  }
+
+ 
 }
 
 
