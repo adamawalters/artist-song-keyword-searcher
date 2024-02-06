@@ -1,7 +1,9 @@
 :root {
   --color-text: #000000e6;
   --color-border-faint: #00000014;
-  --secondary-bg-darkmode: #1B1F23
+  --secondary-bg-darkmode: #1B1F23;
+  --table-separator-color: #E8E8E8;
+  --standard-blue: #0B65C2;
   
 }
 
@@ -52,11 +54,7 @@ main {
 }
 
 
-table {
-  table-layout: fixed;
-  width: 100%;
-  overflow: hidden;
-}
+
 
 .submit-button {
   background-color: #0b65c2;
@@ -74,8 +72,6 @@ table {
   font-size: 1.5rem;
   font-weight: bold
 }
-
-
 
 
 /* The search box input and search button */
@@ -114,6 +110,31 @@ table {
   gap: 10px;
 }
 
+
+.keyword-search-button {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+
+/* TABLE CSS */
+
+
+tr {
+  position: relative;
+}
+
+tr::after {
+  content: "";
+  position: absolute;
+  height: 0px;
+  width: 90%;
+  left: 5%;
+  margin-right: 10%;
+  border: 1px solid var(--color-border-faint)
+}
+
 /*pads table contents within table */
 .table-spacer {
   padding: 20px 0px;
@@ -126,11 +147,12 @@ table {
   background-color: white;
 }
 
-.keyword-search-button {
+table {
+  table-layout: fixed;
   width: 100%;
-  display: flex;
-  flex-direction: column;
+  overflow: hidden;
 }
+
 
 /*The second column (could also do tbody tr td:nth-child() */
 .select-artist-form thead tr th:nth-child(2){
@@ -157,9 +179,12 @@ table img {
   border-radius: 25px;
 }
 
-section {
+section, .section-spacing {
   margin-bottom: 40px;
 }
+
+
+/* MEDIA QUERIES */
 
 @media screen and (min-width: 768px) {
   main {
