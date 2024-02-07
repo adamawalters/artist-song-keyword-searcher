@@ -67,6 +67,11 @@ main {
   text-decoration: none;
 }
 
+.submit-button:hover{
+  background-color: var(--selected-blue-color);
+  color: var(--color-text);
+}
+
 /*Span holding directions ex. "enter an artist" */
 .direction-label {
   font-size: 1.5rem;
@@ -135,6 +140,7 @@ tr::after {
 
 tr:hover {
   background-color: var(--selected-blue-color);
+  color: var(--color-text)
 }
 
 .selected-table-row {
@@ -225,6 +231,10 @@ section, .section-spacing {
     background-color: black;
   }
 
+  .submit-button:hover, tr:hover {
+    color: #000000e6
+  }
+
  .result-table, footer, input {
     background-color: var(--secondary-bg-darkmode)
   }
@@ -234,7 +244,7 @@ section, .section-spacing {
   }
 
  
-}
+} 
 
 
 
