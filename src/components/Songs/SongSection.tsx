@@ -134,13 +134,13 @@ const SongSection = ({ selectedArtist, token }: SongSectionProps) => {
         />
         <div className="keyword-search-button">
           <button type="submit" className="submit-button">
-            See how many songs by {selectedArtist.name} have the keyword
+            Submit
           </button>
         </div>
         {numSongsWithKeyword !== undefined ? (
           <div className="song-result-spacer">
             <span className="direction-label">
-              Results: there are {numSongsWithKeyword} songs by {lastUsedArtistName} with "{lastUsedKeyword}" in the song title
+              Results - there are {numSongsWithKeyword} songs by {lastUsedArtistName} with "{lastUsedKeyword}" in the song title
             </span>
             <div className="table-spacer">{songTable}</div>
           </div>
