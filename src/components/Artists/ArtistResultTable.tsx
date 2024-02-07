@@ -42,7 +42,7 @@ const ArtistResultTable = ({
         Search results - please select an artist{" "}
       </span>
       <form className="select-artist-form">
-        <div className="table-spacer">{artistTable}</div>
+        {artistTable}
         </form>
     </div>
   );

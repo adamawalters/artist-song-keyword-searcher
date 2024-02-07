@@ -4,7 +4,8 @@
   --secondary-bg-darkmode: #1B1F23;
   --table-separator-color: #E8E8E8;
   --standard-blue: #0B65C2;
-  --selected-blue-color: #D7E9FB
+  --selected-blue-color: #D7E9FB;
+  --dark-gray-bg: #f4f2ee;
   
 }
 
@@ -17,7 +18,7 @@
 }
 
 #root {
-  background-color: #f4f2ee;
+  background-color: var(--dark-gray-bg);
   color: var(--color-text);
   display: flex;
   flex-direction: column;
@@ -214,6 +215,7 @@ section, .section-spacing {
 }
 
 
+
 @media (prefers-color-scheme: dark) {
   :root {
     --color-text: white;
@@ -223,7 +225,7 @@ section, .section-spacing {
     background-color: black;
   }
 
-  .table-spacer, .result-table, footer, input {
+ .result-table, footer, input {
     background-color: var(--secondary-bg-darkmode)
   }
 

@@ -117,7 +117,7 @@ const SongSection = ({ selectedArtist, token }: SongSectionProps) => {
     <div>
       <form className="center-container" onSubmit={submitKeywordSearch}>
         <label htmlFor="search-artist">
-          <span className="direction-label">Enter a keyword to search in song titles by {selectedArtist.name}</span>
+          <span className="direction-label">Enter a keyword to search song titles by {selectedArtist.name}</span>
         </label>
         <input
           className="search-box"
@@ -132,7 +132,7 @@ const SongSection = ({ selectedArtist, token }: SongSectionProps) => {
         />
         <div className="keyword-search-button">
           <button type="submit" className="submit-button">
-            See how many songs by {selectedArtist.name} have the keyword!
+            See how many songs by {selectedArtist.name} have the keyword
           </button>
         </div>
           {numSongsWithKeyword ? 
