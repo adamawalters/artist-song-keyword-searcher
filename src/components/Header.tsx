@@ -4,15 +4,9 @@ import "./../CSS/header.css";
 
 const Header = () => {
   const [navOpen, setNavOpen] = useState(false);
-  const navbar = useRef<HTMLElement>(null);
 
-  useEffect(() => {
-    if (navbar.current) {
-      navOpen
-        ? (navbar.current.style.display = "block")
-        : (navbar.current.style.display = "none");
-    }
-  }, [navOpen]);
+
+  /* TODO: only show logout button when logged in. This state is in a sibling state (AppRoutes)*/
 
   function logOut() {
     localStorage.removeItem("token")
@@ -32,7 +26,7 @@ const Header = () => {
         </div>
         <span onClick={() => setNavOpen(!navOpen)}>{!navOpen? <i className="fa fa-bars"></i> : <i className="fa fa-times"></i> }</span>
       </div>
-      <nav className="navbar" ref={navbar}>
+      <nav className="navbar" style={navOpen ? {display: "block"} : {display: "none"}}>
         <a href="#" onClick={()=>logOut()}>Logout</a>
       </nav>
     </header>

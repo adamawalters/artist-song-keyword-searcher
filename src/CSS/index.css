@@ -4,7 +4,8 @@
   --secondary-bg-darkmode: #1B1F23;
   --table-separator-color: #E8E8E8;
   --standard-blue: #0B65C2;
-  --selected-blue-color: #D7E9FB
+  --selected-blue-color: #D7E9FB;
+  --dark-gray-bg: #f4f2ee;
   
 }
 
@@ -17,7 +18,7 @@
 }
 
 #root {
-  background-color: #f4f2ee;
+  background-color: var(--dark-gray-bg);
   color: var(--color-text);
   display: flex;
   flex-direction: column;
@@ -64,6 +65,11 @@ main {
   font-size: 1rem;
   border: none;
   text-decoration: none;
+}
+
+.submit-button:hover{
+  background-color: var(--selected-blue-color);
+  color: var(--color-text);
 }
 
 /*Span holding directions ex. "enter an artist" */
@@ -134,6 +140,7 @@ tr::after {
 
 tr:hover {
   background-color: var(--selected-blue-color);
+  color: var(--color-text)
 }
 
 .selected-table-row {
@@ -214,6 +221,7 @@ section, .section-spacing {
 }
 
 
+
 @media (prefers-color-scheme: dark) {
   :root {
     --color-text: white;
@@ -223,7 +231,11 @@ section, .section-spacing {
     background-color: black;
   }
 
-  .table-spacer, .result-table, footer, input {
+  .submit-button:hover, tr:hover {
+    color: #000000e6
+  }
+
+ .result-table, footer, input {
     background-color: var(--secondary-bg-darkmode)
   }
 
@@ -232,7 +244,7 @@ section, .section-spacing {
   }
 
  
-}
+} 
 
 
 
