@@ -5,15 +5,12 @@ import "./../CSS/header.css";
 const Header = () => {
   const [navOpen, setNavOpen] = useState(false);
 
-
   /* TODO: only show logout button when logged in. This state is in a sibling state (AppRoutes)*/
 
   function logOut() {
-    localStorage.removeItem("token")
-    location.reload()
+    localStorage.removeItem("token");
+    location.reload();
   }
-
-  
 
   return (
     <header>
@@ -24,10 +21,17 @@ const Header = () => {
             Artist Song Keyword Search
           </span>
         </div>
-        <span onClick={() => setNavOpen(!navOpen)}>{!navOpen? <i className="fa fa-bars"></i> : <i className="fa fa-times"></i> }</span>
+        <span onClick={() => setNavOpen(!navOpen)}>
+          <i className={navOpen ? "fa fa-times" : "fa fa-bars"}></i>
+        </span>
       </div>
-      <nav className="navbar" style={navOpen ? {display: "block"} : {display: "none"}}>
-        <a href="#" onClick={()=>logOut()}>Logout</a>
+      <nav
+        className="navbar"
+        style={{display: navOpen ? "block" : "none" }}
+      >
+        <a href="#" onClick={() => logOut()}>
+          Logout
+        </a>
       </nav>
     </header>
   );

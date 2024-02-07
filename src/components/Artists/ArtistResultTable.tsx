@@ -38,9 +38,9 @@ const ArtistResultTable = ({
 
   return (
     <div className="center-container">
-      <span className="direction-label">
-        Search results - please select an artist{" "}
-      </span>
+      <p className="direction-label">
+        Select an artist from search results{" "}
+      </p>
       <form className="select-artist-form">
         {artistTable}
         </form>

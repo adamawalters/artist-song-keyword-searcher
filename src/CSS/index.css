@@ -22,6 +22,7 @@
   color: var(--color-text);
   display: flex;
   flex-direction: column;
+  align-items: center;
   min-height: 100vh;
 }
 
@@ -75,7 +76,8 @@ main {
 /*Span holding directions ex. "enter an artist" */
 .direction-label {
   font-size: 1.5rem;
-  font-weight: bold
+  font-weight: bold;
+  text-align: center;
 }
 
 
@@ -216,7 +218,7 @@ section, .section-spacing {
 
 @media screen and (min-width: 768px) {
   main {
-    margin: 20px 200px
+    width: 30%;
   }
 }
 

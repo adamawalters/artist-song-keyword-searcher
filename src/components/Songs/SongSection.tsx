@@ -114,12 +114,11 @@ const SongSection = ({ selectedArtist, token }: SongSectionProps) => {
   );
 
   return (
-    <div>
       <form className="center-container" onSubmit={submitKeywordSearch}>
         <label htmlFor="search-artist">
-          <span className="direction-label">
+          <p className="direction-label">
             Enter a keyword to search song titles by {selectedArtist.name}
-          </span>
+          </p>
         </label>
         <input
           className="search-box"
@@ -146,7 +145,6 @@ const SongSection = ({ selectedArtist, token }: SongSectionProps) => {
           </div>
         ) : null}
       </form>
-    </div>
   );
 };
 

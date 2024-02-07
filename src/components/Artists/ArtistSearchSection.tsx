@@ -18,7 +18,7 @@ const ArtistSearchSection = ({ handleArtistSearch }: ArtistSearchSectionProps) =
 
   const form = (
     <form className="center-container" onSubmit={handleSubmit}>
-      <label htmlFor="artistSearch"><span className="direction-label">Search for an artist</span></label>
+      <label htmlFor="artistSearch"><p className="direction-label">Search for an artist</p></label>
       <div className="search-input">
         <input
           className="search-box"
