@@ -16,8 +16,8 @@ const SongSection = ({ selectedArtist, token }: SongSectionProps) => {
   const [songs, setSongs] = useState<null | Array<Song>>(null);
   const [searchKeyword, setSearchKeyword] = useState<string>("");
   const [lastUsedKeyword, setLastUsedKeyword] = useState<string>("");
-  const [lastUsedArtistName, setLastUsedArtistName] = useState<string>("")
-  const [numSongsWithKeyword, setNumSongsWithKeyword] = useState(0);
+  const [lastUsedArtistName, setLastUsedArtistName] = useState<string>("");
+  const [numSongsWithKeyword, setNumSongsWithKeyword] = useState<number | undefined>();
 
   async function submitKeywordSearch(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -117,7 +117,9 @@ const SongSection = ({ selectedArtist, token }: SongSectionProps) => {
     <div>
       <form className="center-container" onSubmit={submitKeywordSearch}>
         <label htmlFor="search-artist">
-          <span className="direction-label">Enter a keyword to search song titles by {selectedArtist.name}</span>
+          <span className="direction-label">
+            Enter a keyword to search song titles by {selectedArtist.name}
+          </span>
         </label>
         <input
           className="search-box"
@@ -135,18 +137,14 @@ const SongSection = ({ selectedArtist, token }: SongSectionProps) => {
             See how many songs by {selectedArtist.name} have the keyword
           </button>
         </div>
-          {numSongsWithKeyword ? 
+        {numSongsWithKeyword !== undefined ? (
           <div className="song-result-spacer">
             <span className="direction-label">
-              {numSongsWithKeyword
-                ? `Results: there are ${numSongsWithKeyword} songs by
-              ${lastUsedArtistName} with
-              "${lastUsedKeyword}" in the song title`
-                : null}
+              Results: there are {numSongsWithKeyword} songs by {lastUsedArtistName} with "{lastUsedKeyword}" in the song title
             </span>
             <div className="table-spacer">{songTable}</div>
           </div>
-          : null}
+        ) : null}
       </form>
     </div>
   );
