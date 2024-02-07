@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from "react";
+import { useState } from "react";
 import MusicIcon from "../assets/music-icon.png";
 import "./../CSS/header.css";
 
