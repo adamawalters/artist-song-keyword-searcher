@@ -75,7 +75,8 @@ main {
 /*Span holding directions ex. "enter an artist" */
 .direction-label {
   font-size: 1.5rem;
-  font-weight: bold
+  font-weight: bold;
+  text-align: center;
 }
 
 
@@ -124,44 +125,6 @@ main {
 /* TABLE CSS */
 
 
-tr {
-  position: relative;
-}
-
-tr::after {
-   content: "";
-   position: absolute; 
-  height: 0px;
-  width: 90%;
-  left: 5%;
-  margin-right: 10%;
-  border-bottom: 1px solid var(--color-border-faint);
-}
-
-tr:hover {
-  background-color: var(--selected-blue-color);
-  color: var(--color-text)
-}
-
-.selected-table-row {
-  background-color: var(--selected-blue-color);
-}
-
-
-.result-table {
-  border-collapse: collapse;
-  background-color: white;
-}
-
-table {
-  table-layout: fixed;
-  width: 100%;
-  overflow: hidden; 
-  border-radius: 25px;
-}
-
-
-
 /* Setting width of artist result table columns */
 
 
@@ -178,29 +141,33 @@ table {
 }
 
 
-thead {
+thead, thead tr th {
   background-color: var(--standard-blue);
   color: white;
 }
 
+/*
+
 thead tr th {
   padding: 10px;
 }
-
+*/
 
 /* Song result table colummns - need to explicitly set width to center the songs if using tr::after*/
+
+/*
 .song-results thead tr th:nth-child(1){
   width: 100%;
 }
 
-
+/*
 
 td {
   padding: 10px;
   text-align: center;
   width: 100%;
 }
-
+*/
 table img {
   object-fit:scale-down;
   width: 100%;
@@ -211,14 +178,32 @@ section, .section-spacing {
   margin-bottom: 40px;
 }
 
+.table-row {
+
+}
+
 
 /* MEDIA QUERIES */
 
+/* If small (but not very small) */
+@media screen and (min-width: 576px) {
+  main {
+    width: 500px
+  }
+
+ 
+} 
+
+/* If medium */
 @media screen and (min-width: 768px) {
   main {
-    margin: 20px 200px
+    width: 600px
   }
-}
+ 
+} 
+
+
+
 
 
 
@@ -226,6 +211,23 @@ section, .section-spacing {
   :root {
     --color-text: white;
   }
+
+  /* MUI Table Cell - overriding for dark mode TODO*/
+.css-1yhpg23-MuiTableCell-root {
+  color: white !important
+ }
+
+ /* MUI Radio Button - not using due to dark mode TODO*/
+ .css-1m9pwf3 {
+
+ }
+
+ /*TODO: make hover more visible on dark mode */
+
+ /* MUI pagination toolbar*/
+ .css-78c6dr-MuiToolbar-root-MuiTablePagination-toolbar {
+  color: white !important
+ }
 
   #root {
     background-color: black;

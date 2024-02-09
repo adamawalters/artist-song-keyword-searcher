@@ -1,6 +1,7 @@
-import { ChangeEvent, useState, FormEvent } from "react";
+import { useState } from "react";
 import { Artist, Song, TrackResponse } from "../../Types";
-import SongRow from "./SongRow";
+import KeywordSearchSection from "./KeywordSearchSection";
+import SongTable from "./SongTable";
 
 export type SongSectionProps = {
   selectedArtist: Artist;
@@ -8,22 +9,17 @@ export type SongSectionProps = {
 };
 
 const SongSection = ({ selectedArtist, token }: SongSectionProps) => {
-  /* use the selected artist ID to fetch top songs by the artist by default - there will be a SongList component
-     have a search box for keyword that will update the songList Component  (will search the artist's songs that have a keyword)
-     After the user searches, have a counter for number of songs in the songlist 
-  */
 
   const [songs, setSongs] = useState<null | Array<Song>>(null);
-  const [searchKeyword, setSearchKeyword] = useState<string>("");
   const [lastUsedKeyword, setLastUsedKeyword] = useState<string>("");
   const [lastUsedArtistName, setLastUsedArtistName] = useState<string>("");
   const [numSongsWithKeyword, setNumSongsWithKeyword] = useState<number | undefined>();
 
-  async function submitKeywordSearch(e: FormEvent<HTMLFormElement>) {
-    e.preventDefault();
+
+  async function submitKeywordSearch(searchKeyword: string) {
     setLastUsedKeyword(searchKeyword);
     setLastUsedArtistName(selectedArtist.name);
-    //setSongs(null)
+    //setSongs(null) - add loading in the future
 
     const params = new URLSearchParams({
       q: `track:"${searchKeyword}" artist:"${selectedArtist.name}"`,
@@ -98,55 +94,19 @@ const SongSection = ({ selectedArtist, token }: SongSectionProps) => {
     setSongs(nameFilteredTracks);
   }
 
-  const songTable = (
-    <table className="result-table song-results">
-      <thead>
-        <tr>
-          <th>Song Name</th>
-        </tr>
-      </thead>
-      <tbody>
-        {songs
-          ? songs.map((song) => <SongRow song={song} key={song.id} />)
-          : null}
-      </tbody>
-    </table>
-  );
-
+ 
   return (
-    <div>
-      <form className="center-container" onSubmit={submitKeywordSearch}>
-        <label htmlFor="search-artist">
-          <span className="direction-label">
-            Enter a keyword to search song titles by {selectedArtist.name}
-          </span>
-        </label>
-        <input
-          className="search-box"
-          type="text"
-          name="search-artist"
-          onChange={(e: ChangeEvent<HTMLInputElement>) =>
-            setSearchKeyword(e.target.value)
-          }
-          value={searchKeyword}
-          placeholder="Love"
-          required
-        />
-        <div className="keyword-search-button">
-          <button type="submit" className="submit-button">
-            Submit
-          </button>
-        </div>
+    <>
+        <KeywordSearchSection selectedArtist={selectedArtist} submitKeywordSearch={submitKeywordSearch}/>
         {numSongsWithKeyword !== undefined ? (
           <div className="song-result-spacer">
             <span className="direction-label">
               Results - there are {numSongsWithKeyword} songs by {lastUsedArtistName} with "{lastUsedKeyword}" in the song title
             </span>
-            <div className="table-spacer">{songTable}</div>
+              <SongTable songs={songs} /> 
           </div>
         ) : null}
-      </form>
-    </div>
+      </>
   );
 };
 

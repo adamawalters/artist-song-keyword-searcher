@@ -1,50 +1,84 @@
-import { useState } from "react";
-import { Artist } from "Types";
-import ArtistResultTable from "./ArtistResultTable";
+import { useState, useCallback } from "react";
+import { Artist, ArtistSearchResponse } from "Types";
 import ArtistSearchSection from "./ArtistSearchSection";
+import ArtistResultTable from "./ArtistResultTable";
 
 type ArtistSectionProps = {
-    selectedArtist: Artist | null;
-    setSelectedArtist: React.Dispatch<React.SetStateAction<Artist | null>>;
-    token: string;
-}
+  selectedArtist: Artist | null;
+  setSelectedArtist: React.Dispatch<React.SetStateAction<Artist | null>>;
+  token: string;
+};
 
-const ArtistSection = ({ selectedArtist, setSelectedArtist, token }: ArtistSectionProps) => {
+const ArtistSection = ({
+  selectedArtist,
+  setSelectedArtist,
+  token,
+}: ArtistSectionProps) => {
   const [artists, setArtists] = useState<null | Array<Artist>>(null);
+  const [searchKey, setSearchKey] = useState<string>("");
+  const [totalArtistsInResponse, setTotalArtistsInResponse] = useState<
+    null | number
+  >(null);
 
-  /* TODO: add pagination so users can select between more than the top 5 artists that show up */
-  async function handleArtistSearch(searchKey: string) {
-    const params = new URLSearchParams({
-      q: searchKey,
-      type: "artist",
-      limit: "5",
-    });
+  
+  const loadArtists = useCallback(
+    async (offset: number, searchStringFromArtistSearch?: string) => {
 
-    const response = await fetch(
-      `https://api.spotify.com/v1/search?${params}`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+      /* Set the search key state to the string from artist search so function can be called by ArtistResultTable without a new search key when called later */
+      if (searchStringFromArtistSearch) {
+        setSearchKey(searchStringFromArtistSearch);
       }
-    );
 
-    const parsedResponse = await response.json();
-    const responseArtists = parsedResponse.artists.items as Array<Artist>;
+      /*Use string from artist search if available, otherwise searchKey within state */
+      const searchText = searchStringFromArtistSearch || searchKey;
 
-    setArtists(responseArtists);
+      const abortController = new AbortController();
+
+      const params = new URLSearchParams({
+        q: searchText,
+        type: "artist",
+        market: "US",
+        limit: "10",
+        offset: offset.toString(),
+      });
+
+      const response = await fetch(
+        `https://api.spotify.com/v1/search?${params}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          signal: abortController.signal,
+        }
+      );
+
+      const parsedResponse: ArtistSearchResponse = await response.json();
+      const responseArtists = parsedResponse.artists.items;
+      setTotalArtistsInResponse(parsedResponse.artists.total);
+      setArtists(responseArtists);
+      return () => abortController.abort();
+    },
+    [searchKey, token]
+  );
+
+  async function handleArtistSearch(newSearchKey: string) {
+    loadArtists(0, newSearchKey);
   }
+
 
   return (
     <>
       <div className="section-spacing">
-          <ArtistSearchSection handleArtistSearch={handleArtistSearch} />
+        <ArtistSearchSection handleArtistSearch={handleArtistSearch} />
       </div>
       {artists ? (
         <ArtistResultTable
           artists={artists}
           setSelectedArtist={setSelectedArtist}
           selectedArtist={selectedArtist}
+          loadArtists={loadArtists}
+          totalArtistsInResponse={totalArtistsInResponse ?? 0}
+          searchKey={searchKey}
         />
       ) : null}
     </>

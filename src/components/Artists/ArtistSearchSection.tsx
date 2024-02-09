@@ -1,7 +1,7 @@
 import { ChangeEvent, FormEvent, useState } from "react";
 
 type ArtistSearchSectionProps = {
-  handleArtistSearch: (searchKey: string) => Promise<void>;
+  handleArtistSearch: (searchKey: string) => void;
 };
 
 const ArtistSearchSection = ({ handleArtistSearch }: ArtistSearchSectionProps) => {
@@ -18,7 +18,7 @@ const ArtistSearchSection = ({ handleArtistSearch }: ArtistSearchSectionProps) =
 
   const form = (
     <form className="center-container" onSubmit={handleSubmit}>
-      <label htmlFor="artistSearch"><span className="direction-label">Search for an artist</span></label>
+      <label htmlFor="artistSearch"><p className="direction-label">Search for an artist</p></label>
       <div className="search-input">
         <input
           className="search-box"

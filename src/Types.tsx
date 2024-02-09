@@ -12,8 +12,9 @@ export interface Artist {
 }
 
 export interface Song {
-    name: string
-    id: string
+    name: string,
+    id: string,
+    uri: string,
     external_ids :{
         isrc: string,
         ean: string,
@@ -40,5 +41,18 @@ export interface TrackResponse {
 export interface Token {
     value: string,
     expiration: number
+}
+
+export interface ArtistSearchResponse {
+    artists: {
+        href: string,
+        limit: number,
+        next: string,
+        offset: number,
+        previous: number,
+        total: number, 
+        items: Array<Artist>
+
+    }
 }
 
