@@ -22,7 +22,7 @@
   color: var(--color-text);
   display: flex;
   flex-direction: column;
-  /* align-items: center; */
+  align-items: center; 
   min-height: 100vh;
 }
 
@@ -125,44 +125,6 @@ main {
 
 /* TABLE CSS */
 
-/*
-tr {
-  position: relative;
-}
-
-tr::after {
-   content: "";
-   position: absolute; 
-  height: 0px;
-  width: 90%;
-  left: 5%;
-  margin-right: 10%;
-  border-bottom: 1px solid var(--color-border-faint);
-}
-
-tr:hover {
-  background-color: var(--selected-blue-color);
-  color: var(--color-text)
-}
-
-.selected-table-row {
-  background-color: var(--selected-blue-color);
-}
-
-
-.result-table {
-  border-collapse: collapse;
-  background-color: white;
-}
-
-table {
-  table-layout: fixed;
-  width: 100%;
-  overflow: hidden; 
-  border-radius: 25px;
-}
-*/
-
 
 /* Setting width of artist result table columns */
 
@@ -178,12 +140,14 @@ table {
 .select-artist-form thead tr th:nth-child(1){
   width: 40%;
 }
-/*
 
-thead {
+
+thead, thead tr th {
   background-color: var(--standard-blue);
   color: white;
 }
+
+/*
 
 thead tr th {
   padding: 10px;
@@ -197,7 +161,7 @@ thead tr th {
   width: 100%;
 }
 
-
+/*
 
 td {
   padding: 10px;
@@ -215,17 +179,32 @@ section, .section-spacing {
   margin-bottom: 40px;
 }
 
+.table-row {
+
+}
 
 
 /* MEDIA QUERIES */
 
-@media screen and (min-width: 768px) {
+/* If small (but not very small) */
+@media screen and (min-width: 576px) {
   main {
-    padding: 0 15vw
+    width: 500px
   }
 
  
-}
+} 
+
+/* If medium */
+@media screen and (min-width: 768px) {
+  main {
+    width: 600px
+  }
+ 
+} 
+
+
+
 
 
 
@@ -233,6 +212,23 @@ section, .section-spacing {
   :root {
     --color-text: white;
   }
+
+  /* MUI Table Cell - overriding for dark mode TODO*/
+.css-1yhpg23-MuiTableCell-root {
+  color: white !important
+ }
+
+ /* MUI Radio Button - not using due to dark mode TODO*/
+ .css-1m9pwf3 {
+
+ }
+
+ /*TODO: make hover more visible on dark mode */
+
+ /* MUI pagination toolbar*/
+ .css-78c6dr-MuiToolbar-root-MuiTablePagination-toolbar {
+  color: white !important
+ }
 
   #root {
     background-color: black;

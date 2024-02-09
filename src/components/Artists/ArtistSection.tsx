@@ -1,84 +1,86 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useCallback } from "react";
 import { Artist, ArtistSearchResponse } from "Types";
-import ArtistResultTable from "./ArtistResultTable";
 import ArtistSearchSection from "./ArtistSearchSection";
-import NewArtistResultTable from "./NewArtistResultTable";
+import ArtistResultTable from "./ArtistResultTable";
 
 type ArtistSectionProps = {
-    selectedArtist: Artist | null;
-    setSelectedArtist: React.Dispatch<React.SetStateAction<Artist | null>>;
-    token: string;
-}
+  selectedArtist: Artist | null;
+  setSelectedArtist: React.Dispatch<React.SetStateAction<Artist | null>>;
+  token: string;
+};
 
-const ArtistSection = ({ selectedArtist, setSelectedArtist, token }: ArtistSectionProps) => {
-  
+const ArtistSection = ({
+  selectedArtist,
+  setSelectedArtist,
+  token,
+}: ArtistSectionProps) => {
   const [artists, setArtists] = useState<null | Array<Artist>>(null);
-  const [searchKey, setSearchKey] = useState<string>("")
-  const [ totalArtistsInResponse, setTotalArtistsInResponse] = useState<null | number>(null)
+  const [searchKey, setSearchKey] = useState<string>("");
+  const [totalArtistsInResponse, setTotalArtistsInResponse] = useState<
+    null | number
+  >(null);
+
   
-  const loadArtists = useCallback(async (offset: number = 0)=>{
-    //setArtists(null) - in future add loading
+  const loadArtists = useCallback(
+    async (offset: number, searchStringFromArtistSearch?: string) => {
 
-    const abortController = new AbortController()
-
-    const params = new URLSearchParams({
-      q: searchKey,
-      type: "artist",
-      market: "US",
-      limit: "10",
-      offset: offset.toString()
-  })  
-
-    const response = await fetch(
-      `https://api.spotify.com/v1/search?${params}`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        signal: abortController.signal
+      /* Set the search key state to the string from artist search so function can be called by ArtistResultTable without a new search key when called later */
+      if (searchStringFromArtistSearch) {
+        setSearchKey(searchStringFromArtistSearch);
       }
-    );
 
-    const parsedResponse : ArtistSearchResponse= await response.json();
-    const responseArtists = parsedResponse.artists.items 
-    setTotalArtistsInResponse(parsedResponse.artists.total)  
-    
-    setArtists(responseArtists);
-    return ()=> abortController.abort();
-    
-  }, [searchKey, token])
+      /*Use string from artist search if available, otherwise searchKey within state */
+      const searchText = searchStringFromArtistSearch || searchKey;
 
-  async function handleArtistSearch(newSearchKey : string) {
-    setSearchKey(newSearchKey);
+      const abortController = new AbortController();
+
+      const params = new URLSearchParams({
+        q: searchText,
+        type: "artist",
+        market: "US",
+        limit: "10",
+        offset: offset.toString(),
+      });
+
+      const response = await fetch(
+        `https://api.spotify.com/v1/search?${params}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          signal: abortController.signal,
+        }
+      );
+
+      const parsedResponse: ArtistSearchResponse = await response.json();
+      const responseArtists = parsedResponse.artists.items;
+      setTotalArtistsInResponse(parsedResponse.artists.total);
+      setArtists(responseArtists);
+      return () => abortController.abort();
+    },
+    [searchKey, token]
+  );
+
+  async function handleArtistSearch(newSearchKey: string) {
+    loadArtists(0, newSearchKey);
   }
 
 
-  useEffect(() => {
-    if(!searchKey) return;
-    loadArtists();
-  
-  }, [searchKey, loadArtists])
-
-
- 
   return (
     <>
       <div className="section-spacing">
-          <ArtistSearchSection handleArtistSearch={handleArtistSearch} />
+        <ArtistSearchSection handleArtistSearch={handleArtistSearch} />
       </div>
-      {artists ? 
-        // <ArtistResultTable
-        //   artists={artists}
-        //   setSelectedArtist={setSelectedArtist}
-        //   selectedArtist={selectedArtist}
-        // />
-       <NewArtistResultTable 
-           artists={artists}
-           setSelectedArtist={setSelectedArtist}
-           selectedArtist={selectedArtist}
-           loadArtists={loadArtists}
-           totalArtistsInResponse={totalArtistsInResponse ?? 0}
-      /> : null}
+      {artists ? (
+        <ArtistResultTable
+          artists={artists}
+          setSelectedArtist={setSelectedArtist}
+          selectedArtist={selectedArtist}
+          loadArtists={loadArtists}
+          totalArtistsInResponse={totalArtistsInResponse ?? 0}
+          searchKey={searchKey}
+        />
+      ) : null}
     </>
   );
 };

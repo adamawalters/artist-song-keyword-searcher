@@ -12,8 +12,9 @@ export interface Artist {
 }
 
 export interface Song {
-    name: string
-    id: string
+    name: string,
+    id: string,
+    uri: string,
     external_ids :{
         isrc: string,
         ean: string,
