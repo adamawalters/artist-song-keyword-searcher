@@ -42,3 +42,16 @@ export interface Token {
     expiration: number
 }
 
+export interface ArtistSearchResponse {
+    artists: {
+        href: string,
+        limit: number,
+        next: string,
+        offset: number,
+        previous: number,
+        total: number, 
+        items: Array<Artist>
+
+    }
+}
+

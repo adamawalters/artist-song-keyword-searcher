@@ -1,7 +1,7 @@
 import { ChangeEvent, FormEvent, useState } from "react";
 
 type ArtistSearchSectionProps = {
-  handleArtistSearch: (searchKey: string) => Promise<void>;
+  handleArtistSearch: (searchKey: string) => void;
 };
 
 const ArtistSearchSection = ({ handleArtistSearch }: ArtistSearchSectionProps) => {

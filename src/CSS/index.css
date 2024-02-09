@@ -22,7 +22,7 @@
   color: var(--color-text);
   display: flex;
   flex-direction: column;
-  align-items: center;
+  /* align-items: center; */
   min-height: 100vh;
 }
 
@@ -125,7 +125,7 @@ main {
 
 /* TABLE CSS */
 
-
+/*
 tr {
   position: relative;
 }
@@ -161,7 +161,7 @@ table {
   overflow: hidden; 
   border-radius: 25px;
 }
-
+*/
 
 
 /* Setting width of artist result table columns */
@@ -178,7 +178,7 @@ table {
 .select-artist-form thead tr th:nth-child(1){
   width: 40%;
 }
-
+/*
 
 thead {
   background-color: var(--standard-blue);
@@ -188,9 +188,11 @@ thead {
 thead tr th {
   padding: 10px;
 }
-
+*/
 
 /* Song result table colummns - need to explicitly set width to center the songs if using tr::after*/
+
+/*
 .song-results thead tr th:nth-child(1){
   width: 100%;
 }
@@ -202,7 +204,7 @@ td {
   text-align: center;
   width: 100%;
 }
-
+*/
 table img {
   object-fit:scale-down;
   width: 100%;
@@ -214,12 +216,15 @@ section, .section-spacing {
 }
 
 
+
 /* MEDIA QUERIES */
 
 @media screen and (min-width: 768px) {
   main {
-    width: 30%;
+    padding: 0 15vw
   }
+
+ 
 }
 
 
