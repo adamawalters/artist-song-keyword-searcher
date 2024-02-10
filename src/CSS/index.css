@@ -215,7 +215,7 @@ section, .section-spacing {
 
   /* MUI Table Cell - overriding for dark mode TODO*/
 .css-1yhpg23-MuiTableCell-root {
-  color: white !important
+  color: green !important
  }
 
  /* MUI Radio Button - not using due to dark mode TODO*/
