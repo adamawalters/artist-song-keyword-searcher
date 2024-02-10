@@ -1,5 +1,5 @@
 import ArtistSection from "./Artists/ArtistSection";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Artist } from "../Types";
 import SongSection from "./Songs/SongSection";
 
@@ -11,6 +11,13 @@ const Main = ({ token }: SearchProps) => {
   
   const [selectedArtist, setSelectedArtist] = useState<null | Artist>(null);
 
+  const songSection = useRef<null | HTMLDivElement>(null)
+
+  useEffect(()=>{
+    songSection.current?.scrollIntoView({behavior: "smooth"})
+  }, [selectedArtist])
+
+
   return (
     <>
       <section>
@@ -20,7 +27,7 @@ const Main = ({ token }: SearchProps) => {
         token={token}
         />
       </section>
-      <section id="song-section">
+      <section id="song-section" ref={songSection}>
         {selectedArtist ? (
           <SongSection selectedArtist={selectedArtist} token={token} />
         ) : null}
