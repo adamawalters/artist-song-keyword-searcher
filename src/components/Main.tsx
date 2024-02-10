@@ -20,7 +20,7 @@ const Main = ({ token }: SearchProps) => {
         token={token}
         />
       </section>
-      <section>
+      <section id="song-section">
         {selectedArtist ? (
           <SongSection selectedArtist={selectedArtist} token={token} />
         ) : null}
