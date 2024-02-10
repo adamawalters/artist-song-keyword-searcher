@@ -18,7 +18,7 @@ const Header = () => {
         <div className="title-icon">
           <img src={MusicIcon} />
           <span onClick={() => window.scrollTo(0, 0)}>
-            Artist Song Keyword Search
+            TuneTrail
           </span>
         </div>
         <span onClick={() => setNavOpen(!navOpen)}>

@@ -213,20 +213,18 @@ section, .section-spacing {
     --color-text: white;
   }
 
-  /* MUI Table Cell - overriding for dark mode TODO*/
-.css-1yhpg23-MuiTableCell-root {
+  /* MUI Table Cell in body - overriding for dark mode TODO*/
+.MuiTableCell-body {
   color: white !important
  }
 
- /* MUI Radio Button - not using due to dark mode TODO*/
- .css-1m9pwf3 {
-
- }
+ /* TODO: use MUI Radio Button - not using due to dark mode TODO*/
+ 
 
  /*TODO: make hover more visible on dark mode */
 
  /* MUI pagination toolbar*/
- .css-78c6dr-MuiToolbar-root-MuiTablePagination-toolbar {
+ .MuiTablePagination-toolbar {
   color: white !important
  }
 

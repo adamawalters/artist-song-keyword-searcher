@@ -108,6 +108,6 @@ const SongSection = ({ selectedArtist, token }: SongSectionProps) => {
         ) : null}
       </>
   );
-};
+}; 
 
 export default SongSection;
