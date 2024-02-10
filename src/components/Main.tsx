@@ -3,11 +3,11 @@ import { useEffect, useRef, useState } from "react";
 import { Artist } from "../Types";
 import SongSection from "./Songs/SongSection";
 
-export type SearchProps = {
+export type MainProps = {
   token: string;
 };
 
-const Main = ({ token }: SearchProps) => {
+const Main = ({ token }: MainProps) => {
   
   const [selectedArtist, setSelectedArtist] = useState<null | Artist>(null);
 

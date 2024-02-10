@@ -22,10 +22,12 @@ const SongSection = ({ selectedArtist, token }: SongSectionProps) => {
     //setSongs(null) - add loading in the future
 
     const params = new URLSearchParams({
-      q: `track:"${searchKeyword}" artist:"${selectedArtist.name}"`,
+      query: `track:"${searchKeyword}" artist:${selectedArtist.name}`,
       type: `track`,
       market: `US`,
     });
+
+    
 
     const response = await fetch(
       `https://api.spotify.com/v1/search?${params}`,
