@@ -20,7 +20,7 @@ const AppRoutes = () => {
         .split("&")
         .find((elem) => elem.startsWith("access_token"))
         ?.split("=")[1];
-      //window.location.hash = "";
+        window.location.hash = "";
       if (tokenFromUrl) {
         const tokenToSet = {
           value: tokenFromUrl,
