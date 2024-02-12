@@ -3,11 +3,12 @@ import Main from "./Main";
 import Login from "./LoginPage";
 import ErrorAlert from "./ErrorAlert";
 import { Token } from "../Types";
+import Header from "./Header";
+import Footer from "./Footer";
 
 const AppRoutes = () => {
   const [token, setToken] = useState<string | null | undefined>("");
   const [error, setError] = useState<null | { message: string }>(null);
-
 
   useEffect(() => {
     const hash = window.location.hash;
@@ -20,7 +21,7 @@ const AppRoutes = () => {
         .split("&")
         .find((elem) => elem.startsWith("access_token"))
         ?.split("=")[1];
-        window.location.hash = "";
+      window.location.hash = "";
       if (tokenFromUrl) {
         const tokenToSet = {
           value: tokenFromUrl,
@@ -48,25 +49,27 @@ const AppRoutes = () => {
         setToken(tokenFromLocalStorage.value);
       }
     }
-
-    
   }, []);
 
   return (
-    <main>
-      {error ? (
-        <>
-          <ErrorAlert error={error} />{" "}
-        </>
-      ) : null}
-      {token ? (
-        <>
-          <Main token={token} />
-        </>
-      ) : (
-        <Login />
-      )}
-    </main>
+    <>
+      <Header token={token}/>
+      <main>
+        {error ? (
+          <>
+            <ErrorAlert error={error} />{" "}
+          </>
+        ) : null}
+        {token ? (
+          <>
+            <Main token={token} />
+          </>
+        ) : (
+          <Login />
+        )}
+      </main>
+      <Footer />
+    </>
   );
 };
 

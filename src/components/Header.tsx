@@ -2,7 +2,11 @@ import { useState } from "react";
 import MusicIcon from "../assets/music-icon.png";
 import "./../CSS/header.css";
 
-const Header = () => {
+type HeaderProps = {
+  token: string | null | undefined;
+};
+
+const Header = ({ token }: HeaderProps) => {
   const [navOpen, setNavOpen] = useState(false);
 
   /* TODO: only show logout button when logged in. This state is in a sibling state (AppRoutes)*/
@@ -17,18 +21,15 @@ const Header = () => {
       <div className="header-div">
         <div className="title-icon">
           <img src={MusicIcon} />
-          <span onClick={() => window.scrollTo(0, 0)}>
-            TuneTrail
-          </span>
+          <span onClick={() => window.scrollTo(0, 0)}>TuneTrail</span>
         </div>
-        <span onClick={() => setNavOpen(!navOpen)}>
-          <i className={navOpen ? "fa fa-times" : "fa fa-bars"}></i>
-        </span>
+        {token ? (
+          <span onClick={() => setNavOpen(!navOpen)}>
+            <i className={navOpen ? "fa fa-times" : "fa fa-bars"}></i>
+          </span>
+        ) : null}
       </div>
-      <nav
-        className="navbar"
-        style={{display: navOpen ? "block" : "none" }}
-      >
+      <nav className="navbar" style={{ display: navOpen ? "block" : "none" }}>
         <a href="#" onClick={() => logOut()}>
           Logout
         </a>
