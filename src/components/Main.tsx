@@ -20,18 +20,19 @@ const Main = ({ token }: MainProps) => {
 
   return (
     <>
-      <section>
+      <section id="artist-section">
         <ArtistSection
           selectedArtist={selectedArtist}
           setSelectedArtist={setSelectedArtist}
           token={token}
         />
       </section>
-      <section id="song-section" ref={songSection}>
         {selectedArtist ? (
-          <SongSection selectedArtist={selectedArtist} token={token} />
+          <section id="song-section" ref={songSection}>
+            <SongSection selectedArtist={selectedArtist} token={token} />
+          </section>
         ) : null}
-      </section>
+      
     </>
   );
 };

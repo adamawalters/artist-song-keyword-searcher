@@ -41,8 +41,8 @@ function SongTable({songs}: SongTableProps) {
 
   return (
         <Box sx={{width: `100%`}}>
-            <TableContainer  component={Paper}>
-                <Table aria-label="simple table" className="result-table song-results">
+            <TableContainer  sx={{maxHeight: 400}} component={Paper}>
+                <Table stickyHeader aria-label="simple table" className="result-table song-results">
                   <TableHead>
                     <TableRow>
                       <StyledTableCell align="center">Song Name</StyledTableCell>

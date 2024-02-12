@@ -9,12 +9,12 @@ export type SongSectionProps = {
 };
 
 const SongSection = ({ selectedArtist, token }: SongSectionProps) => {
-
   const [songs, setSongs] = useState<null | Array<Song>>(null);
   const [lastUsedKeyword, setLastUsedKeyword] = useState<string>("");
   const [lastUsedArtistName, setLastUsedArtistName] = useState<string>("");
-  const [numSongsWithKeyword, setNumSongsWithKeyword] = useState<number | undefined>();
-
+  const [numSongsWithKeyword, setNumSongsWithKeyword] = useState<
+    number | undefined
+  >();
 
   async function submitKeywordSearch(searchKeyword: string) {
     setLastUsedKeyword(searchKeyword);
@@ -26,8 +26,6 @@ const SongSection = ({ selectedArtist, token }: SongSectionProps) => {
       type: `track`,
       market: `US`,
     });
-
-    
 
     const response = await fetch(
       `https://api.spotify.com/v1/search?${params}`,
@@ -96,22 +94,24 @@ const SongSection = ({ selectedArtist, token }: SongSectionProps) => {
     setSongs(nameFilteredTracks);
   }
 
- 
   return (
     <>
-        <KeywordSearchSection selectedArtist={selectedArtist} submitKeywordSearch={submitKeywordSearch}/>
-        {numSongsWithKeyword !== undefined ? (
-          <div className="song-result-spacer">
-            <span className="direction-label">
-              {numSongsWithKeyword !== 1 ? `Results: There are ${numSongsWithKeyword} songs by ${lastUsedArtistName} with "${lastUsedKeyword}" in the song title` : 
-                `Results: There is ${numSongsWithKeyword} song by ${lastUsedArtistName} with "${lastUsedKeyword}" in the song title`
-              }
-            </span>
-              <SongTable songs={songs} /> 
-          </div>
-        ) : null}
-      </>
+      <KeywordSearchSection
+        selectedArtist={selectedArtist}
+        submitKeywordSearch={submitKeywordSearch}
+      />
+      {numSongsWithKeyword !== undefined ? (
+        <>
+          <span className="direction-label">
+            {numSongsWithKeyword !== 1
+              ? `Results: There are ${numSongsWithKeyword} songs by ${lastUsedArtistName} with "${lastUsedKeyword}" in the song title`
+              : `Results: There is ${numSongsWithKeyword} song by ${lastUsedArtistName} with "${lastUsedKeyword}" in the song title`}
+          </span>
+          <SongTable songs={songs} />
+        </>
+      ) : null}
+    </>
   );
-}; 
+};
 
 export default SongSection;

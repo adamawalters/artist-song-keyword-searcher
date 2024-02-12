@@ -57,8 +57,8 @@ const ArtistResultTable = ({
         Select an artist from search results{" "}
     </p>
         <Box sx={{width: `100%`}}>
-          <TableContainer component={Paper}>
-            <Table aria-label="simple table" className="result-table select-artist-form"
+          <TableContainer sx={{maxHeight: 400}} component={Paper}>
+            <Table stickyHeader aria-label="simple table" className="result-table select-artist-form"
             >
               <TableHead>
                 <TableRow>
