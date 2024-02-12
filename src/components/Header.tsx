@@ -3,7 +3,7 @@ import MusicIcon from "../assets/music-icon.png";
 import "./../CSS/header.css";
 
 type HeaderProps = {
-  token: string;
+  token: string | null | undefined;
 };
 
 const Header = ({ token }: HeaderProps) => {
