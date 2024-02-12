@@ -14,6 +14,7 @@ const ArtistSection = ({
   setSelectedArtist,
   token,
 }: ArtistSectionProps) => {
+  
   const [artists, setArtists] = useState<null | Array<Artist>>(null);
   const [searchKey, setSearchKey] = useState<string>("");
   const [totalArtistsInResponse, setTotalArtistsInResponse] = useState<

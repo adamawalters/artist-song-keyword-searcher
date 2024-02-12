@@ -52,7 +52,6 @@ export interface ArtistSearchResponse {
         previous: number,
         total: number, 
         items: Array<Artist>
-
     }
 }
 

@@ -22,10 +22,12 @@ const SongSection = ({ selectedArtist, token }: SongSectionProps) => {
     //setSongs(null) - add loading in the future
 
     const params = new URLSearchParams({
-      q: `track:"${searchKeyword}" artist:"${selectedArtist.name}"`,
+      query: `track:"${searchKeyword}" artist:${selectedArtist.name}`,
       type: `track`,
       market: `US`,
     });
+
+    
 
     const response = await fetch(
       `https://api.spotify.com/v1/search?${params}`,
@@ -101,7 +103,9 @@ const SongSection = ({ selectedArtist, token }: SongSectionProps) => {
         {numSongsWithKeyword !== undefined ? (
           <div className="song-result-spacer">
             <span className="direction-label">
-              Results - there are {numSongsWithKeyword} songs by {lastUsedArtistName} with "{lastUsedKeyword}" in the song title
+              {numSongsWithKeyword !== 1 ? `Results: There are ${numSongsWithKeyword} songs by ${lastUsedArtistName} with "${lastUsedKeyword}" in the song title` : 
+                `Results: There is ${numSongsWithKeyword} song by ${lastUsedArtistName} with "${lastUsedKeyword}" in the song title`
+              }
             </span>
               <SongTable songs={songs} /> 
           </div>
