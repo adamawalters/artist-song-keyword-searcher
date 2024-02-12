@@ -73,7 +73,7 @@ main {
   color: var(--color-text);
 }
 
-/*Span holding directions ex. "enter an artist" */
+/*Container holding directions ex. "enter an artist" */
 .direction-label {
   font-size: 1.5rem;
   font-weight: bold;
@@ -89,14 +89,32 @@ main {
   width: 100%;
 }
 
+.search-icon-container {
+  color: black;
+  border: 1px solid red;
+}
+
+.fa-magnifying-glass {
+  color: red
+}
+
+.search-icon, svg {
+  /* filter: invert(48%) sepia(79%) saturate(2476%) hue-rotate(86deg) brightness(118%) contrast(119%); */
+}
+
 /* The search box input itself */
 .search-box {
+  /* background: url("./../assets/magnifying-glass-solid.svg") no-repeat scroll white;
+  background-position-x: 10px;
+  background-position-y: center;
+  background-size: 15px; */
   border-radius: 25px;
   height: 40px;
   width: 100%;
   text-align: center;
   border: none;
   font-size: 1rem;
+  padding: 0px 30px;
 }
 
 /*The form that contains the table with the list of artists */
@@ -125,9 +143,6 @@ main {
 
 /* TABLE CSS */
 
-table::-webkit-scrollbar {
-  scrollbar-color: green;
-}
 
 /* Setting width of artist result table columns */
 
@@ -193,6 +208,11 @@ section {
     padding: 0px; */
     display: flex;
     gap: 40px;
+  }
+
+  /* Targets login page */
+  main > .center-container {
+    flex-grow: 1;
   }
 
   #artist-section {

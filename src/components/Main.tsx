@@ -12,8 +12,9 @@ const Main = ({ token }: MainProps) => {
 
   const songSection = useRef<null | HTMLDivElement>(null);
 
+  /* Only scroll to SongSection if small */
   useEffect(() => {
-    if (selectedArtist) {
+    if (selectedArtist && !(window.matchMedia('(min-width: 768px)').matches)) {
       songSection.current?.scrollIntoView({ behavior: "smooth" });
     }
   }, [selectedArtist]);

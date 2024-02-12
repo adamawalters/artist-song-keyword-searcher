@@ -94,6 +94,7 @@ const SongSection = ({ selectedArtist, token }: SongSectionProps) => {
     setSongs(nameFilteredTracks);
   }
 
+
   return (
     <>
       <KeywordSearchSection
