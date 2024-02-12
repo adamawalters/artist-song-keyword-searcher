@@ -103,7 +103,7 @@ const SongSection = ({ selectedArtist, token }: SongSectionProps) => {
         {numSongsWithKeyword !== undefined ? (
           <div className="song-result-spacer">
             <span className="direction-label">
-              {numSongsWithKeyword > 1 ? `Results: There are ${numSongsWithKeyword} songs by ${lastUsedArtistName} with "${lastUsedKeyword}" in the song title` : 
+              {numSongsWithKeyword !== 1 ? `Results: There are ${numSongsWithKeyword} songs by ${lastUsedArtistName} with "${lastUsedKeyword}" in the song title` : 
                 `Results: There is ${numSongsWithKeyword} song by ${lastUsedArtistName} with "${lastUsedKeyword}" in the song title`
               }
             </span>
