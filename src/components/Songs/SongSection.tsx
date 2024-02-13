@@ -109,7 +109,7 @@ const SongSection = ({ selectedArtist, token }: SongSectionProps) => {
                 ? `Results: There are ${numSongsWithKeyword} songs by ${lastUsedArtistName} with "${lastUsedKeyword}" in the song title`
                 : `Results: There is ${numSongsWithKeyword} song by ${lastUsedArtistName} with "${lastUsedKeyword}" in the song title`}
             </div>
-            <SongTable songs={songs} />
+            <SongTable songs={songs} lastUsedKeyword={lastUsedKeyword} />
           </div>
         </>
       ) : null}
