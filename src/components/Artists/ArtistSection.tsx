@@ -69,7 +69,7 @@ const ArtistSection = ({
 
   return (
     <>
-      <div className="section-spacing">
+      <div className="search-box-divider">
         <ArtistSearchSection handleArtistSearch={handleArtistSearch} />
       </div>
       {artists ? (

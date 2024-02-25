@@ -4,7 +4,9 @@ type ArtistSearchSectionProps = {
   handleArtistSearch: (searchKey: string) => void;
 };
 
-const ArtistSearchSection = ({ handleArtistSearch }: ArtistSearchSectionProps) => {
+const ArtistSearchSection = ({
+  handleArtistSearch,
+}: ArtistSearchSectionProps) => {
   const [searchKey, setSearchKey] = useState("");
 
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
@@ -18,8 +20,13 @@ const ArtistSearchSection = ({ handleArtistSearch }: ArtistSearchSectionProps) =
 
   const form = (
     <form className="center-container" onSubmit={handleSubmit}>
-      <label htmlFor="artistSearch"><p className="direction-label">Search for an artist</p></label>
+      <label htmlFor="artistSearch">
+        <p className="direction-label">1) Search for an artist</p>
+      </label>
       <div className="search-input">
+        {/* <div className="search-icon-container">
+          <i className="fa-solid fa-magnifying-glass"></i>
+        </div> */}
         <input
           className="search-box"
           type="text"
@@ -28,13 +35,14 @@ const ArtistSearchSection = ({ handleArtistSearch }: ArtistSearchSectionProps) =
           required
           onChange={handleChange}
         />
-        <button type="submit" className="submit-button">Submit</button>
+        <button type="submit" className="submit-button">
+          Submit
+        </button>
       </div>
     </form>
   );
 
-
-  return form
+  return form;
 };
 
 export default ArtistSearchSection;

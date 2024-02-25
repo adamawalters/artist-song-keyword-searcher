@@ -39,7 +39,8 @@ footer {
 main {
   margin: 20px 40px;
   flex-grow: 1;
-  width: 90%;
+  width: 100%;
+  padding: 
 }
 
 .center-container {
@@ -72,7 +73,7 @@ main {
   color: var(--color-text);
 }
 
-/*Span holding directions ex. "enter an artist" */
+/*Container holding directions ex. "enter an artist" */
 .direction-label {
   font-size: 1.5rem;
   font-weight: bold;
@@ -88,14 +89,32 @@ main {
   width: 100%;
 }
 
+.search-icon-container {
+  color: black;
+  border: 1px solid red;
+}
+
+.fa-magnifying-glass {
+  color: red
+}
+
+.search-icon, svg {
+  /* filter: invert(48%) sepia(79%) saturate(2476%) hue-rotate(86deg) brightness(118%) contrast(119%); */
+}
+
 /* The search box input itself */
 .search-box {
+  /* background: url("./../assets/magnifying-glass-solid.svg") no-repeat scroll white;
+  background-position-x: 10px;
+  background-position-y: center;
+  background-size: 15px; */
   border-radius: 25px;
   height: 40px;
   width: 100%;
   text-align: center;
   border: none;
   font-size: 1rem;
+  padding: 0px 30px;
 }
 
 /*The form that contains the table with the list of artists */
@@ -146,41 +165,29 @@ thead, thead tr th {
   color: white;
 }
 
-/*
-
-thead tr th {
-  padding: 10px;
-}
-*/
-
-/* Song result table colummns - need to explicitly set width to center the songs if using tr::after*/
-
-/*
-.song-results thead tr th:nth-child(1){
-  width: 100%;
-}
-
-/*
-
-td {
-  padding: 10px;
-  text-align: center;
-  width: 100%;
-}
-*/
 table img {
   object-fit:scale-down;
   width: 100%;
   border-radius: 25px;
 }
 
-section, .section-spacing {
+#artist-section, #song-section {
+  padding: 0 30px
+}
+
+section {
+  margin-bottom: 40px;
+  width: 100%;
+}
+
+.search-box-divider {
+  width: 100%;
   margin-bottom: 40px;
 }
 
-.table-row {
 
-}
+
+
 
 
 /* MEDIA QUERIES */
@@ -188,7 +195,7 @@ section, .section-spacing {
 /* If small (but not very small) */
 @media screen and (min-width: 576px) {
   main {
-    width: 500px
+    /* width: 500px */
   }
 
  
@@ -197,11 +204,40 @@ section, .section-spacing {
 /* If medium */
 @media screen and (min-width: 768px) {
   main {
-    width: 600px;
-    padding: 0px;
+    /* width: 600px;
+    padding: 0px; */
+    display: flex;
+    gap: 40px;
+  }
+
+  /* Targets login page */
+  main > .center-container {
+    flex-grow: 1;
+  }
+
+  #artist-section {
+    flex-grow: 1;
+    flex-basis: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  #song-section {
+    flex-grow: 1;
+    flex-basis: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
  
+  .search-box-divider {
+    max-width: 400px
+  }
+
 } 
+
+
 
 
 

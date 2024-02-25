@@ -7,7 +7,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { Box, TablePagination } from "@mui/material";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {styled} from '@mui/material/styles'
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -19,14 +19,23 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 
 type SongTableProps = {
     songs: Song[] | null,
+    lastUsedKeyword: string;
 }
 
-function SongTable({songs}: SongTableProps) {
+function SongTable({songs, lastUsedKeyword}: SongTableProps) {
 
-  const [page, setPage] = useState(0)
+  const [page, setPage] = useState(0);
+
   function handlePageChange(_event: unknown, newPage: number) {
     setPage(newPage);
   }
+
+  /*  Need to set page back to 0 whenever keyword changes*/
+  useEffect(()=>{
+    setPage(0)
+  }, [lastUsedKeyword])
+
+
 
   /*
   - Since I'm fetching all the songs from the artist, I need to filter to 10 songs at once to render
@@ -41,8 +50,8 @@ function SongTable({songs}: SongTableProps) {
 
   return (
         <Box sx={{width: `100%`}}>
-            <TableContainer  component={Paper}>
-                <Table aria-label="simple table" className="result-table song-results">
+            <TableContainer  sx={{maxHeight: 400}} component={Paper}>
+                <Table stickyHeader aria-label="simple table" className="result-table song-results">
                   <TableHead>
                     <TableRow>
                       <StyledTableCell align="center">Song Name</StyledTableCell>
