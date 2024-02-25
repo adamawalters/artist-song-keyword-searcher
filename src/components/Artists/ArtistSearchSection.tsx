@@ -1,5 +1,4 @@
 import { ChangeEvent, FormEvent, useState } from "react";
-import MagnifyingIcon from "./../../assets/magnifying-glass-solid.svg"
 
 type ArtistSearchSectionProps = {
   handleArtistSearch: (searchKey: string) => void;
