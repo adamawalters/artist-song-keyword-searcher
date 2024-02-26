@@ -1,18 +1,17 @@
 import { useState, useCallback } from "react";
-import { Artist, ArtistSearchResponse } from "Types";
+import { Artist } from "Types";
 import ArtistSearchSection from "./ArtistSearchSection";
 import ArtistResultTable from "./ArtistResultTable";
+import { searchArtists } from "./../../utils/api";
 
 type ArtistSectionProps = {
   selectedArtist: Artist | null;
   setSelectedArtist: React.Dispatch<React.SetStateAction<Artist | null>>;
-  token: string;
 };
 
 const ArtistSection = ({
   selectedArtist,
   setSelectedArtist,
-  token,
 }: ArtistSectionProps) => {
   
   const [artists, setArtists] = useState<null | Array<Artist>>(null);
@@ -35,31 +34,12 @@ const ArtistSection = ({
 
       const abortController = new AbortController();
 
-      const params = new URLSearchParams({
-        q: searchText,
-        type: "artist",
-        market: "US",
-        limit: "10",
-        offset: offset.toString(),
-      });
-
-      const response = await fetch(
-        `https://api.spotify.com/v1/search?${params}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-          signal: abortController.signal,
-        }
-      );
-
-      const parsedResponse: ArtistSearchResponse = await response.json();
-      const responseArtists = parsedResponse.artists.items;
-      setTotalArtistsInResponse(parsedResponse.artists.total);
-      setArtists(responseArtists);
+      const response = await searchArtists(searchText, offset)
+      setTotalArtistsInResponse(response.totalArtists);
+      setArtists(response.artists);
       return () => abortController.abort();
     },
-    [searchKey, token]
+    [searchKey]
   );
 
   async function handleArtistSearch(newSearchKey: string) {
