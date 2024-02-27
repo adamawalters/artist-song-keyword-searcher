@@ -1,7 +1,7 @@
 import {  ArtistResponse, SongResponse } from "Types";
 
 
-const API_BASE_URL = import.meta.env.VITE_APP_BASE_URL || "http://localhost:5001";
+const API_BASE_URL = import.meta.env.VITE_BASE_URL || "http://localhost:5001";
 
 const headers = new Headers();
 headers.append("Content-Type", "application/json");
