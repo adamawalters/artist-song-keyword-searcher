@@ -1,4 +1,5 @@
-import { ChangeEvent, FormEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useState  } from "react";
+
 
 type ArtistSearchSectionProps = {
   handleArtistSearch: (searchKey: string) => void;

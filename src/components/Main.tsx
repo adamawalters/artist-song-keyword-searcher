@@ -3,11 +3,9 @@ import { useEffect, useRef, useState } from "react";
 import { Artist } from "../Types";
 import SongSection from "./Songs/SongSection";
 
-export type MainProps = {
-  token: string;
-};
 
-const Main = ({ token }: MainProps) => {
+
+const Main = () => {
   const [selectedArtist, setSelectedArtist] = useState<null | Artist>(null);
 
   const songSection = useRef<null | HTMLDivElement>(null);
@@ -20,21 +18,20 @@ const Main = ({ token }: MainProps) => {
   }, [selectedArtist]);
 
   return (
-    <>
+    <main>
       <section id="artist-section">
         <ArtistSection
           selectedArtist={selectedArtist}
           setSelectedArtist={setSelectedArtist}
-          token={token}
         />
       </section>
         {selectedArtist ? (
           <section id="song-section" ref={songSection}>
-            <SongSection selectedArtist={selectedArtist} token={token} />
+            <SongSection selectedArtist={selectedArtist}/>
           </section>
         ) : null}
       
-    </>
+    </main>
   );
 };
 
