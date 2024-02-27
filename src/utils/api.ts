@@ -5,7 +5,7 @@ const API_BASE_URL = import.meta.env.VITE_BASE_URL || "http://localhost:5001";
 
 const headers = new Headers();
 headers.append("Content-Type", "application/json");
-
+ 
 
 async function fetchJson<T>(url: string, options: RequestInit, onCancel: T): Promise<T>  {
     try {
