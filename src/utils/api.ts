@@ -1,7 +1,7 @@
 import {  ArtistResponse, SongResponse } from "Types";
 
 
-const API_BASE_URL = import.meta.env.VITE_BASE_URL || "http://localhost:5001";
+const API_BASE_URL = import.meta.env.VITE_BASE_URL || "http://localhost:5001"
 
 const headers = new Headers();
 headers.append("Content-Type", "application/json");
@@ -60,5 +60,18 @@ async function fetchJson<T>(url: string, options: RequestInit, onCancel: T): Pro
 
     const response = await fetchJson<SongResponse>(url, options, {} as SongResponse)
     return response;
+  }
+
+  export async function loadQueries(limit: number = 0) {
+
+    const url = `${API_BASE_URL}/queries?limit=${limit}`
+    const options = {
+        method: "GET", 
+    }
+
+    const response = await fetchJson(url, options, [])
+    
+    return response;
+
   }
 

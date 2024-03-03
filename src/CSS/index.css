@@ -57,6 +57,7 @@ main {
 
 
 
+
 .submit-button {
   background-color: #0b65c2;
   color: white;
@@ -141,6 +142,10 @@ main {
 }
 
 
+.query-wrapper {
+  border: 1px solid red;
+}
+
 /* TABLE CSS */
 
 
@@ -186,7 +191,9 @@ section {
 }
 
 
-
+.artist-and-song-wrapper {
+  display: flex;
+}
 
 
 
@@ -206,6 +213,9 @@ section {
   main {
     /* width: 600px;
     padding: 0px; */
+  }
+
+  .artist-and-song-wrapper {
     display: flex;
     gap: 40px;
   }
@@ -236,6 +246,7 @@ section {
   }
 
 } 
+
 
 
 

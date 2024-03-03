@@ -2,6 +2,7 @@ import ArtistSection from "./Artists/ArtistSection";
 import { useEffect, useRef, useState } from "react";
 import { Artist } from "../Types";
 import SongSection from "./Songs/SongSection";
+import PastQueriesSection from "./PastQueries/PastQueriesSection";
 
 
 
@@ -19,18 +20,22 @@ const Main = () => {
 
   return (
     <main>
-      <section id="artist-section">
-        <ArtistSection
-          selectedArtist={selectedArtist}
-          setSelectedArtist={setSelectedArtist}
-        />
+      <div className="artist-and-song-wrapper">
+        <section id="artist-section">
+          <ArtistSection
+            selectedArtist={selectedArtist}
+            setSelectedArtist={setSelectedArtist}
+          />
+        </section>
+          {selectedArtist ? (
+            <section id="song-section" ref={songSection}>
+              <SongSection selectedArtist={selectedArtist}/>
+            </section>
+          ) : null}
+      </div>
+      <section>
+        <PastQueriesSection />
       </section>
-        {selectedArtist ? (
-          <section id="song-section" ref={songSection}>
-            <SongSection selectedArtist={selectedArtist}/>
-          </section>
-        ) : null}
-      
     </main>
   );
 };
