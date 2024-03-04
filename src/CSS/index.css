@@ -194,7 +194,7 @@ section {
 }
 
 .artist-and-song-wrapper {
-  display: flex;
+  display: block;
 }
 
 .saved-queries-wrapper {

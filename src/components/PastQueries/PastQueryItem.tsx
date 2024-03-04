@@ -2,10 +2,11 @@ import { SavedQuery } from "Types";
 import dayjs from "dayjs";
 
 type PastQueryItemProps = {
-    query : SavedQuery
+    query : SavedQuery,
+    submitSongSearch : (searchKeyword: string, artist: string) => Promise<void>;
 }
 
-function PastQueryItem({ query } : PastQueryItemProps) {
+function PastQueryItem({ query, submitSongSearch } : PastQueryItemProps) {
     
   return (
     <div className="query-wrapper">
@@ -16,7 +17,7 @@ function PastQueryItem({ query } : PastQueryItemProps) {
         <p>{dayjs(query.created_at).format("DD MMM")}</p>
         <p>{dayjs(query.created_at).format("h:mm A")}</p>
       </div>
-      <button className="submit-button">Perform Search</button>
+      <button className="submit-button" onClick={()=>submitSongSearch(query.search_keyword, query.artist_name)}>Perform Search</button>
     </div>
   );
 }

@@ -1,46 +1,35 @@
-import { useState } from "react";
-import { Artist, SavedQuery, Song } from "../../Types";
+import { useEffect, useState } from "react";
+import { Artist, Song } from "../../Types";
 import KeywordSearchSection from "./KeywordSearchSection";
 import SongTable from "./SongTable";
-import { saveQueryToDatabase, searchSongs } from "./../../utils/api";
 
 export type SongSectionProps = {
   selectedArtist: Artist;
   fetchQueries: () => void;
+  lastUsedKeyword: string;
+  lastUsedArtistName: string;
+  songs?: Array<Song>;
+  submitSongSearch: (searchKeyword: string, artist: string) => Promise<void>;
 };
 
-const SongSection = ({ selectedArtist, fetchQueries }: SongSectionProps) => {
-  const [songs, setSongs] = useState<null | Array<Song>>(null);
-  const [lastUsedKeyword, setLastUsedKeyword] = useState<string>("");
-  const [lastUsedArtistName, setLastUsedArtistName] = useState<string>("");
+const SongSection = ({ selectedArtist, lastUsedKeyword, lastUsedArtistName, songs, submitSongSearch }: SongSectionProps) => {
   const [numSongsWithKeyword, setNumSongsWithKeyword] = useState<
     number | undefined
   >();
 
-  
-  async function submitKeywordSearch(searchKeyword: string) {
-    /* Used to display the last searched for keyword & artist */
-    setLastUsedKeyword(searchKeyword);
-    setLastUsedArtistName(selectedArtist.name);
-    //setSongs(null) - add loading in the future
-
-    const response = await searchSongs(searchKeyword, selectedArtist.name);
-    setSongs(response.tracks);
-    setNumSongsWithKeyword(response.totalTracks);
-    await saveQueryToDatabase({
-      search_keyword: searchKeyword,
-      artist_name: selectedArtist.name,
-      num_songs: response.totalTracks,
-    } as SavedQuery);
-    // Update recent queries in Main
-    fetchQueries();
-  }
+  //Update numSongsWithKeyword when songs changes
+  useEffect(() => { 
+    if (songs) {
+      setNumSongsWithKeyword(songs.length);
+    }
+  }, [songs])
 
   return (
     <>
       <KeywordSearchSection
         selectedArtist={selectedArtist}
-        submitKeywordSearch={submitKeywordSearch}
+        submitSongSearch={submitSongSearch}
+        lastUsedKeyword={lastUsedKeyword}
       />
       {numSongsWithKeyword !== undefined ? (
         <>

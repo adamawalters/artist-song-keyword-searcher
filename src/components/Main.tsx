@@ -1,17 +1,41 @@
 import ArtistSection from "./Artists/ArtistSection";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { Artist } from "../Types";
+import { Artist, Song } from "../Types";
 import SongSection from "./Songs/SongSection";
 import PastQueriesSection from "./PastQueries/PastQueriesSection";
 import { SavedQuery } from "../Types";
-import { loadQueries } from "./../utils/api";
+import { loadQueries, saveQueryToDatabase, searchSongs } from "./../utils/api";
 
 const Main = () => {
   const [selectedArtist, setSelectedArtist] = useState<null | Artist>(null);
   const [savedQueries, setSavedQueries] = useState<Array<SavedQuery>>();
   const [error, setError] = useState<Error>();
+  const [songs, setSongs] = useState<Array<Song>>();
+  const [lastUsedKeyword, setLastUsedKeyword] = useState<string>("");
+  const [lastUsedArtistName, setLastUsedArtistName] = useState<string>("");
 
   const songSection = useRef<null | HTMLDivElement>(null);
+
+  //TODO: create a function called SearchSongs. Will be passed to SongSection and PastQueriesSection. will accept a selectedArtist and a searchKeyword. Will return a Promise that resolves to an array of songs.
+
+  async function submitSongSearch(searchKeyword: string, artist: string) {
+
+    /* Used to display the last searched for keyword & artist */
+    setLastUsedKeyword(searchKeyword);
+    setLastUsedArtistName(artist);
+    setSelectedArtist({ name: artist } as Artist);
+    //setSongs(null) - add loading in the future
+
+    const response = await searchSongs(searchKeyword, artist);
+    setSongs(response.tracks);
+    await saveQueryToDatabase({
+      search_keyword: searchKeyword,
+      artist_name: artist,
+      num_songs: response.totalTracks,
+    } as SavedQuery);
+    // Update recent queries in Main
+    fetchQueries();
+  }
 
   /* Only scroll to SongSection if on mobile */
   useEffect(() => {
@@ -52,13 +76,20 @@ const Main = () => {
         </section>
         {selectedArtist ? (
           <section id="song-section" ref={songSection}>
-            <SongSection fetchQueries={fetchQueries} selectedArtist={selectedArtist} />
+            <SongSection
+              songs={songs}
+              lastUsedArtistName={lastUsedArtistName}
+              lastUsedKeyword={lastUsedKeyword}
+              submitSongSearch={submitSongSearch}
+              fetchQueries={fetchQueries}
+              selectedArtist={selectedArtist}
+            />
           </section>
         ) : null}
       </div>
       {savedQueries ? (
         <section>
-          <PastQueriesSection savedQueries={savedQueries} />
+          <PastQueriesSection savedQueries={savedQueries} submitSongSearch={submitSongSearch} />
         </section>
       ) : null}
     </main>

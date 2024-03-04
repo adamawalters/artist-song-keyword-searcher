@@ -1,17 +1,20 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Artist } from "Types";
 import {ChangeEvent } from "react";
 
 type KeywordSearchSectionProps = {
   selectedArtist: Artist;
-  submitKeywordSearch: (searchKeyword: string) => Promise<void>;
+  submitSongSearch: (searchKeyword: string, artist: string) => Promise<void>;
+  lastUsedKeyword: string;
 };
 
-function KeywordSearchSection({
-  selectedArtist,
-  submitKeywordSearch,
-}: KeywordSearchSectionProps) {
+function KeywordSearchSection({ selectedArtist, submitSongSearch, lastUsedKeyword }: KeywordSearchSectionProps) {
+  
   const [searchKeyword, setSearchKeyword] = useState<string>("");
+
+  useEffect(() => { 
+    setSearchKeyword(lastUsedKeyword);
+  }, [lastUsedKeyword])
 
   return (
     <div className="search-box-divider">
@@ -19,7 +22,7 @@ function KeywordSearchSection({
         className="center-container"
         onSubmit={(e) => {
           e.preventDefault();
-          submitKeywordSearch(searchKeyword);
+          submitSongSearch(searchKeyword, selectedArtist.name);
         }}
       >
         <label htmlFor="search-artist">
