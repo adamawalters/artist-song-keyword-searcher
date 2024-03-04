@@ -1,14 +1,15 @@
 import { useState } from "react";
-import { Artist, Song } from "../../Types";
+import { Artist, SavedQuery, Song } from "../../Types";
 import KeywordSearchSection from "./KeywordSearchSection";
 import SongTable from "./SongTable";
-import { searchSongs } from "./../../utils/api";
+import { saveQueryToDatabase, searchSongs } from "./../../utils/api";
 
 export type SongSectionProps = {
   selectedArtist: Artist;
+  fetchQueries: () => void;
 };
 
-const SongSection = ({ selectedArtist }: SongSectionProps) => {
+const SongSection = ({ selectedArtist, fetchQueries }: SongSectionProps) => {
   const [songs, setSongs] = useState<null | Array<Song>>(null);
   const [lastUsedKeyword, setLastUsedKeyword] = useState<string>("");
   const [lastUsedArtistName, setLastUsedArtistName] = useState<string>("");
@@ -16,20 +17,24 @@ const SongSection = ({ selectedArtist }: SongSectionProps) => {
     number | undefined
   >();
 
+  
   async function submitKeywordSearch(searchKeyword: string) {
+    /* Used to display the last searched for keyword & artist */
     setLastUsedKeyword(searchKeyword);
     setLastUsedArtistName(selectedArtist.name);
     //setSongs(null) - add loading in the future
 
-    const response = await searchSongs(searchKeyword, selectedArtist.name)
-    const tracks = response.tracks;
-    const numSongs = response.totalTracks
-    setSongs(tracks)
-    setNumSongsWithKeyword(numSongs)
-
+    const response = await searchSongs(searchKeyword, selectedArtist.name);
+    setSongs(response.tracks);
+    setNumSongsWithKeyword(response.totalTracks);
+    await saveQueryToDatabase({
+      search_keyword: searchKeyword,
+      artist_name: selectedArtist.name,
+      num_songs: response.totalTracks,
+    } as SavedQuery);
+    // Update recent queries in Main
+    fetchQueries();
   }
-
-
 
   return (
     <>

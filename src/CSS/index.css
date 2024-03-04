@@ -1,20 +1,25 @@
 :root {
   --color-text: #000000e6;
   --color-border-faint: #00000014;
-  --secondary-bg-darkmode: #1B1F23;
-  --table-separator-color: #E8E8E8;
-  --standard-blue: #0B65C2;
-  --selected-blue-color: #D7E9FB;
+  --secondary-bg-darkmode: #1b1f23;
+  --table-separator-color: #e8e8e8;
+  --standard-blue: #0b65c2;
+  --selected-blue-color: #d7e9fb;
   --dark-gray-bg: #f4f2ee;
-  
-}
+  --border-color: #f4f2ed;
 
+  --corner-radius-small: 0.4rem;
+  --corner-radius-medium: 0.8rem;
+  --corner-radius-large: 1.6rem;
+  --corner-radius-xlarge: 2.4rem;
+  --corner-radius-full: 50%;
+}
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
 }
 
 #root {
@@ -26,10 +31,9 @@
   align-items: center;
 }
 
-
 footer {
-  text-align:center;
-  background-color: #FFFFFF;
+  text-align: center;
+  background-color: #ffffff;
   width: 100%;
   font-size: 10px;
   padding: 10px 20px;
@@ -40,7 +44,7 @@ main {
   margin: 20px 40px;
   flex-grow: 1;
   width: 100%;
-  padding: 
+  padding: ;
 }
 
 .center-container {
@@ -54,10 +58,6 @@ main {
   text-align: center;
 }
 
-
-
-
-
 .submit-button {
   background-color: #0b65c2;
   color: white;
@@ -69,7 +69,7 @@ main {
   text-decoration: none;
 }
 
-.submit-button:hover{
+.submit-button:hover {
   background-color: var(--selected-blue-color);
   color: var(--color-text);
 }
@@ -80,7 +80,6 @@ main {
   font-weight: bold;
   text-align: center;
 }
-
 
 /* The search box input and search button */
 .search-input {
@@ -96,10 +95,11 @@ main {
 }
 
 .fa-magnifying-glass {
-  color: red
+  color: red;
 }
 
-.search-icon, svg {
+.search-icon,
+svg {
   /* filter: invert(48%) sepia(79%) saturate(2476%) hue-rotate(86deg) brightness(118%) contrast(119%); */
 }
 
@@ -134,50 +134,53 @@ main {
   gap: 10px;
 }
 
-
 .keyword-search-button {
   width: 100%;
   display: flex;
   flex-direction: column;
 }
 
-
 .query-wrapper {
-  border: 1px solid red;
+  border: 1px solid var(--border-color);
+  background-color: white;
+  padding: 10px 20px;
+  border-radius: var(--corner-radius-medium);
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
 }
 
 /* TABLE CSS */
 
-
 /* Setting width of artist result table columns */
 
-
-.select-artist-form thead tr th:nth-child(2){
+.select-artist-form thead tr th:nth-child(2) {
   width: 20%;
 }
 
-.select-artist-form thead tr th:nth-child(3){
+.select-artist-form thead tr th:nth-child(3) {
   width: 40%;
 }
 
-.select-artist-form thead tr th:nth-child(1){
+.select-artist-form thead tr th:nth-child(1) {
   width: 40%;
 }
 
-
-thead, thead tr th {
+/* thead,
+thead tr th {
   background-color: var(--standard-blue);
   color: white;
-}
+} */
 
 table img {
-  object-fit:scale-down;
+  object-fit: scale-down;
   width: 100%;
   border-radius: 25px;
 }
 
-#artist-section, #song-section {
-  padding: 0 30px
+#artist-section,
+#song-section {
+  padding: 0 30px;
 }
 
 section {
@@ -190,12 +193,23 @@ section {
   margin-bottom: 40px;
 }
 
-
 .artist-and-song-wrapper {
   display: flex;
 }
 
+.saved-queries-wrapper {
+  display: grid;
 
+  /* Defines one column which takes up the available space (if small) */
+  grid-template-columns: 1fr;
+
+  gap: 10px;
+}
+
+.time-wrapper {
+  display: flex;
+  justify-content: space-between;
+}
 
 /* MEDIA QUERIES */
 
@@ -204,9 +218,7 @@ section {
   main {
     /* width: 500px */
   }
-
- 
-} 
+}
 
 /* If medium */
 @media screen and (min-width: 768px) {
@@ -240,20 +252,16 @@ section {
     flex-direction: column;
     align-items: center;
   }
- 
+
   .search-box-divider {
-    max-width: 400px
+    max-width: 400px;
   }
 
-} 
-
-
-
-
-
-
-
-
+  .saved-queries-wrapper {
+    /* 3 columns that equally take up the remianing avilable space if large */
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
 
 @media (prefers-color-scheme: dark) {
   :root {
@@ -261,41 +269,37 @@ section {
   }
 
   /* MUI Table Cell in body - overriding for dark mode TODO*/
-.MuiTableCell-body {
-  color: white !important
- }
+  .MuiTableCell-body {
+    color: white !important;
+  }
 
- /* TODO: use MUI Radio Button - not using due to dark mode TODO*/
- 
+  /* TODO: use MUI Radio Button - not using due to dark mode TODO*/
 
- /*TODO: make hover more visible on dark mode */
+  /*TODO: make hover more visible on dark mode */
 
- /* MUI pagination toolbar*/
- .MuiTablePagination-toolbar {
-  color: white !important
- }
+  /* MUI pagination toolbar*/
+  .MuiTablePagination-toolbar {
+    color: white !important;
+  }
 
   #root {
     background-color: black;
   }
 
-  .submit-button:hover, tr:hover {
-    color: #000000e6
+  .submit-button:hover,
+  tr:hover {
+    color: #000000e6;
   }
 
- .result-table, footer, input {
-    background-color: var(--secondary-bg-darkmode)
+  .result-table,
+  footer,
+  input,
+  .query-wrapper {
+    background-color: var(--secondary-bg-darkmode);
   }
 
-  input, a {
+  input,
+  a {
     color: white;
   }
-
- 
-} 
-
-
-
-
-
-
+}

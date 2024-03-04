@@ -1,4 +1,4 @@
-import {  ArtistResponse, SongResponse } from "Types";
+import {  ArtistResponse, SavedQuery, SongResponse } from "Types";
 
 
 const API_BASE_URL = import.meta.env.VITE_BASE_URL || "http://localhost:5001"
@@ -69,9 +69,25 @@ async function fetchJson<T>(url: string, options: RequestInit, onCancel: T): Pro
         method: "GET", 
     }
 
-    const response = await fetchJson(url, options, [])
-    
+    const response = await fetchJson<Array<SavedQuery>>(url, options, [])
     return response;
 
   }
 
+  export async function saveQueryToDatabase(query: SavedQuery) {
+    const url = `${API_BASE_URL}/queries`
+    const { search_keyword, artist_name, num_songs } = query
+    const options = {
+        method: "POST",
+        headers,
+        body: JSON.stringify({
+          data: {
+            search_keyword,
+            artist_name,
+            num_songs
+        }})
+    }
+
+    const response = await fetchJson(url, options, {})
+    return response;
+  }

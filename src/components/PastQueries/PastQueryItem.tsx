@@ -1,21 +1,22 @@
 import { SavedQuery } from "Types";
+import dayjs from "dayjs";
 
 type PastQueryItemProps = {
     query : SavedQuery
 }
 
-
 function PastQueryItem({ query } : PastQueryItemProps) {
     
-
-  console.log(JSON.stringify(query))  
   return (
     <div className="query-wrapper">
-      <p>Search keyword: "{query.search_keyword}"</p>
-      <p>Artist: "{query.artist_name}"</p>
-      <p>Number of songs: {query.num_songs}</p>
-      <p>Date performed: {query.created_at}</p>
-      <p>Perform Search</p>
+      <h3>Artist: {query.artist_name}</h3>
+      <h3>User searched for: "{query.search_keyword}"</h3>
+      <p>Number of songs matching query: {query.num_songs}</p>
+      <div className="time-wrapper">
+        <p>{dayjs(query.created_at).format("DD MMM")}</p>
+        <p>{dayjs(query.created_at).format("h:mm A")}</p>
+      </div>
+      <button className="submit-button">Perform Search</button>
     </div>
   );
 }
