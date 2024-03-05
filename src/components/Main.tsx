@@ -75,7 +75,6 @@ function Main() {
 
   /* Load recent queries  - used in Main after mount and in SongSection after searching for a song */
   const fetchQueries = useCallback(async () => {
-    console.log(`reset error state`)
     setError(undefined);
     try {
       const response = await loadQueries(9);
