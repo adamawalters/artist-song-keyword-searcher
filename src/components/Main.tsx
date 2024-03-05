@@ -15,7 +15,7 @@ const Main = () => {
     if (selectedArtist && !(window.matchMedia('(min-width: 768px)').matches)) {
       songSection.current?.scrollIntoView({ behavior: "smooth" });
     }
-  }, [selectedArtist]);
+  }, [selectedArtist]); 
 
   return (
     <main>
