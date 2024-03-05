@@ -13,9 +13,7 @@ export type SongSectionProps = {
 };
 
 const SongSection = ({ selectedArtist, lastUsedKeyword, lastUsedArtistName, songs, submitSongSearch }: SongSectionProps) => {
-  const [numSongsWithKeyword, setNumSongsWithKeyword] = useState<
-    number 
-  >();
+  const [numSongsWithKeyword, setNumSongsWithKeyword] = useState<number>();
 
   //Update numSongsWithKeyword when songs changes
   useEffect(() => { 
