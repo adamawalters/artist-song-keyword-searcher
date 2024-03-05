@@ -5,9 +5,7 @@ type ArtistSearchSectionProps = {
   handleArtistSearch: (searchKey: string) => void;
 };
 
-const ArtistSearchSection = ({
-  handleArtistSearch,
-}: ArtistSearchSectionProps) => {
+function ArtistSearchSection({ handleArtistSearch }: ArtistSearchSectionProps) {
   const [searchKey, setSearchKey] = useState("");
 
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
@@ -44,6 +42,6 @@ const ArtistSearchSection = ({
   );
 
   return form;
-};
+}
 
 export default ArtistSearchSection;

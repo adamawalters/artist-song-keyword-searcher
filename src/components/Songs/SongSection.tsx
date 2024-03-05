@@ -14,14 +14,14 @@ export type SongSectionProps = {
 
 const SongSection = ({ selectedArtist, lastUsedKeyword, lastUsedArtistName, songs, submitSongSearch }: SongSectionProps) => {
   const [numSongsWithKeyword, setNumSongsWithKeyword] = useState<
-    number | undefined
+    number 
   >();
 
   //Update numSongsWithKeyword when songs changes
   useEffect(() => { 
     if (songs) {
       setNumSongsWithKeyword(songs.length);
-    }
+    } 
   }, [songs])
 
   return (
@@ -31,7 +31,7 @@ const SongSection = ({ selectedArtist, lastUsedKeyword, lastUsedArtistName, song
         submitSongSearch={submitSongSearch}
         lastUsedKeyword={lastUsedKeyword}
       />
-      {numSongsWithKeyword !== undefined ? (
+      {songs ? (
         <>
           <div className="center-container">
             <div className="direction-label">

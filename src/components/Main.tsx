@@ -1,30 +1,54 @@
-import ArtistSection from "./Artists/ArtistSection";
 import { useCallback, useEffect, useRef, useState } from "react";
+import ArtistSection from "./Artists/ArtistSection";
 import { Artist, Song } from "../Types";
 import SongSection from "./Songs/SongSection";
 import PastQueriesSection from "./PastQueries/PastQueriesSection";
 import { SavedQuery } from "../Types";
-import { loadQueries, saveQueryToDatabase, searchSongs } from "./../utils/api";
+import { loadQueries, saveQueryToDatabase, searchArtists, searchSongs } from "./../utils/api";
 
-const Main = () => {
+function Main() {
   const [selectedArtist, setSelectedArtist] = useState<null | Artist>(null);
   const [savedQueries, setSavedQueries] = useState<Array<SavedQuery>>();
   const [error, setError] = useState<Error>();
   const [songs, setSongs] = useState<Array<Song>>();
   const [lastUsedKeyword, setLastUsedKeyword] = useState<string>("");
   const [lastUsedArtistName, setLastUsedArtistName] = useState<string>("");
-
+  const [artists, setArtists] = useState<null | Array<Artist>>(null);
+  const [searchKey, setSearchKey] = useState<string>("");
+  const [totalArtistsInResponse, setTotalArtistsInResponse] = useState<
+    null | number
+  >(null); 
   const songSection = useRef<null | HTMLDivElement>(null);
 
-  //TODO: create a function called SearchSongs. Will be passed to SongSection and PastQueriesSection. will accept a selectedArtist and a searchKeyword. Will return a Promise that resolves to an array of songs.
+
+  const loadArtists = useCallback(
+    async (offset: number, searchStringFromArtistSearch?: string) => {
+
+      /* Set the search key state to the string from artist search so function can be called by ArtistResultTable without a new search key when called later */
+      if (searchStringFromArtistSearch) {
+        setSearchKey(searchStringFromArtistSearch);
+      }
+
+      /*Use string from artist search if available (ArtistSearchSection/PastQueriesSection), otherwise searchKey within state (ResultTable) */
+      const searchText = searchStringFromArtistSearch || searchKey;
+
+      const abortController = new AbortController();
+
+      const response = await searchArtists(searchText, offset)
+      setTotalArtistsInResponse(response.totalArtists);
+      setArtists(response.artists);
+      return () => abortController.abort();
+    },
+    [searchKey]
+  );
+
 
   async function submitSongSearch(searchKeyword: string, artist: string) {
-
     /* Used to display the last searched for keyword & artist */
     setLastUsedKeyword(searchKeyword);
     setLastUsedArtistName(artist);
     setSelectedArtist({ name: artist } as Artist);
-    //setSongs(null) - add loading in the future
+    setSongs(undefined); // so song table doesn't display old songs while new ones are loading
 
     const response = await searchSongs(searchKeyword, artist);
     setSongs(response.tracks);
@@ -70,6 +94,10 @@ const Main = () => {
       <div className="artist-and-song-wrapper">
         <section id="artist-section">
           <ArtistSection
+            artists={artists}
+            totalArtistsInResponse={totalArtistsInResponse}
+            searchKey={searchKey}
+            loadArtists={loadArtists}
             selectedArtist={selectedArtist}
             setSelectedArtist={setSelectedArtist}
           />
@@ -89,11 +117,15 @@ const Main = () => {
       </div>
       {savedQueries ? (
         <section>
-          <PastQueriesSection savedQueries={savedQueries} submitSongSearch={submitSongSearch} />
+          <PastQueriesSection
+            savedQueries={savedQueries}
+            submitSongSearch={submitSongSearch}
+            loadArtists={loadArtists}
+          />
         </section>
       ) : null}
     </main>
   );
-};
+}
 
 export default Main;
