@@ -19,6 +19,7 @@ function Main() {
   const songSection = useRef<null | HTMLDivElement>(null);
 
   async function loadArtists(offset: number, searchStringFromArtistSearch?: string) {
+    setError(undefined);
     /* Set the search key state to the string from artist search so function can be called by ArtistResultTable without a new search key when called later */
     if (searchStringFromArtistSearch) {
       setSearchKey(searchStringFromArtistSearch);
@@ -41,6 +42,7 @@ function Main() {
   }
 
   async function submitSongSearch(searchKeyword: string, artist: string) {
+    setError(undefined);
     /* Used to display the last searched for keyword & artist */
     setLastUsedKeyword(searchKeyword);
     setLastUsedArtistName(artist);
@@ -73,13 +75,13 @@ function Main() {
 
   /* Load recent queries  - used in Main after mount and in SongSection after searching for a song */
   const fetchQueries = useCallback(async () => {
+    console.log(`reset error state`)
+    setError(undefined);
     try {
       const response = await loadQueries(9);
       setSavedQueries(response);
     } catch (error) {
-      if (error instanceof Error) {
-        setError(error);
-      }
+        setError(error as Error);
     }
   }, []);
 
