@@ -27,7 +27,7 @@ function ArtistSearchSection({ handleArtistSearch, lastUsedArtistName }: ArtistS
   const form = (
     <form className="center-container" onSubmit={handleSubmit}>
       <label htmlFor="artistSearch">
-        <p className="direction-label">1) Search for an artist</p>
+        <p className="direction-label">Search for an artist</p>
       </label>
       <div className="search-input">
         <input

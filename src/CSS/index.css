@@ -81,6 +81,11 @@ main {
   text-align: center;
 }
 
+.direction-label::before {
+  content: "●";
+  margin-right: 10px;
+}
+
 /* The search box input and search button */
 .search-input {
   display: flex;
