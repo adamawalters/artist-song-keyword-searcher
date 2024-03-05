@@ -1,43 +1,35 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Artist, Song } from "../../Types";
 import KeywordSearchSection from "./KeywordSearchSection";
 import SongTable from "./SongTable";
-import { searchSongs } from "./../../utils/api";
 
 export type SongSectionProps = {
   selectedArtist: Artist;
+  fetchQueries: () => void;
+  lastUsedKeyword: string;
+  lastUsedArtistName: string;
+  songs?: Array<Song>;
+  submitSongSearch: (searchKeyword: string, artist: string) => Promise<void>;
 };
 
-const SongSection = ({ selectedArtist }: SongSectionProps) => {
-  const [songs, setSongs] = useState<null | Array<Song>>(null);
-  const [lastUsedKeyword, setLastUsedKeyword] = useState<string>("");
-  const [lastUsedArtistName, setLastUsedArtistName] = useState<string>("");
-  const [numSongsWithKeyword, setNumSongsWithKeyword] = useState<
-    number | undefined
-  >();
+const SongSection = ({ selectedArtist, lastUsedKeyword, lastUsedArtistName, songs, submitSongSearch }: SongSectionProps) => {
+  const [numSongsWithKeyword, setNumSongsWithKeyword] = useState<number>();
 
-  async function submitKeywordSearch(searchKeyword: string) {
-    setLastUsedKeyword(searchKeyword);
-    setLastUsedArtistName(selectedArtist.name);
-    //setSongs(null) - add loading in the future
-
-    const response = await searchSongs(searchKeyword, selectedArtist.name)
-    const tracks = response.tracks;
-    const numSongs = response.totalTracks
-    setSongs(tracks)
-    setNumSongsWithKeyword(numSongs)
-
-  }
-
-
+  //Update numSongsWithKeyword when songs changes
+  useEffect(() => { 
+    if (songs) {
+      setNumSongsWithKeyword(songs.length);
+    } 
+  }, [songs])
 
   return (
     <>
       <KeywordSearchSection
         selectedArtist={selectedArtist}
-        submitKeywordSearch={submitKeywordSearch}
+        submitSongSearch={submitSongSearch}
+        lastUsedKeyword={lastUsedKeyword}
       />
-      {numSongsWithKeyword !== undefined ? (
+      {songs ? (
         <>
           <div className="center-container">
             <div className="direction-label">

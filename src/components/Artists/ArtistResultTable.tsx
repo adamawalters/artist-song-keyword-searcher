@@ -38,6 +38,7 @@ const ArtistResultTable = ({
   searchKey
 }: ArtistResultTableProps) => {
 
+
   const [page, setPage] = useState(0);
 
   function handlePageChange(_event: unknown, newPage: number) {

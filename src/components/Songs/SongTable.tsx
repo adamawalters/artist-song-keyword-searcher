@@ -18,7 +18,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
   }));
 
 type SongTableProps = {
-    songs: Song[] | null,
+    songs: Song[] | undefined,
     lastUsedKeyword: string;
 }
 

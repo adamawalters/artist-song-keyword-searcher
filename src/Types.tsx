@@ -62,3 +62,10 @@ export interface SongResponse {
   totalTracks: number;
   tracks: Array<Song>;
 }
+
+export interface SavedQuery {
+  search_keyword: string;
+  artist_name: string;
+  num_songs: number;
+  created_at?: string;
+}
