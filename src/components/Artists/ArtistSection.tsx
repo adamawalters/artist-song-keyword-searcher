@@ -9,6 +9,7 @@ type ArtistSectionProps = {
   totalArtistsInResponse: number | null;
   searchKey: string;
   loadArtists: (offset: number, searchStringFromArtistSearch?: string) => void;
+  lastUsedArtistName: string;
 };
 
 function ArtistSection({
@@ -17,9 +18,10 @@ function ArtistSection({
   artists,
   totalArtistsInResponse,
   searchKey,
-  loadArtists
+  loadArtists,
+  lastUsedArtistName
 }: ArtistSectionProps) {
-  
+
   async function handleArtistSearch(newSearchKey: string) {
     loadArtists(0, newSearchKey);
   }
@@ -27,7 +29,7 @@ function ArtistSection({
   return (
     <>
       <div className="search-box-divider">
-        <ArtistSearchSection handleArtistSearch={handleArtistSearch} />
+        <ArtistSearchSection handleArtistSearch={handleArtistSearch} lastUsedArtistName={lastUsedArtistName} />
       </div>
       {artists ? (
         <ArtistResultTable

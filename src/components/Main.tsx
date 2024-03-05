@@ -71,7 +71,7 @@ function Main() {
   /* Load recent queries  - used in Main and in SongSection */
   const fetchQueries = useCallback(async () => {
     try {
-      const response = await loadQueries(10);
+      const response = await loadQueries(9);
       setSavedQueries(response);
     } catch (error) {
       if (error instanceof Error) {
@@ -100,6 +100,7 @@ function Main() {
             loadArtists={loadArtists}
             selectedArtist={selectedArtist}
             setSelectedArtist={setSelectedArtist}
+            lastUsedArtistName={lastUsedArtistName}
           />
         </section>
         {selectedArtist ? (
