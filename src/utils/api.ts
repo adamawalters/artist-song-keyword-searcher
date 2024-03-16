@@ -62,7 +62,6 @@ async function fetchJson<T>(url: string, options: RequestInit, onCancel: T): Pro
   }
 
   export async function loadQueries(limit: number = 0) {
-
     const url = `${API_BASE_URL}/queries?limit=${limit}`
     const options = {
         method: "GET", 
