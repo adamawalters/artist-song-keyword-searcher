@@ -30,10 +30,13 @@ function SongTable({songs, lastUsedKeyword}: SongTableProps) {
     setPage(newPage);
   }
 
-  /*  Need to set page back to 0 whenever keyword changes*/
+ 
+
+   /*  Set page back to 0 whenever songs changes */
   useEffect(()=>{
     setPage(0)
-  }, [lastUsedKeyword])
+  }, [songs])
+
 
 
 
