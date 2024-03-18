@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useUserContext } from "../../utils/context";
 import { fetchTopSongs } from "../../utils/authorization";
 import { Song } from "Types";
+import SongTable from "../Songs/SongTable";
 
 function TopSongs() {
   const { userToken } = useUserContext();
@@ -19,7 +20,11 @@ function TopSongs() {
     loadTopSongs();
   }, [userToken]);
 
-  return <div>{topSongs ? topSongs.map((song) => song.name) : null}</div>;
+  return (
+    <div id="song-section">
+      <SongTable songs={topSongs} />
+    </div>
+  );
 }
 
 export default TopSongs;

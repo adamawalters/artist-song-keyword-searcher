@@ -37,7 +37,7 @@ const SongSection = ({ selectedArtist, lastUsedKeyword, lastUsedArtistName, song
                 ? `Results: There are ${numSongsWithKeyword} songs by ${lastUsedArtistName} with "${lastUsedKeyword}" in the song title`
                 : `Results: There is ${numSongsWithKeyword} song by ${lastUsedArtistName} with "${lastUsedKeyword}" in the song title`}
             </div>
-            <SongTable songs={songs} lastUsedKeyword={lastUsedKeyword} />
+            <SongTable songs={songs} />
           </div>
         </>
       ) : null}

@@ -19,10 +19,9 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 
 type SongTableProps = {
     songs: Song[] | undefined,
-    lastUsedKeyword: string;
 }
 
-function SongTable({songs, lastUsedKeyword}: SongTableProps) {
+function SongTable({songs}: SongTableProps) {
 
   const [page, setPage] = useState(0);
 
@@ -31,13 +30,10 @@ function SongTable({songs, lastUsedKeyword}: SongTableProps) {
   }
 
  
-
    /*  Set page back to 0 whenever songs changes */
   useEffect(()=>{
     setPage(0)
   }, [songs])
-
-
 
 
   /*
