@@ -224,7 +224,7 @@ export async function fetchTopSongs(userToken: UserAuthToken) {
 
     const response: TrackResponse = await fetchWithUserToken(
       userToken,
-      "https://api.spotify.com/v1/me/top/tracks?limit=5",
+      "https://api.spotify.com/v1/me/top/tracks?limit=20",
       {
         method: "GET",
         headers: {

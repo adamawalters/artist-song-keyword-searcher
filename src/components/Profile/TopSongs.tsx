@@ -21,9 +21,10 @@ function TopSongs() {
   }, [userToken]);
 
   return (
-    <div id="song-section">
+    <section id="top-song-section">
+      <h2>Your Top Songs</h2>
       <SongTable songs={topSongs} />
-    </div>
+    </section>
   );
 }
 
