@@ -2,11 +2,11 @@ import { ChangeEvent, FormEvent, useEffect, useState  } from "react";
 
 
 type ArtistSearchSectionProps = {
-  handleArtistSearch: (searchKey: string) => void;
   lastUsedArtistName: string;
+  loadArtists: (offset: number, searchStringFromArtistSearch?: string | undefined) => void
 };
 
-function ArtistSearchSection({ handleArtistSearch, lastUsedArtistName }: ArtistSearchSectionProps) {
+function ArtistSearchSection({lastUsedArtistName, loadArtists }: ArtistSearchSectionProps) {
   const [searchKey, setSearchKey] = useState("");
 
 
@@ -16,7 +16,7 @@ function ArtistSearchSection({ handleArtistSearch, lastUsedArtistName }: ArtistS
 
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    handleArtistSearch(searchKey);
+    loadArtists(0, searchKey);
   }
 
   //Update searchKey state when lastUsedArtistName changes (can happen due to PastQueriesSection or ArtistSearchSection)
