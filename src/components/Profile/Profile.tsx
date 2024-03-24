@@ -6,6 +6,7 @@ import { searchArtists, searchSongs, loadUserQueries, saveUserQueryToDatabase } 
 import { useUserContext } from "../../utils/context"
 import TopSongs from "./TopSongs"
 import UserQueriesSection from "../UserQueries/UserQueriesSection";
+import ProfileSongSection from "./ProfileSongSection";
 
 function Profile() {
 
@@ -55,14 +56,6 @@ function Profile() {
     try {
       const response = await searchSongs(searchKeyword, artist);
       setSongs(response.tracks);
-      await saveUserQueryToDatabase({
-        search_keyword: searchKeyword,
-        artist_name: artist,
-        num_songs: response.totalTracks,
-        spotify_id: userToken!.profile.id
-      });
-      // Update recent queries in Profile
-      fetchQueries();
     } catch (error) {
       if (error instanceof Error) {
         setError(error);
@@ -116,7 +109,7 @@ function Profile() {
         </section>
         {selectedArtist ? (
           <section id="song-section" ref={songSection}>
-            <SongSection
+            <ProfileSongSection
               songs={songs}
               lastUsedArtistName={lastUsedArtistName}
               lastUsedKeyword={lastUsedKeyword}

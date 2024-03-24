@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { Artist, Song } from "../../Types";
 import KeywordSearchSection from "./KeywordSearchSection";
 import SongTable from "./SongTable";
@@ -22,7 +21,6 @@ const SongSection = ({ selectedArtist, lastUsedKeyword, lastUsedArtistName, song
         lastUsedKeyword={lastUsedKeyword}
       />
       {songs ? (
-        <>
           <div className="center-container">
             <div className="direction-label">
               {songs.length !== 1
@@ -31,7 +29,6 @@ const SongSection = ({ selectedArtist, lastUsedKeyword, lastUsedArtistName, song
             </div>
             <SongTable songs={songs} />
           </div>
-        </>
       ) : null}
     </>
   );
