@@ -56,7 +56,7 @@ function Main() {
         search_keyword: searchKeyword,
         artist_name: artist,
         num_songs: response.totalTracks,
-      } as SavedQuery);
+      });
       // Update recent queries in Main
       fetchQueries();
     } catch (error) {

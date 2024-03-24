@@ -1,17 +1,17 @@
-import { Artist, SavedQuery, Song } from "Types";
+import { Artist, SavedQuery, Song, UserSavedQuery } from "Types";
 import ArtistSection from "../Artists/ArtistSection";
-import PastQueriesSection from "../PastQueries/PastQueriesSection";
 import SongSection from "../Songs/SongSection";
 import { useState, useRef, useEffect, useCallback } from "react";
-import { searchArtists, searchSongs, saveQueryToDatabase, loadQueries } from "../../utils/api";
+import { searchArtists, searchSongs, saveQueryToDatabase, loadUserQueries, saveUserQueryToDatabase } from "../../utils/api";
 import { useUserContext } from "../../utils/context"
 import TopSongs from "./TopSongs"
+import UserQueriesSection from "../UserQueries/UserQueriesSection";
 
 function Profile() {
 
   const { userToken } = useUserContext();
   const [selectedArtist, setSelectedArtist] = useState<null | Artist>(null);
-  const [savedQueries, setSavedQueries] = useState<Array<SavedQuery>>();
+  const [userSavedQueries, setUserSavedQueries] = useState<Array<UserSavedQuery>>();
   const [error, setError] = useState<Error>();
   const [songs, setSongs] = useState<Array<Song>>();
   const [lastUsedKeyword, setLastUsedKeyword] = useState<string>("");
@@ -55,12 +55,13 @@ function Profile() {
     try {
       const response = await searchSongs(searchKeyword, artist);
       setSongs(response.tracks);
-      await saveQueryToDatabase({
+      await saveUserQueryToDatabase({
         search_keyword: searchKeyword,
         artist_name: artist,
         num_songs: response.totalTracks,
-      } as SavedQuery);
-      // Update recent queries in Main
+        spotify_id: userToken!.profile.id
+      });
+      // Update recent queries in Profile
       fetchQueries();
     } catch (error) {
       if (error instanceof Error) {
@@ -76,16 +77,16 @@ function Profile() {
     }
   }, [selectedArtist]);
 
-  /* Load recent queries  - used in Main after mount and in SongSection after searching for a song */
+  /* Load recent queries  - used in Profile after mount and in SongSection after searching for a song */
   const fetchQueries = useCallback(async () => {
     setError(undefined);
     try {
-      const response = await loadQueries(9);
-      setSavedQueries(response);
+      const response = await loadUserQueries(0, userToken!.profile.id);
+      setUserSavedQueries(response);
     } catch (error) {
         setError(error as Error);
     }
-  }, []);
+  }, [userToken]);
 
   // Load recent queries after mount
   useEffect(() => {
@@ -96,7 +97,8 @@ function Profile() {
 
   return (
     <main>
-      <h1>Hi, {userToken.profile.display_name}</h1>
+      {/* userToken is truthy always b/c of conditional statement on App.tsx */}
+      <h1>Hi, {userToken!.profile.display_name}</h1>
       <p>On this page you can perform searches and save and edit your searches. You can also see your top songs!</p>
       <TopSongs />
       {error ? <div>{error.message}</div> : null}
@@ -125,10 +127,10 @@ function Profile() {
           </section>
         ) : null}
       </div>
-      {savedQueries ? (
+      {userSavedQueries ? (
         <section>
-          <PastQueriesSection
-            savedQueries={savedQueries}
+          <UserQueriesSection
+            userSavedQueries={userSavedQueries}
             submitSongSearch={submitSongSearch}
             loadArtists={loadArtists}
           />

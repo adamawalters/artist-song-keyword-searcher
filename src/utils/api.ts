@@ -1,4 +1,4 @@
-import {  ArtistResponse, SavedQuery, SongResponse } from "Types";
+import {  ArtistResponse, SavedQuery, SongResponse, UserSavedQuery } from "Types";
 
 const API_BASE_URL = import.meta.env.VITE_BASE_URL || "http://localhost:5001"
 
@@ -72,6 +72,17 @@ async function fetchJson<T>(url: string, options: RequestInit, onCancel: T): Pro
 
   }
 
+  export async function loadUserQueries(limit: number = 0, spotify_id: string) {
+    const url = `${API_BASE_URL}/queries?limit=${limit}&spotify_id=${spotify_id}`
+    const options = {
+        method: "GET", 
+    }
+
+    const response = await fetchJson<Array<UserSavedQuery>>(url, options, [])
+    return response;
+  }
+
+
   export async function saveQueryToDatabase(query: SavedQuery) {
     const url = `${API_BASE_URL}/queries`
     const { search_keyword, artist_name, num_songs } = query
@@ -89,3 +100,24 @@ async function fetchJson<T>(url: string, options: RequestInit, onCancel: T): Pro
     const response = await fetchJson(url, options, {})
     return response;
   }
+
+
+export async function saveUserQueryToDatabase(query: UserSavedQuery) {
+  const url = `${API_BASE_URL}/queries`
+  const { search_keyword, artist_name, num_songs, spotify_id } = query;
+  const options = {
+    method: "POST",
+    headers,
+    body: JSON.stringify({
+      data : {
+        search_keyword,
+        artist_name,
+        num_songs,
+        spotify_id
+      }
+    })
+  }
+
+  const response = await fetchJson(url, options, {})
+  return response;
+}

@@ -2,8 +2,8 @@ import { createContext, useContext } from "react";
 import { UserAuthToken } from "Types";
 
 interface UserContextType {
-    userToken: UserAuthToken;
-    setUserToken: React.Dispatch<React.SetStateAction<UserAuthToken>>;
+    userToken: UserAuthToken | undefined;
+    setUserToken: React.Dispatch<React.SetStateAction<UserAuthToken | undefined>>;
     isLoading: boolean;
     setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
 }

@@ -1,13 +1,16 @@
 import { useEffect, useState } from "react";
 import { useUserContext } from "../../utils/context";
 import { fetchTopSongs } from "../../utils/authorization";
-import { Song } from "Types";
+import { Song, UserAuthToken } from "Types";
 import SongTable from "../Songs/SongTable";
 
+
 function TopSongs() {
-  const { userToken } = useUserContext();
+  /* userToken is truthy always b/c of conditional statement on App.tsx */
+  const { userToken } = useUserContext() as { userToken: UserAuthToken };
   const [topSongs, setTopSongs] = useState<Array<Song>>([]);
 
+  
   useEffect(() => {
     async function loadTopSongs() {
       try {

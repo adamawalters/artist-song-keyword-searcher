@@ -29,14 +29,14 @@ export type ArtistResultTableProps = {
   searchKey: string
 };
 
-const ArtistResultTable = ({
+function ArtistResultTable ({
   artists,
   setSelectedArtist,
   selectedArtist,
   loadArtists,
   totalArtistsInResponse,
   searchKey
-}: ArtistResultTableProps) => {
+}: ArtistResultTableProps) {
 
 
   const [page, setPage] = useState(0);

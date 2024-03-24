@@ -97,3 +97,11 @@ export interface SavedQuery {
   num_songs: number;
   created_at?: string;
 }
+
+export interface UserSavedQuery {
+  search_keyword: string;
+  artist_name: string;
+  num_songs: number;
+  created_at?: string;
+  spotify_id: string;
+}
