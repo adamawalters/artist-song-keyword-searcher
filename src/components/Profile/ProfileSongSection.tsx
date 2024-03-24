@@ -49,6 +49,6 @@ function ProfileSongSection ({ selectedArtist, lastUsedKeyword, lastUsedArtistNa
       
     </>
   );
-};
+}
 
 export default ProfileSongSection;

@@ -99,6 +99,7 @@ export interface SavedQuery {
 }
 
 export interface UserSavedQuery {
+  _id: string,
   search_keyword: string;
   artist_name: string;
   num_songs: number;

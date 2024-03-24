@@ -1,8 +1,7 @@
 import { Artist, Song, UserSavedQuery } from "Types";
 import ArtistSection from "../Artists/ArtistSection";
-import SongSection from "../Songs/SongSection";
 import { useState, useRef, useEffect, useCallback } from "react";
-import { searchArtists, searchSongs, loadUserQueries, saveUserQueryToDatabase } from "../../utils/api";
+import { searchArtists, searchSongs, loadUserQueries } from "../../utils/api";
 import { useUserContext } from "../../utils/context"
 import TopSongs from "./TopSongs"
 import UserQueriesSection from "../UserQueries/UserQueriesSection";
@@ -126,6 +125,7 @@ function Profile() {
             userSavedQueries={userSavedQueries}
             submitSongSearch={submitSongSearch}
             loadArtists={loadArtists}
+            fetchQueries={fetchQueries}
           />
         </section>
       ) : null}

@@ -155,6 +155,11 @@ svg {
   gap: 5px;
 }
 
+.query-wrapper-row {
+  display: flex;
+  justify-content: space-between;
+}
+
 /* TABLE CSS */
 
 /* Setting width of artist result table columns */

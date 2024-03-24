@@ -121,3 +121,14 @@ export async function saveUserQueryToDatabase(query: UserSavedQuery) {
   const response = await fetchJson(url, options, {})
   return response;
 }
+
+export async function deleteUserQueryItem(id: string){
+  const url = `${API_BASE_URL}/queries/${id}`
+  const options = {
+    method: "DELETE",
+    headers
+  }
+
+  const response = await fetchJson(url, options, {})
+  return response;
+}
