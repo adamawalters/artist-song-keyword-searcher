@@ -105,4 +105,10 @@ export interface UserSavedQuery {
   num_songs: number;
   created_at?: string;
   spotify_id: string;
+  tags: Array<TagType>
+}
+
+export interface TagType {
+  _id: string,
+  tag: string
 }

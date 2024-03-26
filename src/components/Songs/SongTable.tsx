@@ -63,7 +63,7 @@ function SongTable({songs}: SongTableProps) {
                             <a href={`https://open.spotify.com/track/${song.id}`} target="_blank">{song.name}</a>
                             </TableCell>
                       </TableRow>)
-                      : null}
+                      : <h1>No songs found</h1>}
                   </TableBody>
                 </Table>
             </TableContainer>

@@ -160,6 +160,12 @@ svg {
   justify-content: space-between;
 }
 
+.modal-row {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
 /* TABLE CSS */
 
 /* Setting width of artist result table columns */
@@ -216,6 +222,10 @@ section {
 .time-wrapper {
   display: flex;
   justify-content: space-between;
+}
+
+.tag-item {
+  border: 1px solid blue;
 }
 
 /* MEDIA QUERIES */

@@ -1,4 +1,4 @@
-import {  ArtistResponse, SavedQuery, SongResponse, UserSavedQuery } from "Types";
+import {  ArtistResponse, SavedQuery, SongResponse, TagType, UserSavedQuery } from "Types";
 
 const API_BASE_URL = import.meta.env.VITE_BASE_URL || "http://localhost:5001"
 
@@ -13,7 +13,6 @@ async function fetchJson<T>(url: string, options: RequestInit, onCancel: T): Pro
     if (response.status === 204) {
         return onCancel;
       } 
-  
       const payload = await response.json();
   
       if (payload.error) {
@@ -132,3 +131,31 @@ export async function deleteUserQueryItem(id: string){
   const response = await fetchJson(url, options, {})
   return response;
 }
+
+export async function deleteTag(id: string){
+  const url = `${API_BASE_URL}/tags/${id}`
+  const options = {
+    method: "DELETE",
+    headers,
+  }
+  const response = await fetchJson(url, options, {})
+  return response;
+}
+
+export async function createTag(tag: string, queryId: string){
+  const url = `${API_BASE_URL}/tags`
+  const options = {
+    method: "POST",
+    headers,
+    body: JSON.stringify({
+      data: {
+        tag: tag,
+        queryId: queryId
+      }
+    })
+  }
+
+  const response = await fetchJson(url, options, {})
+  return response;
+}
+
