@@ -166,7 +166,7 @@ export async function updateTag(tagId: string, tagContent: string) {
     headers,
     body: JSON.stringify({
       data: {
-        tagContent: tagContent
+        tag_content: tagContent
       }
     })
   }
