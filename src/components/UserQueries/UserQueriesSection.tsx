@@ -9,6 +9,7 @@ type UserQueriesSectionProps = {
 };
 
 function UserQueriesSection({userSavedQueries, submitSongSearch, loadArtists, fetchQueries}: UserQueriesSectionProps) {
+
   return (
     <div className="center-container">
       <h1>Your Saved Queries</h1>

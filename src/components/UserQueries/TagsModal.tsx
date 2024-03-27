@@ -19,7 +19,6 @@ const style = {
 type TagsModalProps = {
   open: boolean;
   handleClose: () => void;
-  tags: Array<TagType>;
   fetchQueries: () => Promise<void>;
   query: UserSavedQuery
 };
@@ -35,6 +34,7 @@ const formTags = query.tags.map(tag => tag)
     try {
       await createTag(newTag, query._id);
       setNewTag("")
+      await fetchQueries()
     } catch (error) {
       console.log(error);
     }

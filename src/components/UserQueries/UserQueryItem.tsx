@@ -44,10 +44,6 @@ function UserQueryItem({
     }
   }
 
-  if(!query.tags) {
-    query.tags = [{_id: "1", tag: "tag1"}, {_id: "2", tag: "tag2"}]
-  }
-
   return (
     <>
       <DeleteModal open={deleteOpen} query={query}  handleClose={handleDeleteClose} handleDelete={handleDelete}/>
@@ -72,8 +68,14 @@ function UserQueryItem({
         >
           Perform Search Again
         </button>
-        <p>Tags: {query.tags.join("; ")}</p>
-        <button onClick={()=>setTagsOpen(true)} className="submit-button">Edit Tags</button>
+          {query.tags.length ? (
+            <>
+              <p>Tags: {query.tags.map(tag => tag.tag_content).join(";")}</p>
+              <button onClick={() => setTagsOpen(true)} className="submit-button">
+                Edit Tags
+              </button>
+            </>
+          ) : <button className ="submit-button" onClick={()=>setTagsOpen(true)}> Add Tags </button>}
       </div>
     </>
   );

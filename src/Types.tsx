@@ -110,5 +110,5 @@ export interface UserSavedQuery {
 
 export interface TagType {
   _id: string,
-  tag: string
+  tag_content: string
 }
