@@ -27,6 +27,8 @@ type TagsModalProps = {
 function TagsModal({ open, handleClose, query, fetchQueries }: TagsModalProps) {
   const [newTag, setNewTag] = useState("");
 
+const formTags = query.tags.map(tag => tag)
+
   async function handleNewTag() {
     //send new tag to database. It will be given an id and associated with the current query
     //reload query so that tagList is updated and the new tag is rendered
@@ -58,11 +60,9 @@ function TagsModal({ open, handleClose, query, fetchQueries }: TagsModalProps) {
             onKeyDown={handleKeyPress}
           />
           <button onClick={handleNewTag}>Add Tag</button>
-          <form>
-          {query.tags.map((tag) => (
+          {formTags.map((tag) => (
             <Tag tag={tag} fetchQueries={fetchQueries} />
           ))}
-          </form>
         </Typography>
         <div className="modal-row">
           <button onClick={handleClose}>Cancel</button>

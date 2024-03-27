@@ -142,15 +142,15 @@ export async function deleteTag(id: string){
   return response;
 }
 
-export async function createTag(tag: string, queryId: string){
+export async function createTag(tagContent: string, queryId: string){
   const url = `${API_BASE_URL}/tags`
   const options = {
     method: "POST",
     headers,
     body: JSON.stringify({
       data: {
-        tag: tag,
-        queryId: queryId
+        tag_content: tagContent,
+        query_id: queryId
       }
     })
   }
@@ -159,3 +159,18 @@ export async function createTag(tag: string, queryId: string){
   return response;
 }
 
+export async function updateTag(tagId: string, tagContent: string) {
+  const url = `${API_BASE_URL}/tags/${tagId}`
+  const options = {
+    method: "PUT",
+    headers,
+    body: JSON.stringify({
+      data: {
+        tagContent: tagContent
+      }
+    })
+  }
+
+  const response = await fetchJson(url, options, {})
+  return response;
+}
