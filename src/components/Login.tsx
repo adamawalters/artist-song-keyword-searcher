@@ -67,7 +67,7 @@ function Login() {
     
   }, [setIsLoading, setUserToken]);
 
-  return <button onClick={handleLogin}>Login with Spotify</button>;
+  return <button className="submit-button" onClick={handleLogin}>Login with Spotify</button>;
 }
 
 export default Login;
