@@ -90,8 +90,12 @@ function Profile() {
   return (
     <main>
       {/* userToken is truthy always b/c of conditional statement on App.tsx */}
-      <h1>Hi, {userToken!.profile.display_name}</h1>
-      <p>On this page you can perform searches and save and edit your searches. You can also see your top songs!</p>
+      <section className="profile-greeting">
+        <div className="center-container">
+          <h1>Hi, {userToken!.profile.display_name}</h1>
+          <p>On this page you can perform searches and save and edit your searches. You can also see your top songs!</p>
+        </div>
+      </section>
       <TopSongs />
       {error ? <div>{error.message}</div> : null}
       <div className="artist-and-song-wrapper">

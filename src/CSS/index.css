@@ -194,6 +194,10 @@ table img {
   border-radius: 25px;
 }
 
+.profile-greeting {
+
+}
+
 
 section {
   margin-bottom: 40px;
@@ -263,6 +267,14 @@ section {
   }
 
   #song-section {
+    flex-grow: 1;
+    flex-basis: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  #top-song-section {
     flex-grow: 1;
     flex-basis: 0;
     display: flex;

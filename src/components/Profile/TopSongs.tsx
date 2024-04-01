@@ -25,8 +25,10 @@ function TopSongs() {
 
   return (
     <section id="top-song-section">
-      <h2>Your Top Songs</h2>
-      <SongTable songs={topSongs} />
+      <div className="center-container">
+        <h2>Your Top Songs</h2>
+        <SongTable songs={topSongs} />
+      </div>
     </section>
   );
 }

@@ -5,6 +5,8 @@ import SongSection from "./Songs/SongSection";
 import PastQueriesSection from "./PastQueries/PastQueriesSection";
 import { SavedQuery } from "../Types";
 import { loadQueries, saveQueryToDatabase, searchArtists, searchSongs } from "./../utils/api";
+import { useUserContext } from "./../utils/context";
+import { useLocation, useNavigate } from "react-router-dom";
 
 function Main() {
   const [selectedArtist, setSelectedArtist] = useState<null | Artist>(null);
@@ -17,6 +19,7 @@ function Main() {
   const [searchKey, setSearchKey] = useState<string>("");
   const [totalArtistsInResponse, setTotalArtistsInResponse] = useState<null | number>(null); 
   const songSection = useRef<null | HTMLDivElement>(null);
+
 
   async function loadArtists(offset: number, searchStringFromArtistSearch?: string) {
     setError(undefined);
@@ -90,6 +93,8 @@ function Main() {
     fetchQueries();
     return () => abortController.abort();
   }, [fetchQueries]);
+
+
 
   return (
     <main>

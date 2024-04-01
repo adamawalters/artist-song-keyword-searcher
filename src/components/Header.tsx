@@ -2,7 +2,7 @@ import { useUserContext } from "../utils/context";
 import MusicIcon from "../assets/music-icon.png";
 import "./../CSS/header.css";
 import Login from "./Login";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, Link } from "react-router-dom";
 
 function Header() {
   const { userToken } = useUserContext();
@@ -30,12 +30,9 @@ function Header() {
             <button className="submit-button" onClick={handleLogout}>
               Logout
             </button>
-            <button
-              onClick={() => navigate(location.pathname === "/profile" ? "/" : "/profile")}
-              className="submit-button"
-            >
+            <Link to={location.pathname === "/profile"? "/main" : "/profile"} className="submit-button">
              { location.pathname === "/profile"? "Main Page" : "My Profile"}
-            </button>
+            </Link>
           </>
         )}
       </div>
