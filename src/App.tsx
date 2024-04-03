@@ -24,7 +24,7 @@ function App() {
         <Header />
         {!isLoading ? (
           <Routes>
-            <Route path="/" element={ userToken? <Profile /> : <Navigate to="/main" /> } />
+            <Route path="/" element={ userToken? <Navigate to="/profile" /> : <Navigate to="/main" /> } />
             <Route path="/main" element={<Main />} />
             <Route
               path="/profile"

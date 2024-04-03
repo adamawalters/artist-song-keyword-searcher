@@ -92,11 +92,15 @@ function Profile() {
       {/* userToken is truthy always b/c of conditional statement on App.tsx */}
       <section className="profile-greeting">
         <div className="center-container">
-          <h1>Hi, {userToken!.profile.display_name}</h1>
-          <p>On this page you can perform searches and save and edit your searches. You can also see your top songs!</p>
+          <h1>Hi {userToken!.profile.display_name}</h1>
+          <p>This page is your personal profile page. You can:</p>
+          <ol>
+            <li>Perform keyword searches and save and delete them on your personal profile</li>
+            <li>Add tags to each search, edit, and delete tags</li>
+            <li>View the top songs you've been listening to on Spotify</li>
+          </ol>
         </div>
       </section>
-      <TopSongs />
       {error ? <div>{error.message}</div> : null}
       <div className="artist-and-song-wrapper">
         <section id="artist-section">
@@ -133,6 +137,7 @@ function Profile() {
           />
         </section>
       ) : null}
+      <TopSongs />
     </main>
   )
 }

@@ -1,5 +1,5 @@
 import { Modal, Box, Typography } from "@mui/material";
-import { TagType, UserSavedQuery } from "Types";
+import { UserSavedQuery } from "Types";
 import Tag from "./Tag";
 import React, { useState } from "react";
 import { createTag } from "../../utils/api";
@@ -9,9 +9,10 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: 400,
+  // width: 400,
   bgcolor: "background.paper",
   border: "2px solid #000",
+  borderRadius: "var(--corner-radius-medium)",
   boxShadow: 24,
   p: 4,
 };
@@ -20,21 +21,21 @@ type TagsModalProps = {
   open: boolean;
   handleClose: () => void;
   fetchQueries: () => Promise<void>;
-  query: UserSavedQuery
+  query: UserSavedQuery;
 };
 
 function TagsModal({ open, handleClose, query, fetchQueries }: TagsModalProps) {
   const [newTag, setNewTag] = useState("");
 
-const formTags = query.tags.map(tag => tag)
+  const formTags = query.tags.map((tag) => tag);
 
   async function handleNewTag() {
     //send new tag to database. It will be given an id and associated with the current query
     //reload query so that tagList is updated and the new tag is rendered
     try {
       await createTag(newTag, query._id);
-      setNewTag("")
-      await fetchQueries()
+      setNewTag("");
+      await fetchQueries();
     } catch (error) {
       console.log(error);
     }
@@ -53,19 +54,30 @@ const formTags = query.tags.map(tag => tag)
       <Box sx={style}>
         <Typography id="confirmation box" variant="h6" component="h2">
           <h2>Tags</h2>
-          <input
-            placeholder="Enter a new tag"
-            value={newTag}
-            onChange={(e) => setNewTag(e.target.value)}
-            onKeyDown={handleKeyPress}
-          />
-          <button onClick={handleNewTag}>Add Tag</button>
-          {formTags.map((tag) => (
-            <Tag tag={tag} fetchQueries={fetchQueries} />
-          ))}
+          <div className="query-wrapper-row">
+            <input
+              placeholder="Enter a new tag"
+              value={newTag}
+              onChange={(e) => setNewTag(e.target.value)}
+              onKeyDown={handleKeyPress}
+              className="tag-adder-input"
+            />
+            <button className="submit-button" onClick={handleNewTag}>
+              Add Tag
+            </button>
+          </div>
+
+          <div className="tags-holder">
+            <h4>Tag List</h4>
+            {formTags.map((tag) => (
+              <Tag tag={tag} fetchQueries={fetchQueries} />
+            ))}
+          </div>
         </Typography>
         <div className="modal-row">
-          <button onClick={handleClose}>Cancel</button>
+          <button className="delete-button" onClick={handleClose}>
+            Done
+          </button>
         </div>
       </Box>
     </Modal>
