@@ -32,7 +32,7 @@ header {
     flex: 1;
     gap: 25px;
     align-items: center;
-    justify-content: center;
+    justify-content: left;
     justify-self: flex-center;
   }
 

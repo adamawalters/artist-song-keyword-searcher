@@ -1,4 +1,4 @@
-import {  ArtistResponse, SavedQuery, SongResponse } from "Types";
+import {  ArtistResponse, SavedQuery, SongResponse, UserSavedQuery } from "Types";
 
 const API_BASE_URL = import.meta.env.VITE_BASE_URL || "http://localhost:5001"
 
@@ -13,7 +13,6 @@ async function fetchJson<T>(url: string, options: RequestInit, onCancel: T): Pro
     if (response.status === 204) {
         return onCancel;
       } 
-  
       const payload = await response.json();
   
       if (payload.error) {
@@ -62,7 +61,6 @@ async function fetchJson<T>(url: string, options: RequestInit, onCancel: T): Pro
   }
 
   export async function loadQueries(limit: number = 0) {
-
     const url = `${API_BASE_URL}/queries?limit=${limit}`
     const options = {
         method: "GET", 
@@ -72,6 +70,17 @@ async function fetchJson<T>(url: string, options: RequestInit, onCancel: T): Pro
     return response;
 
   }
+
+  export async function loadUserQueries(limit: number = 0, spotify_id: string) {
+    const url = `${API_BASE_URL}/queries?limit=${limit}&spotify_id=${spotify_id}`
+    const options = {
+        method: "GET", 
+    }
+
+    const response = await fetchJson<Array<UserSavedQuery>>(url, options, [])
+    return response;
+  }
+
 
   export async function saveQueryToDatabase(query: SavedQuery) {
     const url = `${API_BASE_URL}/queries`
@@ -90,3 +99,80 @@ async function fetchJson<T>(url: string, options: RequestInit, onCancel: T): Pro
     const response = await fetchJson(url, options, {})
     return response;
   }
+
+  export async function saveUserQueryToDatabase(query: Omit<UserSavedQuery, "_id" | "tags">) {
+    const url = `${API_BASE_URL}/queries`
+    const { search_keyword, artist_name, num_songs, spotify_id } = query;
+    const options = {
+      method: "POST",
+      headers,
+      body: JSON.stringify({
+        data : {
+          search_keyword,
+          artist_name,
+          num_songs,
+          spotify_id
+        }
+      })
+    }
+  
+    const response = await fetchJson(url, options, {})
+    return response;
+  }
+
+
+
+
+export async function deleteUserQueryItem(id: string){
+  const url = `${API_BASE_URL}/queries/${id}`
+  const options = {
+    method: "DELETE",
+    headers
+  }
+
+  const response = await fetchJson(url, options, {})
+  return response;
+}
+
+export async function deleteTag(id: string){
+  const url = `${API_BASE_URL}/tags/${id}`
+  const options = {
+    method: "DELETE",
+    headers,
+  }
+  const response = await fetchJson(url, options, {})
+  return response;
+}
+
+export async function createTag(tagContent: string, queryId: string){
+  const url = `${API_BASE_URL}/tags`
+  const options = {
+    method: "POST",
+    headers,
+    body: JSON.stringify({
+      data: {
+        tag_content: tagContent,
+        query_id: queryId
+      }
+    })
+  }
+
+  const response = await fetchJson(url, options, {})
+  return response;
+}
+
+export async function updateTag(tagId: string, tagContent: string) {
+  const url = `${API_BASE_URL}/tags/${tagId}`
+  const options = {
+    method: "PUT",
+    headers,
+    body: JSON.stringify({
+      data: {
+        tag_content: tagContent
+      }
+    })
+  }
+
+  const response = await fetchJson(url, options, {})
+  return response;
+}

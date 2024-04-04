@@ -27,7 +27,7 @@ function KeywordSearchSection({ selectedArtist, submitSongSearch, lastUsedKeywor
       >
         <label htmlFor="search-artist">
           <p className="direction-label">
-            2) Enter a keyword to search song titles by {selectedArtist.name}
+            Enter a keyword to search song titles by {selectedArtist.name}
           </p>
         </label>
         <input

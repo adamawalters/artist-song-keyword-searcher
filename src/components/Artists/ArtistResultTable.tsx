@@ -29,14 +29,14 @@ export type ArtistResultTableProps = {
   searchKey: string
 };
 
-const ArtistResultTable = ({
+function ArtistResultTable ({
   artists,
   setSelectedArtist,
   selectedArtist,
   loadArtists,
   totalArtistsInResponse,
   searchKey
-}: ArtistResultTableProps) => {
+}: ArtistResultTableProps) {
 
 
   const [page, setPage] = useState(0);
@@ -46,10 +46,11 @@ const ArtistResultTable = ({
     loadArtists(newPage * 10)
   }
 
-    /*  Need to set page back to 0 whenever keyword changes*/
+    /*  Need to set page back to 0 whenever artists changes*/
     useEffect(() => {
       setPage(0)
     }, [searchKey])
+    //since I'm doing a new fetch each time to get artists, it's reliant on search key rather than artists
     
 
   return (

@@ -1,15 +1,17 @@
-import { useCallback, useEffect, useRef, useState } from "react";
-import ArtistSection from "./Artists/ArtistSection";
-import { Artist, Song } from "../Types";
-import SongSection from "./Songs/SongSection";
-import PastQueriesSection from "./PastQueries/PastQueriesSection";
-import { SavedQuery } from "../Types";
-import { loadQueries, saveQueryToDatabase, searchArtists, searchSongs } from "./../utils/api";
+import { Artist, Song, UserSavedQuery } from "Types";
+import ArtistSection from "../Artists/ArtistSection";
+import { useState, useRef, useEffect, useCallback } from "react";
+import { searchArtists, searchSongs, loadUserQueries } from "../../utils/api";
+import { useUserContext } from "../../utils/context"
+import TopSongs from "./TopSongs"
+import UserQueriesSection from "../UserQueries/UserQueriesSection";
+import ProfileSongSection from "./ProfileSongSection";
 
+function Profile() {
 
-function Main() {
+  const { userToken } = useUserContext();
   const [selectedArtist, setSelectedArtist] = useState<null | Artist>(null);
-  const [savedQueries, setSavedQueries] = useState<Array<SavedQuery>>();
+  const [userSavedQueries, setUserSavedQueries] = useState<Array<UserSavedQuery>>();
   const [error, setError] = useState<Error>();
   const [songs, setSongs] = useState<Array<Song>>();
   const [lastUsedKeyword, setLastUsedKeyword] = useState<string>("");
@@ -18,7 +20,6 @@ function Main() {
   const [searchKey, setSearchKey] = useState<string>("");
   const [totalArtistsInResponse, setTotalArtistsInResponse] = useState<null | number>(null); 
   const songSection = useRef<null | HTMLDivElement>(null);
-
 
   async function loadArtists(offset: number, searchStringFromArtistSearch?: string) {
     setError(undefined);
@@ -54,13 +55,6 @@ function Main() {
     try {
       const response = await searchSongs(searchKeyword, artist);
       setSongs(response.tracks);
-      await saveQueryToDatabase({
-        search_keyword: searchKeyword,
-        artist_name: artist,
-        num_songs: response.totalTracks,
-      });
-      // Update recent queries in Main
-      fetchQueries();
     } catch (error) {
       if (error instanceof Error) {
         setError(error);
@@ -73,18 +67,18 @@ function Main() {
     if (selectedArtist && !window.matchMedia("(min-width: 768px)").matches) {
       songSection.current?.scrollIntoView({ behavior: "smooth" });
     }
-  }, [selectedArtist]); 
+  }, [selectedArtist]);
 
-  /* Load recent queries  - used in Main after mount and in SongSection after searching for a song */
+  /* Load recent queries  - used in Profile after mount and in SongSection after searching for a song */
   const fetchQueries = useCallback(async () => {
     setError(undefined);
     try {
-      const response = await loadQueries(9);
-      setSavedQueries(response);
+      const response = await loadUserQueries(0, userToken!.profile.id);
+      setUserSavedQueries(response);
     } catch (error) {
         setError(error as Error);
     }
-  }, []);
+  }, [userToken]);
 
   // Load recent queries after mount
   useEffect(() => {
@@ -93,10 +87,20 @@ function Main() {
     return () => abortController.abort();
   }, [fetchQueries]);
 
-
-
   return (
     <main>
+      {/* userToken is truthy always b/c of conditional statement on App.tsx */}
+      <section className="profile-greeting">
+        <div className="center-container">
+          <h1>Hi {userToken!.profile.display_name}</h1>
+          <p>This page is your personal profile page. You can:</p>
+          <ol>
+            <li>Perform keyword searches and save and delete them on your personal profile</li>
+            <li>Add tags to each search, edit, and delete tags</li>
+            <li>View the top songs you've been listening to on Spotify</li>
+          </ol>
+        </div>
+      </section>
       {error ? <div>{error.message}</div> : null}
       <div className="artist-and-song-wrapper">
         <section id="artist-section">
@@ -112,7 +116,7 @@ function Main() {
         </section>
         {selectedArtist ? (
           <section id="song-section" ref={songSection}>
-            <SongSection
+            <ProfileSongSection
               songs={songs}
               lastUsedArtistName={lastUsedArtistName}
               lastUsedKeyword={lastUsedKeyword}
@@ -123,17 +127,19 @@ function Main() {
           </section>
         ) : null}
       </div>
-      {savedQueries ? (
+      {userSavedQueries ? (
         <section>
-          <PastQueriesSection
-            savedQueries={savedQueries}
+          <UserQueriesSection
+            userSavedQueries={userSavedQueries}
             submitSongSearch={submitSongSearch}
             loadArtists={loadArtists}
+            fetchQueries={fetchQueries}
           />
         </section>
       ) : null}
+      <TopSongs />
     </main>
-  );
+  )
 }
 
-export default Main;
+export default Profile

@@ -36,9 +36,37 @@ export interface TrackResponse {
   items: Array<Song>;
 }
 
-export interface Token {
-  value: string;
+export interface UserAuthToken {
+  access_token: string;
+  token_type: string;
+  scope: string;
+  expires_in: number;
   expiration: number;
+  refresh_token: string;
+  profile: SpotifyUserProfile;
+}
+
+export interface SpotifyUserProfile {
+  country: string;
+  display_name: string;
+  email: string;
+  explicit_content: { 
+    filter_enabled: boolean; 
+    filter_locked: boolean; 
+  };
+  external_urls: {
+    spotify: string;
+  };
+  followers: {
+    href: string;
+    total: number;
+  };
+  href: string;
+  id: string;
+  images: Array<GenericObject>;
+  product: string;
+  type: string;
+  uri: string;
 }
 
 export interface ArtistSearchResponse {
@@ -68,4 +96,19 @@ export interface SavedQuery {
   artist_name: string;
   num_songs: number;
   created_at?: string;
+}
+
+export interface UserSavedQuery {
+  _id: string,
+  search_keyword: string;
+  artist_name: string;
+  num_songs: number;
+  created_at?: string;
+  spotify_id: string;
+  tags: Array<TagType>
+}
+
+export interface TagType {
+  _id: string,
+  tag_content: string
 }

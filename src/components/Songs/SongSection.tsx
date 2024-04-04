@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { Artist, Song } from "../../Types";
 import KeywordSearchSection from "./KeywordSearchSection";
 import SongTable from "./SongTable";
@@ -13,14 +12,6 @@ export type SongSectionProps = {
 };
 
 const SongSection = ({ selectedArtist, lastUsedKeyword, lastUsedArtistName, songs, submitSongSearch }: SongSectionProps) => {
-  const [numSongsWithKeyword, setNumSongsWithKeyword] = useState<number>();
-
-  //Update numSongsWithKeyword when songs changes
-  useEffect(() => { 
-    if (songs) {
-      setNumSongsWithKeyword(songs.length);
-    } 
-  }, [songs])
 
   return (
     <>
@@ -30,16 +21,14 @@ const SongSection = ({ selectedArtist, lastUsedKeyword, lastUsedArtistName, song
         lastUsedKeyword={lastUsedKeyword}
       />
       {songs ? (
-        <>
           <div className="center-container">
             <div className="direction-label">
-              {numSongsWithKeyword !== 1
-                ? `Results: There are ${numSongsWithKeyword} songs by ${lastUsedArtistName} with "${lastUsedKeyword}" in the song title`
-                : `Results: There is ${numSongsWithKeyword} song by ${lastUsedArtistName} with "${lastUsedKeyword}" in the song title`}
+              {songs.length !== 1
+                ? `Results: There are ${songs.length} songs by ${lastUsedArtistName} with "${lastUsedKeyword}" in the song title`
+                : `Results: There is ${songs.length} song by ${lastUsedArtistName} with "${lastUsedKeyword}" in the song title`}
             </div>
-            <SongTable songs={songs} lastUsedKeyword={lastUsedKeyword} />
+            <SongTable songs={songs} />
           </div>
-        </>
       ) : null}
     </>
   );

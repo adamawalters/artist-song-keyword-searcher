@@ -19,10 +19,9 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 
 type SongTableProps = {
     songs: Song[] | undefined,
-    lastUsedKeyword: string;
 }
 
-function SongTable({songs, lastUsedKeyword}: SongTableProps) {
+function SongTable({songs}: SongTableProps) {
 
   const [page, setPage] = useState(0);
 
@@ -30,11 +29,11 @@ function SongTable({songs, lastUsedKeyword}: SongTableProps) {
     setPage(newPage);
   }
 
-  /*  Need to set page back to 0 whenever keyword changes*/
+ 
+   /*  Set page back to 0 whenever songs changes */
   useEffect(()=>{
     setPage(0)
-  }, [lastUsedKeyword])
-
+  }, [songs])
 
 
   /*
@@ -64,7 +63,7 @@ function SongTable({songs, lastUsedKeyword}: SongTableProps) {
                             <a href={`https://open.spotify.com/track/${song.id}`} target="_blank">{song.name}</a>
                             </TableCell>
                       </TableRow>)
-                      : null}
+                      : <h1>No songs found</h1>}
                   </TableBody>
                 </Table>
             </TableContainer>

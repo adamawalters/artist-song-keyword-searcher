@@ -22,14 +22,11 @@ function ArtistSection({
   lastUsedArtistName
 }: ArtistSectionProps) {
 
-  async function handleArtistSearch(newSearchKey: string) {
-    loadArtists(0, newSearchKey);
-  }
 
   return (
     <>
       <div className="search-box-divider">
-        <ArtistSearchSection handleArtistSearch={handleArtistSearch} lastUsedArtistName={lastUsedArtistName} />
+        <ArtistSearchSection loadArtists={loadArtists} lastUsedArtistName={lastUsedArtistName} />
       </div>
       {artists ? (
         <ArtistResultTable
