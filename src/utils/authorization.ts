@@ -5,6 +5,7 @@ const redirectUri =
     ? "https://spotify-artist-song-keyword-search.vercel.app/profile"
     : "http://localhost:3000/profile";
 
+ 
 
 const clientId = "c418f8eeb1764167baf4279404c77cba";
 
