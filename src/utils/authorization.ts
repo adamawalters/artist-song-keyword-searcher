@@ -5,7 +5,7 @@ import { SpotifyUserProfile, TrackResponse, UserAuthToken } from "Types";
 //     ? "https://spotify-artist-song-keyword-search.vercel.app"
 //     : "http://localhost:3000";
 
-const redirectUri = "http://localhost:3000";
+const redirectUri = "http://localhost:3000/profile";
 const clientId = "c418f8eeb1764167baf4279404c77cba";
 
 function generateRandomString(length: number) {

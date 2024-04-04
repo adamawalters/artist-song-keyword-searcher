@@ -385,6 +385,7 @@ section {
 
   .MuiTypography-root input {
     background-color: white;
+    color: black;
   }
 
 }

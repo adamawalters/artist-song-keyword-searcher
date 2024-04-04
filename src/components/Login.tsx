@@ -15,6 +15,8 @@ function Login() {
     await authorizeUser();
   };
 
+  
+
   //Logs in user using localStorage or checks url to get token from Spotify after redirect (and sets it in state)
   useEffect(() => {
     if(localStorage.getItem("spotify-auth-token")) {
@@ -36,6 +38,7 @@ function Login() {
       setIsLoading(false);
       return;
     }
+  
 
     const urlParams = new URLSearchParams(window.location.search);
     const code = urlParams.get("code");
