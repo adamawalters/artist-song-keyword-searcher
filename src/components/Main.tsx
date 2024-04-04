@@ -5,8 +5,7 @@ import SongSection from "./Songs/SongSection";
 import PastQueriesSection from "./PastQueries/PastQueriesSection";
 import { SavedQuery } from "../Types";
 import { loadQueries, saveQueryToDatabase, searchArtists, searchSongs } from "./../utils/api";
-import { useUserContext } from "./../utils/context";
-import { useLocation, useNavigate } from "react-router-dom";
+
 
 function Main() {
   const [selectedArtist, setSelectedArtist] = useState<null | Artist>(null);
