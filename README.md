@@ -1,6 +1,6 @@
 # Spotify Artist Song Keyword Search
 
-This is an app built in React (TypeScript) & CSS that leverages the Spotify Web API. The app is deployed [at this link](https://spotify-song-keyword-search.vercel.app/). The backend is currently an Express.js server - [GitHub link here](https://github.com/adamawalters/spotify-backend/). There are 2 key parts to the app, the main page and the personal profile page - the profile page requires signing in.    
+This is an app built in React (TypeScript) & CSS that leverages the Spotify Web API. The app is deployed [at this link](https://spotify-artist-song-keyword-search.vercel.app/). The backend is currently an Express.js server - [GitHub link here](https://github.com/adamawalters/spotify-backend/). There are 2 key parts to the app, the main page and the personal profile page - the profile page requires signing in.    
 
 ### Main page capabilties:
 1. Search for an artist
