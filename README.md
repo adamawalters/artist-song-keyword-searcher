@@ -23,13 +23,15 @@ In other words, it answers the question "how many songs does an artist have, tha
 3. The app displays the list to the user
 
 ## Key items learned
-- Authorization with tokens
+- Working with a complex public API
+- Authorization with tokens for both backend (client credentials) and front-end (PKCE) authorization
 - How to type in TypeScript the responses received from the API
-- Refreshed CSS flexbox & positioning skills (sticky, fixed)
-- PKCE process for front-end authorization
+- Reinforced CSS flexbox, grid & positioning skills (sticky, fixed)
 - MongoDB collections, joins between queries and tags, and the use of Mongoose library in Express to create CRUD routes for queries and tags
 
 ## Screenshots
+
+### Main Page
 **Searching for an artist**
 ![Searching for an artist](https://github.com/adamawalters/spotify/blob/main/screenshots/artist-search.png)
 
@@ -41,4 +43,14 @@ In other words, it answers the question "how many songs does an artist have, tha
 
 **Keyword results**
 ![Keyword results](https://github.com/adamawalters/spotify/blob/main/screenshots/keyword-results.png)
+
+### Profile Page
+**Profile page message**
+![Profile Page Message](https://github.com/adamawalters/artist-song-keyword-searcher/blob/main/screenshots/profile/profile_1_intro.png?raw=true)
+
+**Viewing saved queries & top songs**
+![Selecting an artist](https://github.com/adamawalters/artist-song-keyword-searcher/blob/main/screenshots/profile/profile_2_queries_topsongs.png?raw=true)
+
+**Tags popup**
+![Keyword search]([https://github.com/adamawalters/spotify/blob/main/screenshots/keyword-search.png](https://github.com/adamawalters/artist-song-keyword-searcher/blob/main/screenshots/profile/profile_3_popup.png?raw=true))
 
