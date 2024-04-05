@@ -33,20 +33,25 @@ In other words, it answers the question "how many songs does an artist have, tha
 
 ### Main Page
 **Searching for an artist**
+
 ![Searching for an artist](https://github.com/adamawalters/spotify/blob/main/screenshots/artist-search.png)
 
 **Selecting an artist**
+
 ![Selecting an artist](https://github.com/adamawalters/spotify/blob/main/screenshots/artist-selection.png)
 
 **Keyword search**
+
 ![Keyword search](https://github.com/adamawalters/spotify/blob/main/screenshots/keyword-search.png)
 
 **Keyword results**
+
 ![Keyword results](https://github.com/adamawalters/spotify/blob/main/screenshots/keyword-results.png)
 
 ### Profile Page
 
 **Profile page intro**
+
 ![Profile Page Message](https://github.com/adamawalters/artist-song-keyword-searcher/blob/main/screenshots/profile/profile_1_intro.png?raw=true)
 
 **Viewing saved queries & top songs**
