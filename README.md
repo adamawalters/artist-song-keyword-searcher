@@ -46,11 +46,14 @@ In other words, it answers the question "how many songs does an artist have, tha
 
 ### Profile Page
 **Profile page intro**
+
 ![Profile Page Message](https://github.com/adamawalters/artist-song-keyword-searcher/blob/main/screenshots/profile/profile_1_intro.png?raw=true)
 
 **Viewing saved queries & top songs**
+
 ![Selecting an artist](https://github.com/adamawalters/artist-song-keyword-searcher/blob/main/screenshots/profile/profile_2_queries_topsongs.png?raw=true)
 
 **Tags popup**
-![Keyword search]([https://github.com/adamawalters/spotify/blob/main/screenshots/keyword-search.png](https://github.com/adamawalters/artist-song-keyword-searcher/blob/main/screenshots/profile/profile_3_popup.png?raw=true))
+
+![Keyword search](https://github.com/adamawalters/artist-song-keyword-searcher/blob/main/screenshots/profile/profile_3_popup.png?raw=true)
 
