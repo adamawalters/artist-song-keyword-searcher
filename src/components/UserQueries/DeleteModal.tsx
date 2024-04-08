@@ -2,16 +2,17 @@ import {Modal, Box, Typography} from '@mui/material'
 import { UserSavedQuery } from 'Types';
 
 const style = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 400,
-    bgcolor: 'background.paper',
-    border: '2px solid #000',
-    boxShadow: 24,
-    p: 4,
-  };
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  // width: 400,
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  borderRadius: "var(--corner-radius-medium)",
+  boxShadow: 24,
+  p: 4,
+};
 
 
 type DeleteModalProps = {
@@ -37,8 +38,8 @@ function DeleteModal({open, handleClose, query, handleDelete}: DeleteModalProps)
         <p>Number of songs: {query.num_songs}</p>
       </Typography>
       <div className="modal-row">
-        <button onClick={async ()=> {await handleDelete(); handleClose()}}>Delete Query</button>
-        <button onClick={handleClose}>Cancel</button>
+        <button className="delete-button" onClick={async ()=> {await handleDelete(); handleClose()}}>Delete Query</button>
+        <button className="done-button" onClick={handleClose}>Cancel</button>
       </div>
     </Box>
   </Modal>
