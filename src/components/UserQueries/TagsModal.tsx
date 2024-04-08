@@ -75,7 +75,7 @@ function TagsModal({ open, handleClose, query, fetchQueries }: TagsModalProps) {
           </div>
         </Typography>
         <div className="modal-row">
-          <button className="delete-button" onClick={handleClose}>
+          <button className="done-button" onClick={handleClose}>
             Done
           </button>
         </div>
